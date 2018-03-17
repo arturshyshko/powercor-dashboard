@@ -1,1 +1,14 @@
 Django==2.0.3
+django-cors-headers==2.1.0
+django-admin-rangefilter==0.3.1
+django-jet==1.0.7
+django-health-check==2.4.0
+gunicorn==19.7.1
+Jinja2==2.9.6
+numpy==1.14.0
+dj-database-url==0.4.2
+httplib2==0.10.3
+pandas==0.22.0
+psycopg2==2.7.3.2
+whitenoise==3.3.1
+django-spa==0.2.0

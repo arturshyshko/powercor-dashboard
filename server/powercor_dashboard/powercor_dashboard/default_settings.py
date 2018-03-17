@@ -47,6 +47,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'spa.middleware.SPAMiddleware',
 ]
 
 ROOT_URLCONF = 'powercor_dashboard.urls'
@@ -117,4 +119,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATICFILES_STORAGE = 'spa.storage.SPAStaticFilesStorage'
+
 STATIC_URL = '/static/'
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '../../client/web/build/static')]
