@@ -25,7 +25,7 @@ SECRET_KEY = 'c1u!$&0)y*tpf+f__45*tvmze*_1_d^34h&r$yxl&8bvg*e3o6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['powercor-dashboard.herokuapp.com']
 
 
 # Application definition
