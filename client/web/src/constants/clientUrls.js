@@ -1,1 +1,1 @@
-export const DASHBOARD = '/test'
+export const DASHBOARD = '/'
