@@ -6,7 +6,7 @@ from .choices import *
 
 class Discipline(models.Model):
     name = models.CharField(max_length=200)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project')
     stage = models.ForeignKey(StageChoice, null=True, blank=True, on_delete=models.SET_NULL)
     budget = models.DecimalField(max_digits=14, decimal_places=2, blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)

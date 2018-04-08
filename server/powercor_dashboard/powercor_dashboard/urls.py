@@ -21,6 +21,8 @@ from rest_framework.routers import DefaultRouter
 from dashboard.views.manager import ManagerViewSet
 from dashboard.views.client import ClientViewSet
 from dashboard.views.choices import *
+from dashboard.views.discipline import DisciplineViewSet
+from dashboard.views.project import ProjectViewSet
 
 
 router = DefaultRouter()
@@ -30,6 +32,8 @@ router.register(r'importances', BusinessImportanceChoiceViewSet)
 router.register(r'resources', ResourcesChoiceViewSet)
 router.register(r'stages', StageChoiceViewSet)
 router.register(r'statuses', StatusChoiceViewSet)
+router.register(r'disciplines', DisciplineViewSet)
+router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
