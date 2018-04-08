@@ -1,0 +1,1 @@
+export const API_PROJECTS = '/api/projects/'
