@@ -18,11 +18,18 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 
-from dashboard.views import ManagerViewSet
+from dashboard.views.manager import ManagerViewSet
+from dashboard.views.client import ClientViewSet
+from dashboard.views.choices import *
 
 
 router = DefaultRouter()
 router.register(r'managers', ManagerViewSet)
+router.register(r'clients', ClientViewSet)
+router.register(r'importances', BusinessImportanceChoiceViewSet)
+router.register(r'resources', ResourcesChoiceViewSet)
+router.register(r'stages', StageChoiceViewSet)
+router.register(r'statuses', StatusChoiceViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
