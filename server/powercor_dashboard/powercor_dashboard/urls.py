@@ -16,6 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from rest_framework.routers import DefaultRouter
+
+from dashboard.views import ManagerViewSet
+
+
+router = DefaultRouter()
+router.register(r'managers', ManagerViewSet)
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/', include(router.urls))
 ]
