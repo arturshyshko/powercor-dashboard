@@ -14,5 +14,13 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
     manager = models.ForeignKey(Manager, null=True, on_delete=models.SET_NULL)
     client = models.ForeignKey(Client, null=True, on_delete=models.SET_NULL)
-    comment = models.TextField()
-    business_importance = models.ForeignKey(BusinessImportanceChoice, null=True, on_delete=models.SET_NULL)
+    comment = models.TextField(blank=True, null=True)
+    business_importance = models.ForeignKey(
+        BusinessImportanceChoice,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
+        )
+
+    def __str__(self):
+        return f"{self.network} {self.name}"
