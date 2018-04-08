@@ -8,10 +8,18 @@ from .models.project import Project
 from .models.choices import *
 
 
+class DisciplineInline(admin.TabularInline):
+    model = Discipline
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    inlines = [DisciplineInline]
+
+
 admin.site.register(Client)
 admin.site.register(Manager)
 admin.site.register(Discipline)
-admin.site.register(Project)
+admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(BusinessImportanceChoice)
 admin.site.register(ResourcesChoice)
