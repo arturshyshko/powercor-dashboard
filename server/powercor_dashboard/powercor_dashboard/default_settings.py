@@ -88,9 +88,6 @@ DATABASES = {
     }
 }
 
-# Setup DB for storing dynamic contance settings values
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -140,3 +137,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '../../client/web/build/static'),
     os.path.join(BASE_DIR, '../../client/web/build')
 ]
+
+
+# Setup DB for storing dynamic contance settings values
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'STAGING_WEIGHT': (10, 'Weight of stage field for priority formula'),
+    'DUE_DATE_WEIGHT': (20, 'Weight of date field for priority formula'),
+    'RESOURCING_WEIGHT': (20, 'Weight of resource field for priority formula'),
+    'STATUS_WEIGHT': (15, 'Weight of status field for priority formula'),
+    'BUSINESS_IMPORTANCE_WEIGHT': (25, 'Weight of business importance field for priority formula'),
+    'BUDGET_WEIGHT': (10, 'Weight of budget field for priority formula'),
+    'CLIENT_WEIGHT': (1, 'Weight of cleint field for priority formula'),
+}
