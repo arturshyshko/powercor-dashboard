@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'rest_framework',
+    'constance',
+    'constance.backends.database',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +87,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Setup DB for storing dynamic contance settings values
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 
 # Password validation
