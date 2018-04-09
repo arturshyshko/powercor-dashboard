@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+from decimal import Decimal
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -150,4 +150,26 @@ CONSTANCE_CONFIG = {
     'BUSINESS_IMPORTANCE_WEIGHT': (25, 'Weight of business importance field for priority formula'),
     'BUDGET_WEIGHT': (10, 'Weight of budget field for priority formula'),
     'CLIENT_WEIGHT': (1, 'Weight of cleint field for priority formula'),
+    'BUDGET_LOWER_EDGE': (Decimal(30000.00), 'Lower edge for budget which uses "Less than"', Decimal),
+    'BUDGET_UPPER_EDGE': (Decimal(100000.00), 'Upper edge for budget which uses "More than"', Decimal),
+    'DATE_LOWER_EDGE': (7, 'Amount of days for due date which uses "Less than"'),
+    'DATE_UPPER_EDGE': (21, 'Amount of days for due date which uses "More than"'),
+}
+
+CONSTANCE_CONFIG_FIELDSETS = {
+    'Weights': (
+        'STAGING_WEIGHT',
+        'DUE_DATE_WEIGHT',
+        'RESOURCING_WEIGHT',
+        'STATUS_WEIGHT',
+        'BUSINESS_IMPORTANCE_WEIGHT',
+        'BUDGET_WEIGHT',
+        'CLIENT_WEIGHT',
+        ),
+    'Edge points': (
+        'BUDGET_LOWER_EDGE',
+        'BUDGET_UPPER_EDGE',
+        'DATE_LOWER_EDGE',
+        'DATE_UPPER_EDGE',
+        )
 }
