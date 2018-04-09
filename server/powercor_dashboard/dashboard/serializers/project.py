@@ -17,4 +17,5 @@ class ProjectSerializer(serializers.ModelSerializer):
             'comment',
             'disciplines',
             'business_importance',
+            'priority',
             )
