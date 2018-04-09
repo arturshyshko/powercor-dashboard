@@ -5,7 +5,7 @@ from dashboard.serializers.discipline import DisciplineSerializer
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    disciplines = DisciplineSerializer(source='project', many=True)
+    disciplines = DisciplineSerializer(many=True)
 
     class Meta:
         model = Project
