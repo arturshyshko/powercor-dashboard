@@ -32,7 +32,7 @@ export class Dashboard extends React.Component {
         return(
             <div className="container">
                 {this.state.isCreate && <ProjectEdit /> }
-                <button class="btn btn-default" onClick={this.createProject}>Submit</button>
+                <button className="btn btn-default" onClick={this.createProject}>Submit</button>
                 <ProjectsList />
             </div>
         )

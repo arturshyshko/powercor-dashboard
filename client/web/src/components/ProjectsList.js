@@ -42,23 +42,26 @@ export class ProjectsList extends React.Component {
     }
 
     render() {
-        console.log(this.state.projects)
         return (
             <table className="table">
-                <thead className="thead-dark">
+                <thead className="thead-light">
                     <tr>
-                        <th>Network</th>
                         <th>Name</th>
                         <th>Manager</th>
+                        <th>Client</th>
+                        <th>Comments</th>
+                        <th>Priority</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        this.state.projects.map((project) => (
-                            <tr>
-                                <th>{project.network}</th>
-                                <th>{project.name}</th>
-                                <th>{project.manager}</th>
+                        this.state.projects.map((project, i) => (
+                            <tr key={i}>
+                                <th>{project.network + ' ' + project.name}</th>
+                                <th>{this.state.managers.find(man => man.id === project.manager).name}</th>
+                                <th>{this.state.clients.find(client => client.id === project.client).name}</th>
+                                <th>{project.comment}</th>
+                                <th>{project.priority}</th>
                             </tr>
                             )
                         )
