@@ -3,10 +3,6 @@ import '../App.css'
 
 export class ProjectEdit extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return(
             <div>
