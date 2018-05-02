@@ -1,5 +1,5 @@
-import configureStore from './configureStore';
+import configureStore from './configureStore'
 
-export const store = configureStore();
+export const store = configureStore()
 
-export const dispatch = store.dispatch;
+export const dispatch = store.dispatch

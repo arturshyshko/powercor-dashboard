@@ -11,8 +11,9 @@ import { store } from './store';
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
-
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>,
     document.getElementById('root'));
