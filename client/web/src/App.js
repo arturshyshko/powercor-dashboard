@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import './App.css';
 
 import { DASHBOARD } from './constants/clientUrls'
-import { Dashboard } from './components/Dashboard'
+import Dashboard from './containers/Dashboard'
 
 
 const App = () => (

@@ -1,4 +1,4 @@
-const initialState = {}
+const initialState = []
 
 const projectsReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -10,7 +10,7 @@ const projectsReducer = (state = initialState, action) => {
             }
 
         default:
-            return {state}
+            return state
     }
 }
 

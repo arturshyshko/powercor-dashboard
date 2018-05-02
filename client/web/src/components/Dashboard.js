@@ -1,6 +1,5 @@
 import React from 'react'
 import '../App.css'
-import { fetchProjectsData } from '../services/apiAccess'
 import { ProjectEdit } from './ProjectEdit'
 import { ProjectsList } from './ProjectsList'
 
@@ -17,9 +16,12 @@ export class Dashboard extends React.Component {
         this.createProject = this.createProject.bind(this)
     }
 
+    componentWillMount() {
+        this.props.fetchProjects()
+    }
+
     handleSubmit(e) {
         e.preventDefault()
-        fetchProjectsData()
     }
 
     createProject() {
@@ -33,7 +35,6 @@ export class Dashboard extends React.Component {
             <div className="container">
                 {this.state.isCreate && <ProjectEdit /> }
                 <button className="btn btn-default" onClick={this.createProject}>Submit</button>
-                <ProjectsList />
             </div>
         )
     }

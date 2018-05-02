@@ -6,8 +6,11 @@ let fetchData = (cb, url) => {
     axios({
         method: 'GET',
         url: url,
+
     }).then(response => {
+
         cb(response.data)
+
     }).catch(error => {
         console.log(error)
     })
