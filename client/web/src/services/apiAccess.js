@@ -48,4 +48,13 @@ export const fetchStatusesData = (cb) => {
     fetchData(cb, apiUrls.API_STATUSES)
 }
 
-
+export const patchProject = (data, id=null) => {
+    axios.patch(
+        apiUrls.API_PROJECTS + (id ? id : data['id']) + '/',
+        data
+    ).then(response => {
+        console.log(response)
+    }).catch(error => {
+        console.log(error)
+    })
+}
