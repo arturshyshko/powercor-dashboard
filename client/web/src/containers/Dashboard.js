@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchProjects } from '../actions/projects'
+import { getProjects, updateProject } from '../actions/projects'
 import { Dashboard } from '../components/Dashboard'
 
 const mapStateToProps = state => {
@@ -9,7 +9,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-        fetchProjects: (data) => dispatch(fetchProjects(data))
+        getProjects: (data) => dispatch(getProjects(data)),
+        updateProject: (data) => dispatch(updateProject(data))
     })
 
 const DashboardContainer = connect(

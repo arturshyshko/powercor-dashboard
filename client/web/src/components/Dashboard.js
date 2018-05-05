@@ -2,7 +2,7 @@ import React from 'react'
 import '../App.css'
 import { ProjectEdit } from './ProjectEdit'
 import { ProjectsList } from './ProjectsList'
-import { fetchProjectsData, patchProject } from '../services/apiAccess'
+import { fetchProjectsData, updateProject } from '../api/projects'
 
 export class Dashboard extends React.Component {
 
@@ -19,15 +19,16 @@ export class Dashboard extends React.Component {
     }
 
     handleSubmit(e) {
-        fetchProjectsData(this.props.fetchProjects)
+        fetchProjectsData(this.props.getProjects)
     }
 
     handleTest(e) {
         let data = {
             'id' : 1111111,
-            'comment': 'wow this actually works'
+            'comment': 'wow this actually works6'
         }
-        patchProject(data)
+        updateProject(data, this.props.updateProject)
+
     }
 
     createProject() {
