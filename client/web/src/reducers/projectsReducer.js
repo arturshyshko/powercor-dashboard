@@ -9,6 +9,7 @@ const projectsReducer = (state = initialState, action) => {
             return [...action.payload]
 
         case UPDATE_PROJECT:
+
             return state.map(project => (
                 project['network'] === action.payload.network
                     ? action.payload
