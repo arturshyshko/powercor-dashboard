@@ -27,18 +27,6 @@ export const updateObject = (data, cb, url, id) => {
     })
 }
 
-export const fetchDisciplinesData = (cb) => {
-    fetchData(cb, apiUrls.API_DISCIPLINES)
-}
-
-export const fetchManagersData = (cb) => {
-    fetchData(cb, apiUrls.API_MANAGERS)
-}
-
-export const fetchClientsData = (cb) => {
-    fetchData(cb, apiUrls.API_CLIENTS)
-}
-
 export const fetchImportancesData = (cb) => {
     fetchData(cb, apiUrls.API_IMPORTANCES)
 }
@@ -47,7 +35,7 @@ export const fetchResourcesData = (cb) => {
     fetchData(cb, apiUrls.API_RESOURCES)
 }
 
-export const fetchPStagesData = (cb) => {
+export const fetchStagesData = (cb) => {
     fetchData(cb, apiUrls.API_STAGES)
 }
 
