@@ -19,3 +19,4 @@ class ProjectSerializer(serializers.ModelSerializer):
             'business_importance',
             'priority',
             )
+        read_only_fields = ('priority',)

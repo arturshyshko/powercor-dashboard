@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from constance import config
 
@@ -41,7 +41,7 @@ def calculate_field(field, column_weight):
     return result
 
 
-@receiver(post_save, sender=Project)
+@receiver(pre_save, sender=Project)
 def set_priority(sender, instance, *args, **kwargs):
     """
     Calculate project priority based on all it's fields and their weights
