@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 import { ProjectEdit } from './ProjectEdit'
-import { ProjectsList } from './ProjectsList'
+import ProjectsListContainer from '../containers/ProjectsList'
 import { fetchProjectsData, updateProject } from '../api/projects'
 
 export class Dashboard extends React.Component {
@@ -25,7 +25,7 @@ export class Dashboard extends React.Component {
     handleTest(e) {
         let data = {
             'id' : 1111111,
-            'comment': 'wow this actually works6'
+            'comment': 'wow this actually works7'
         }
         updateProject(data, this.props.updateProject)
 
@@ -44,6 +44,7 @@ export class Dashboard extends React.Component {
                 <button className="btn btn-default" onClick={this.createProject}>Submit</button>
                 <button className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
                 <button className="btn btn-default" onClick={this.handleTest}>test</button>
+                <ProjectsListContainer />
             </div>
         )
     }

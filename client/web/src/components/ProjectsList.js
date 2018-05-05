@@ -3,6 +3,7 @@ import '../App.css'
 import { fetchProjectsData } from '../api/projects'
 import { fetchManagersData } from '../api/managers'
 import { fetchClientsData } from '../api/clients'
+import { fetchDisciplineNames } from '../api/disciplines'
 
 export class ProjectsList extends React.Component {
 
@@ -10,29 +11,46 @@ export class ProjectsList extends React.Component {
         fetchClientsData(this.props.getClients)
         fetchManagersData(this.props.getManagers)
         fetchProjectsData(this.props.getProjects)
+        fetchDisciplineNames(this.props.getDisciplineNames)
+
     }
 
     render() {
         return (
-            <table className="table">
-                <thead className="thead-light">
+            <table className="table-sm table-bordered table-hover ">
+                <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Manager</th>
-                        <th>Client</th>
-                        <th>Comments</th>
-                        <th>Priority</th>
+                        <th rowSpan="2">Name</th>
+                        <th rowSpan="2">Manager</th>
+                        <th rowSpan="2">Comments</th>
+                        <th colSpan="10">Upcoming milestones</th>
+                        <th rowSpan="2">Priority</th>
+                    </tr>
+                    <tr>
+                        {
+                            this.props.disciplineNames.map((discipline, i) => (
+                                <td key={i} colSpan="2">{discipline[1]}</td>
+                            ))
+                        }
                     </tr>
                 </thead>
                 <tbody>
                     {
                         this.props.projects.map((project, i) => (
                             <tr key={i}>
-                                <th>{project.network + ' ' + project.name}</th>
-                                <th>{this.props.managers.find(man => man.id === project.manager).name}</th>
-                                <th>{this.props.clients.find(client => client.id === project.client).name}</th>
-                                <th>{project.comment}</th>
-                                <th>{project.priority}</th>
+                                <td>{project.network + ' ' + project.name}</td>
+                                <td>{this.props.managers.find(man => man.id === project.manager).name}</td>
+                                <td>{project.comment}</td>
+                                {
+                                    this.props.disciplineNames.map((discipline, i) => {
+                                        let a = project.disciplines.find((disc) => (disc['name'] === discipline[0]))
+                                        return [
+                                            <td key={i}>{a ? a['stage'] : ''}</td>,
+                                            <td key={i + 5}>{a ? a['due_date'] : ''}</td>
+                                        ]
+                                    })
+                                }
+                                <td>{project.priority}</td>
                             </tr>
                             )
                         )
