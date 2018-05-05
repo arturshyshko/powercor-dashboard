@@ -1,17 +1,59 @@
 import React from 'react'
 import '../App.css'
 
+import { FormInput, InputText, InputSelect } from './helpers/ProjectForm'
+
 export class ProjectEdit extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            id: '',
+            name: '',
+            manager: '',
+            client: '',
+            comment: '',
+            businessImportance: '',
+        }
+
+        this.handleInputChange = this.handleInputChange.bind(this)
+    }
+
+    handleInputChange(e) {
+        const value = e.target.value
+        const name = e.target.name || e.target.control
+
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault()
+    }
 
     render() {
         return(
             <div>
                 <form className="form-horizontal">
+                    <FormInput label="Network" id="id">
+                        <InputText
+                            placeholder="Enter project network number"
+                            control="id"
+                            value={this.state.id}
+                            handleChange={this.handleInputChange}
+                        />
+                    </FormInput>
+                    <FormInput label="Manager" id="manager">
+                        <InputSelect
+                            id="manager"
+                        />
+                    </FormInput>
                     <div className="form-group">
-                        <label className="control-label col-sm-2" htmlFor="email">Email:</label>
-                        <div className="col-sm-10">
-                            <input type="email" className="form-control" id="email" placeholder="Enter email"></input>
-                        </div>
+                      <div className="col-sm-offset-2 col-sm-10">
+                        <button type="submit" className="btn btn-default" onClick={() => this.handleSubmit}>Create</button>
+                      </div>
                     </div>
                 </form>
             </div>
