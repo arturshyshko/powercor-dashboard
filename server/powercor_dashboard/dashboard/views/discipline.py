@@ -17,7 +17,6 @@ def discipline_names(request):
     """
     Get all possible names for disciplines and pass it to client
     """
-    # return Response(list(map(lambda name: name[1], Discipline.NAME_CHOICES)))
     return Response(Discipline.NAME_CHOICES)
 
 

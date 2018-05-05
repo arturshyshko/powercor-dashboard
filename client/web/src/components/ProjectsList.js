@@ -17,14 +17,14 @@ export class ProjectsList extends React.Component {
 
     render() {
         return (
-            <table className="table-sm table-bordered table-hover ">
-                <thead>
+            <table className="table table-bordered table-hover" style={{textAlign: 'center'}}>
+                <thead style={{textAlign: 'center'}}>
                     <tr>
-                        <th rowSpan="2">Name</th>
-                        <th rowSpan="2">Manager</th>
-                        <th rowSpan="2">Comments</th>
-                        <th colSpan="10">Upcoming milestones</th>
-                        <th rowSpan="2">Priority</th>
+                        <th rowSpan="2" style={{verticalAlign: 'middle'}}>Name</th>
+                        <th rowSpan="2" style={{verticalAlign: 'middle'}}>Manager</th>
+                        <th rowSpan="2" style={{verticalAlign: 'middle'}}>Comments</th>
+                        <th colSpan="10" style={{verticalAlign: 'middle'}}>Upcoming milestones</th>
+                        <th rowSpan="2" style={{verticalAlign: 'middle'}}>Priority</th>
                     </tr>
                     <tr>
                         {

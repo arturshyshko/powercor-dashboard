@@ -25,7 +25,7 @@ export class Dashboard extends React.Component {
     handleTest(e) {
         let data = {
             'id' : 1111111,
-            'comment': 'wow this actually works7'
+            'comment': 'wow this actually works8'
         }
         updateProject(data, this.props.updateProject)
 
