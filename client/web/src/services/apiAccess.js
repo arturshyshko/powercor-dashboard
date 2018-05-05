@@ -2,7 +2,7 @@ import axios from './httpClient'
 import * as apiUrls from '../constants/apiUrls'
 
 
-let fetchData = (cb, url) => {
+export const fetchData = (cb, url) => {
     axios({
         method: 'GET',
         url: url,
@@ -16,8 +16,15 @@ let fetchData = (cb, url) => {
     })
 }
 
-export const fetchProjectsData = (cb) => {
-    fetchData(cb, apiUrls.API_PROJECTS)
+export const updateObject = (data, cb, url, id) => {
+    axios.patch(
+        url + id + '/',
+        data
+    ).then(response => {
+        cb(response.data)
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 export const fetchDisciplinesData = (cb) => {
@@ -46,15 +53,4 @@ export const fetchPStagesData = (cb) => {
 
 export const fetchStatusesData = (cb) => {
     fetchData(cb, apiUrls.API_STATUSES)
-}
-
-export const patchProject = (data, id=null) => {
-    axios.patch(
-        apiUrls.API_PROJECTS + (id ? id : data['id']) + '/',
-        data
-    ).then(response => {
-        console.log(response)
-    }).catch(error => {
-        console.log(error)
-    })
 }
