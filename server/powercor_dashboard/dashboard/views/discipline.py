@@ -14,7 +14,9 @@ class DisciplineViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def discipline_names(request):
-    queryset = Discipline.objects.all()
-    return Response(set(list(map(lambda discipline: discipline.get_name_display(), queryset))))
+    """
+    Get all possible names for disciplines and pass it to client
+    """
+    return Response(set(list(map(lambda discipline: discipline[1], Discipline.NAME_CHOICES))))
 
 
