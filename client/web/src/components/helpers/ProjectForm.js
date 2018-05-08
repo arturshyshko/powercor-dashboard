@@ -32,12 +32,12 @@ export class InputSelect extends React.Component {
                 className="form-control"
                 id={this.props.id || this.props.control }
                 name={this.props.name || this.props.control}
-                vallue={this.props.value}
+                value={this.props.value}
                 onChange={this.props.handleChange}
             >
-                <option value="1">lol</option>
-                <option value="2">wut</option>
-                <option value="3">huh</option>
+                {this.props.options.map((option, i) => (
+                    <option key={i} value={option.id}>{option.name}</option>
+                ))}
             </select>
         )
     }

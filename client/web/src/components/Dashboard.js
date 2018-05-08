@@ -2,6 +2,7 @@ import React from 'react'
 import '../App.css'
 import { ProjectEdit } from './ProjectEdit'
 import ProjectsListContainer from '../containers/ProjectsList'
+import ProjectEditContainer from '../containers/ProjectEdit'
 import { fetchProjectsData, updateProject } from '../api/projects'
 
 export class Dashboard extends React.Component {
@@ -40,7 +41,7 @@ export class Dashboard extends React.Component {
     render() {
         return(
             <div className="container">
-                {this.state.showCreate && <ProjectEdit /> }
+                {this.state.showCreate && <ProjectEditContainer /> }
                 <button className="btn btn-default" onClick={this.createProject}>Submit</button>
                 <button className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
                 <button className="btn btn-default" onClick={this.handleTest}>test</button>

@@ -51,6 +51,7 @@ export class ProjectEdit extends React.Component {
                         <InputSelect
                             control="manager"
                             value={this.state.manager}
+                            options={this.props.managers}
                             handleChange={this.handleInputChange}
                         />
                     </FormInput>
