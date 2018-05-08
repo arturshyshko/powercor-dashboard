@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-import { FormInput, InputText, InputTextArea, InputSelect } from './helpers/ProjectForm'
+import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/ProjectForm'
 
 export class ProjectEdit extends React.Component {
 
@@ -39,46 +39,46 @@ export class ProjectEdit extends React.Component {
         return(
             <div>
                 <form className="form-horizontal">
-                    <FormInput label="Network number:" id="id">
+                    <FormControl label="Network number:" id="id">
                         <InputText
                             placeholder="Enter project network number"
                             control="id"
                             value={this.state.id}
                             handleChange={this.handleInputChange}
                         />
-                    </FormInput>
-                    <FormInput label="Project name:" id="name">
+                    </FormControl>
+                    <FormControl label="Project name:" id="name">
                         <InputText
                             placeholder="Enter project name"
                             control="name"
                             value={this.state.name}
                             handleChange={this.handleInputChange}
                         />
-                    </FormInput>
-                    <FormInput label="Client:" id="client">
+                    </FormControl>
+                    <FormControl label="Client:" id="client">
                         <InputSelect
                             control="client"
                             value={this.state.client}
                             options={this.props.clients}
                             handleChange={this.handleInputChange}
                         />
-                    </FormInput>
-                    <FormInput label="Design manager:" id="manager">
+                    </FormControl>
+                    <FormControl label="Design manager:" id="manager">
                         <InputSelect
                             control="manager"
                             value={this.state.manager}
                             options={this.props.managers}
                             handleChange={this.handleInputChange}
                         />
-                    </FormInput>
-                    <FormInput label="Comments:" id="comment">
+                    </FormControl>
+                    <FormControl label="Comments:" id="comment">
                         <InputTextArea
                             placeholder="Enter your comments"
                             control="comment"
                             value={this.state.comment}
                             handleChange={this.handleInputChange}
                         />
-                    </FormInput>
+                    </FormControl>
                     <div className="form-group">
                       <div className="col-sm-offset-2 col-sm-10">
                         <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Create</button>

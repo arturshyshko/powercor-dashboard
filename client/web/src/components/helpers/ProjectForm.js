@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const FormInput = ({children, ...props}) => (
+export const FormControl = ({children, ...props}) => (
     <div className="form-group">
         <label className="control-label col-sm-2" htmlFor={props.id}>{props.label}</label>
         <div className="col-sm-10">
@@ -9,36 +9,28 @@ export const FormInput = ({children, ...props}) => (
     </div>
 )
 
-export class InputText extends React.Component {
-    render() {
-        return (
-            <input
-                type={this.props.type || "text"}
-                id={this.props.id || this.props.control}
-                name={this.props.name || this.props.control}
-                value={this.props.value}
-                onChange={this.props.handleChange}
-                className="form-control"
-                placeholder={this.props.placeholder}
-            />
-        )
-    }
-}
+export const InputText = ({type, id, name, control, value, handleChange, placeholder}) => (
+    <input
+        type={type || "text"}
+        id={id || control}
+        name={name || control}
+        value={value}
+        onChange={handleChange}
+        className="form-control"
+        placeholder={placeholder}
+    />
+)
 
-export class InputTextArea extends React.Component {
-    render() {
-        return (
-            <textarea
-                id={this.props.id || this.props.control}
-                name={this.props.name || this.props.control}
-                value={this.props.value}
-                onChange={this.props.handleChange}
-                className="form-control"
-                placeholder={this.props.placeholder}
-            />
-        )
-    }
-}
+export const InputTextArea = ({id, name, control, value, handleChange, placeholder}) => (
+    <textarea
+        id={id || control}
+        name={name || control}
+        value={value}
+        onChange={handleChange}
+        className="form-control"
+        placeholder={placeholder}
+    />
+)
 
 export class InputSelect extends React.Component {
     render() {
