@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-import { FormInput, InputText, InputSelect } from './helpers/ProjectForm'
+import { FormInput, InputText, InputTextArea, InputSelect } from './helpers/ProjectForm'
 
 export class ProjectEdit extends React.Component {
 
@@ -39,7 +39,7 @@ export class ProjectEdit extends React.Component {
         return(
             <div>
                 <form className="form-horizontal">
-                    <FormInput label="Network" id="id">
+                    <FormInput label="Network number:" id="id">
                         <InputText
                             placeholder="Enter project network number"
                             control="id"
@@ -47,11 +47,35 @@ export class ProjectEdit extends React.Component {
                             handleChange={this.handleInputChange}
                         />
                     </FormInput>
-                    <FormInput label="Manager" id="manager">
+                    <FormInput label="Project name:" id="name">
+                        <InputText
+                            placeholder="Enter project name"
+                            control="name"
+                            value={this.state.name}
+                            handleChange={this.handleInputChange}
+                        />
+                    </FormInput>
+                    <FormInput label="Client:" id="client">
+                        <InputSelect
+                            control="client"
+                            value={this.state.client}
+                            options={this.props.clients}
+                            handleChange={this.handleInputChange}
+                        />
+                    </FormInput>
+                    <FormInput label="Design manager:" id="manager">
                         <InputSelect
                             control="manager"
                             value={this.state.manager}
                             options={this.props.managers}
+                            handleChange={this.handleInputChange}
+                        />
+                    </FormInput>
+                    <FormInput label="Comments:" id="comment">
+                        <InputTextArea
+                            placeholder="Enter your comments"
+                            control="comment"
+                            value={this.state.comment}
                             handleChange={this.handleInputChange}
                         />
                     </FormInput>

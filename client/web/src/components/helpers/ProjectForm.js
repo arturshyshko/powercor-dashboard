@@ -25,6 +25,21 @@ export class InputText extends React.Component {
     }
 }
 
+export class InputTextArea extends React.Component {
+    render() {
+        return (
+            <textarea
+                id={this.props.id || this.props.control}
+                name={this.props.name || this.props.control}
+                value={this.props.value}
+                onChange={this.props.handleChange}
+                className="form-control"
+                placeholder={this.props.placeholder}
+            />
+        )
+    }
+}
+
 export class InputSelect extends React.Component {
     render() {
         return (

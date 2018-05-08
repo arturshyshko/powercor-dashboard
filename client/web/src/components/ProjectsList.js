@@ -12,7 +12,6 @@ export class ProjectsList extends React.Component {
         fetchManagersData(this.props.getManagers)
         fetchProjectsData(this.props.getProjects)
         fetchDisciplineNames(this.props.getDisciplineNames)
-
     }
 
     render() {
