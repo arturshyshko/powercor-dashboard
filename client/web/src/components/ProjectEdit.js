@@ -17,6 +17,7 @@ export class ProjectEdit extends React.Component {
             businessImportance: '',
         }
 
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
     }
 
@@ -31,6 +32,7 @@ export class ProjectEdit extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        console.log(this.state)
     }
 
     render() {
@@ -47,12 +49,14 @@ export class ProjectEdit extends React.Component {
                     </FormInput>
                     <FormInput label="Manager" id="manager">
                         <InputSelect
-                            id="manager"
+                            control="manager"
+                            value={this.state.manager}
+                            handleChange={this.handleInputChange}
                         />
                     </FormInput>
                     <div className="form-group">
                       <div className="col-sm-offset-2 col-sm-10">
-                        <button type="submit" className="btn btn-default" onClick={() => this.handleSubmit}>Create</button>
+                        <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Create</button>
                       </div>
                     </div>
                 </form>

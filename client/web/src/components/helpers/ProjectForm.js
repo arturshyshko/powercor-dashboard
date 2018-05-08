@@ -10,16 +10,6 @@ export const FormInput = ({children, ...props}) => (
 )
 
 export class InputText extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.handleChange = this.handleChange.bind(this)
-    }
-
-    handleChange(e) {
-        this.props.handleChange(e)
-    }
-
     render() {
         return (
             <input
@@ -27,7 +17,7 @@ export class InputText extends React.Component {
                 id={this.props.id || this.props.control}
                 name={this.props.name || this.props.control}
                 value={this.props.value}
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 className="form-control"
                 placeholder={this.props.placeholder}
             />
@@ -38,10 +28,16 @@ export class InputText extends React.Component {
 export class InputSelect extends React.Component {
     render() {
         return (
-            <select className="form-control" id={this.props.control || this.props.id}>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+            <select
+                className="form-control"
+                id={this.props.id || this.props.control }
+                name={this.props.name || this.props.control}
+                vallue={this.props.value}
+                onChange={this.props.handleChange}
+            >
+                <option value="1">lol</option>
+                <option value="2">wut</option>
+                <option value="3">huh</option>
             </select>
         )
     }
