@@ -32,20 +32,12 @@ export const InputTextArea = ({id, name, control, value, handleChange, placehold
     />
 )
 
-export class InputSelect extends React.Component {
-    render() {
-        return (
-            <select
-                className="form-control"
-                id={this.props.id || this.props.control }
-                name={this.props.name || this.props.control}
-                value={this.props.value}
-                onChange={this.props.handleChange}
-            >
-                {this.props.options.map((option, i) => (
-                    <option key={i} value={option.id}>{option.name}</option>
-                ))}
-            </select>
-        )
-    }
-}
+export const InputSelect = ({id, name, control, value, handleChange, options}) => (
+     <select className="form-control"id={id || control } name={name || control} value={value} onChange={handleChange} >
+        {
+            options.map((option, i) => (
+                <option key={i} value={option.id}>{option.name}</option>
+            ))
+        }
+     </select>
+)
