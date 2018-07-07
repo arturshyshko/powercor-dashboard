@@ -1,20 +1,7 @@
 import React from 'react'
 import '../App.css'
-import { fetchProjectsData } from '../api/projects'
-import { fetchManagersData } from '../api/managers'
-import { fetchClientsData } from '../api/clients'
-import { fetchDisciplineNames } from '../api/disciplines'
-import { fetchImportancesData } from '../api/importances'
 
 export class ProjectsList extends React.Component {
-
-    componentWillMount() {
-        fetchClientsData(this.props.getClients)
-        fetchManagersData(this.props.getManagers)
-        fetchProjectsData(this.props.getProjects)
-        fetchDisciplineNames(this.props.getDisciplineNames)
-        fetchImportancesData(this.props.getImportances)
-    }
 
     render() {
         return (
