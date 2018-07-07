@@ -27,10 +27,6 @@ export const updateObject = (data, cb, url, id) => {
     })
 }
 
-export const fetchImportancesData = (cb) => {
-    fetchData(cb, apiUrls.API_IMPORTANCES)
-}
-
 export const fetchResourcesData = (cb) => {
     fetchData(cb, apiUrls.API_RESOURCES)
 }
