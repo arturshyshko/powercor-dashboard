@@ -79,6 +79,14 @@ export class ProjectEdit extends React.Component {
                             handleChange={this.handleInputChange}
                         />
                     </FormControl>
+                    <FormControl label="Business importance:" id="importance">
+                        <InputSelect
+                            control="importance"
+                            value={this.state.importance}
+                            options={this.props.importances}
+                            handleChange={this.handleInputChange}
+                        />
+                    </FormControl>
                     <div className="form-group">
                       <div className="col-sm-offset-2 col-sm-10">
                         <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Create</button>

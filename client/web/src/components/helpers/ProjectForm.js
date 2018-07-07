@@ -36,7 +36,7 @@ export const InputSelect = ({id, name, control, value, handleChange, options}) =
      <select className="form-control"id={id || control } name={name || control} value={value} onChange={handleChange} >
         {
             options.map((option, i) => (
-                <option key={i} value={option.id}>{option.name}</option>
+                <option key={i} value={option.id}>{option.name || option.choice}</option>
             ))
         }
      </select>
