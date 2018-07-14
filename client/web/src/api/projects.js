@@ -6,7 +6,7 @@ export const fetchProjectsData = (cb) => {
 }
 
 export const updateProject = (data, cb, id=null) => {
-    let object_id = id ? id : data['id']
+    let object_id = id ? id : data['network'] ? data['network'] : data['id']
     updateObject(data, cb, API_PROJECTS, object_id)
 }
 
