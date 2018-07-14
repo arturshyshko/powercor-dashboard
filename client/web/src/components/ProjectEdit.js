@@ -2,6 +2,7 @@ import React from 'react'
 import '../App.css'
 
 import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/ProjectForm'
+import { camelizeKeys, filterKeys } from '../services/attributesProcessor'
 
 export class ProjectEdit extends React.Component {
 
@@ -9,7 +10,7 @@ export class ProjectEdit extends React.Component {
         super(props)
 
         this.state = {
-            id: '',
+            network: '',
             name: '',
             manager: '',
             client: '',
@@ -19,6 +20,16 @@ export class ProjectEdit extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
+    }
+
+    componentWillMount() {
+        // if project passed - replace empty state with values from it
+        if (this.props.project) {
+            // Camelize all project attributes
+            let project = camelizeKeys(this.props.project)
+            // Leave only values present in state
+            this.setState({...filterKeys(project, Object.keys(this.state))})
+        }
     }
 
     handleInputChange(e) {
@@ -39,11 +50,11 @@ export class ProjectEdit extends React.Component {
         return(
             <div>
                 <form className="form-horizontal">
-                    <FormControl label="Network number:" id="id">
+                    <FormControl label="Network number:" id="network">
                         <InputText
                             placeholder="Enter project network number"
-                            control="id"
-                            value={this.state.id}
+                            control="network"
+                            value={this.state.network}
                             handleChange={this.handleInputChange}
                         />
                     </FormControl>
