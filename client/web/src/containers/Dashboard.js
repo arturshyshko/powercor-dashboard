@@ -7,7 +7,7 @@ import { getDisciplineNames } from '../actions/disciplines'
 import { getImportances } from '../actions/importances'
 
 const mapStateToProps = state => ({
-
+    projects: state.projects
 })
 
 
