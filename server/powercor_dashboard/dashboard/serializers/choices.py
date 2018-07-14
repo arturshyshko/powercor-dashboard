@@ -2,25 +2,26 @@ from rest_framework import serializers
 from dashboard.models.choices import *
 
 
-class BusinessImportanceChoiceSerializer(serializers.ModelSerializer):
+class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
+        fields = ('choice', 'weight',)
+
+
+class BusinessImportanceChoiceSerializer(ChoiceSerializer):
+    class Meta(ChoiceSerializer.Meta):
         model = BusinessImportanceChoice
-        fields = ('choice', 'weight',)
 
 
-class ResourcesChoiceSerializer(serializers.ModelSerializer):
-    class Meta:
+class ResourcesChoiceSerializer(ChoiceSerializer):
+    class Meta(ChoiceSerializer.Meta):
         model = ResourcesChoice
-        fields = ('choice', 'weight',)
 
 
-class StageChoiceSerializer(serializers.ModelSerializer):
-    class Meta:
+class StageChoiceSerializer(ChoiceSerializer):
+    class Meta(ChoiceSerializer.Meta):
         model = StageChoice
-        fields = ('choice', 'weight',)
 
 
-class StatusChoiceSerializer(serializers.ModelSerializer):
-    class Meta:
+class StatusChoiceSerializer(ChoiceSerializer):
+    class Meta(ChoiceSerializer.Meta):
         model = StatusChoice
-        fields = ('choice', 'weight',)

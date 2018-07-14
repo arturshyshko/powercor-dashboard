@@ -6,6 +6,7 @@ class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discipline
         fields = (
+            'id',
             'name',
             'project',
             'stage',
