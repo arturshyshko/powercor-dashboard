@@ -5,7 +5,7 @@ export const camelizeKeys = (object) => {
         return Object.keys(object).reduce(
             (result, key) => ({
                 ...result,
-                [camelizeKey(key)]: camelizeKeys(object[key]),
+                [_camelizeKey(key)]: camelizeKeys(object[key]),
             }),
             {},
         )
@@ -13,6 +13,17 @@ export const camelizeKeys = (object) => {
     return object
 }
 
-const camelizeKey = (key) => (
+export const filterKeys = (object, allowed) => (
+    Object.keys(object)
+        .filter(key => allowed.includes(key))
+        .reduce((obj, key) =>{
+            return {
+                ...obj,
+                [key]: object[key]
+            }
+        }, {})
+)
+
+const _camelizeKey = (key) => (
     key.replace(/_([a-z])/, v => v[1].toUpperCase())
 )
