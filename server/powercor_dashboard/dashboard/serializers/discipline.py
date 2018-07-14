@@ -15,3 +15,9 @@ class DisciplineSerializer(serializers.ModelSerializer):
             'resources',
             'status',
             )
+
+
+class DisciplineInListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Discipline
+        fields = ('id', 'due_date', 'stage')
