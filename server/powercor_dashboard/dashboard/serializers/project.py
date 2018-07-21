@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from dashboard.models.project import Project
+from dashboard.models.discipline import Discipline
 from dashboard.models.client import Client
 
 from dashboard.serializers.discipline import DisciplineSerializer, DisciplineInListSerializer
@@ -53,7 +54,17 @@ class ProjectSerializer(ProjectInListSerializer):
             instance.business_importance = business_importance
 
         if disciplines_data:
-            print(disciplines_data)
+            for discipline in disciplines_data:
+                name = discipline.get('name')
+                print(Discipline.objects.get(name=name, project_id=1111111))
+
+                # If this project already has discipline with this name - update existing one
+                try:
+                    existing_discipline = instance.disciplines.get(name=name)
+                    print(existing_discipline)
+                except Discipline.DoesNotExist:
+                    pass
+
 
         instance.save()
 
