@@ -21,5 +21,8 @@ class Discipline(models.Model):
     resources = models.ForeignKey(ResourcesChoice, null=True, blank=True, on_delete=models.SET_NULL)
     status = models.ForeignKey(StatusChoice, null=True, blank=True, on_delete=models.SET_NULL)
 
+    class Meta:
+        unique_together=('name', 'project',)
+
     def __str__(self):
         return f"{self.project.name}, {self.name}"
