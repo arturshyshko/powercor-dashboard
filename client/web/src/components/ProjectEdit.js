@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/ProjectForm'
+import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/FormElements'
 import { camelizeKeys, filterKeys } from '../services/attributesProcessor'
 
 export class ProjectEdit extends React.Component {
