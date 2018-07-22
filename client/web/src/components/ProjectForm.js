@@ -14,7 +14,7 @@ export class ProjectForm extends React.Component {
         return [
 
             <div className="form-row">
-                <FormControl label="Network number:" id="network" childWidth="3">
+                <FormControl label="Network number:" id="network" colWidth="3">
                     <InputText
                         placeholder="Enter project network number"
                         control="network"
@@ -22,7 +22,7 @@ export class ProjectForm extends React.Component {
                         handleChange={this.props.handleInputChange}
                     />
                 </FormControl>
-                <FormControl label="Project name:" id="name" childWidth="3">
+                <FormControl label="Project name:" id="name" colWidth="3">
                     <InputText
                         placeholder="Enter project name"
                         control="name"
@@ -30,7 +30,7 @@ export class ProjectForm extends React.Component {
                         handleChange={this.props.handleInputChange}
                     />
                 </FormControl>
-                <FormControl label="Design manager:" id="manager" childWidth="3">
+                <FormControl label="Design manager:" id="manager" colWidth="3">
                     <InputSelect
                         control="manager"
                         value={this.props.project.manager}
@@ -41,7 +41,7 @@ export class ProjectForm extends React.Component {
             </div>,
 
             <div className="form-row">
-                <FormControl label="Client:" id="client" childWidth="4">
+                <FormControl label="Client:" id="client" colWidth="4">
                     <InputSelect
                         control="client"
                         value={this.props.project.client}
@@ -49,7 +49,7 @@ export class ProjectForm extends React.Component {
                         handleChange={this.props.handleInputChange}
                     />
                 </FormControl>
-                <FormControl label="Business importance:" id="importance" childWidth="4">
+                <FormControl label="Business importance:" id="importance" colWidth="4">
                     <InputSelect
                         control="businessImportance"
                         value={this.props.project.importance}
@@ -60,7 +60,7 @@ export class ProjectForm extends React.Component {
             </div>,
 
             <div className="form-row">
-                <FormControl label="Comments:" id="comment" childWidth="4">
+                <FormControl label="Comments:" id="comment" colWidth="4">
                     <InputTextArea
                         placeholder="Enter your comments"
                         control="comment"

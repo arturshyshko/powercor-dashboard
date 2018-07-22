@@ -1,10 +1,10 @@
 import React from 'react'
 
 
-export const FormControl = ({children, childWidth, ...props}) => (
-    <div className="form-group">
+export const FormControl = ({children, colWidth, ...props}) => (
+    <div className={`form-group col-md-${colWidth}`}>
         <label htmlFor={props.id}>{props.label}</label>
-        <div className={`col-md-${childWidth}`}>
+        <div>
             {children}
         </div>
     </div>
