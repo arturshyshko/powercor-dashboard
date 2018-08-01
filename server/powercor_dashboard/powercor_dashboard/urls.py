@@ -21,7 +21,7 @@ from rest_framework.routers import DefaultRouter
 from dashboard.views.manager import ManagerViewSet
 from dashboard.views.client import ClientViewSet
 from dashboard.views.choices import *
-from dashboard.views.discipline import DisciplineViewSet, discipline_names
+from dashboard.views.discipline import DisciplineViewSet
 from dashboard.views.project import ProjectViewSet
 
 
@@ -37,6 +37,5 @@ router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/disciplines/names', discipline_names),
     url(r'^api/', include(router.urls))
 ]
