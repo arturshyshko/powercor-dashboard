@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .models.user import PowercorUser
 from .models.client import Client
 from .models.manager import Manager
 from .models.discipline import Discipline
@@ -15,6 +16,8 @@ class DisciplineInline(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     inlines = [DisciplineInline]
 
+
+admin.site.register(PowercorUser)
 
 admin.site.register(Client)
 admin.site.register(Manager)

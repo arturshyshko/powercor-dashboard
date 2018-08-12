@@ -33,13 +33,15 @@ ALLOWED_HOSTS = ['powercor-dashboard.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'dashboard.apps.DashboardConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig',
+
     'rest_framework',
     'constance',
     'constance.backends.database',
@@ -87,6 +89,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+# Custom user model settings
+AUTH_USER_MODEL = 'dashboard.PowercorUser'
 
 
 # Password validation
