@@ -9,7 +9,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
 
     def get_serializer_class(self):
-        if self.action == 'list':
-            return ProjectInListSerializer
-        else:
-            return ProjectSerializer
+        # if self.action == 'list':
+        #     return ProjectInListSerializer
+        # else:
+        #     return ProjectSerializer
+        return ProjectSerializer

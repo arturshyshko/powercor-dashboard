@@ -21,14 +21,18 @@ export class ProjectEdit extends React.Component {
                 client: '',
                 comment: '',
                 businessImportance: '',
+                disciplines: [],
             },
         }
 
         this.handleProjectChange = this.handleProjectChange.bind(this)
+        this.handleDisciplineChange = this.handleDisciplineChange.bind(this)
+
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentWillMount() {
+        console.log(this.props.project)
         // if project passed - replace empty state with values from it
         if (this.props.project) {
             // Camelize all project attributes
@@ -49,6 +53,24 @@ export class ProjectEdit extends React.Component {
         })
     }
 
+    handleDisciplineChange(e) {
+        // const value = e.target.value
+        // const name = e.target.name || e.target.control
+        // // if we changed discipline name - get needed one by name and remove it from list
+        // //
+        // if (name === 'name' ) {
+        //     let disciplines = this.state.project.disciplines.filter(disc => disc['name'] != value)
+
+        // }
+
+        // if (discipline) {
+        //     this.setState({
+        //         pro
+        //     })
+        // }
+        console.log(1)
+    }
+
     handleSubmit(e) {
         e.preventDefault()
         console.log(this.state)
@@ -66,6 +88,15 @@ export class ProjectEdit extends React.Component {
                         importances={this.props.importances}
                         handleInputChange={this.handleProjectChange}
                     />
+                    {
+                        this.state.project.disciplines.map((discipline, i) => {
+                            <DisciplineForm
+                                discipline={discipline}
+                                handleInputChange={this.handleDisciplineChange}
+                                disciplineNames={this.props.disciplineNames}
+                            />
+                        })
+                    }
                     <div className="form-group">
                         <div className="col-sm-offset-2 col-sm-10">
                             <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Create</button>
