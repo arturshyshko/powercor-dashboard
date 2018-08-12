@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 
 
 from dashboard.models.discipline import Discipline
@@ -11,12 +11,9 @@ class DisciplineViewSet(viewsets.ModelViewSet):
     queryset = Discipline.objects.all()
     serializer_class = DisciplineSerializer
 
-
-@api_view(['GET'])
-def discipline_names(request):
-    """
-    Get all possible names for disciplines and pass it to client
-    """
-    return Response(Discipline.NAME_CHOICES)
-
-
+    @action(methods=['GET'], detail=False, url_path='names')
+    def discipline_names(self, request):
+        """
+        Get all possible names for disciplines and pass it to client
+        """
+        return Response(Discipline.NAME_CHOICES)

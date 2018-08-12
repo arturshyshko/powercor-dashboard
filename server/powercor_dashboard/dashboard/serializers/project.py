@@ -8,10 +8,11 @@ from dashboard.serializers.manager import ManagerSerializer
 from dashboard.serializers.client import ClientSerializer
 from dashboard.serializers.choices import BusinessImportanceChoiceSerializer, ResourcesChoiceSerializer, \
     StageChoiceSerializer, StatusChoiceSerializer
+from drf_writable_nested import WritableNestedModelSerializer
 
 
 
-class ProjectInListSerializer(serializers.ModelSerializer):
+class ProjectInListSerializer(WritableNestedModelSerializer):
     disciplines = DisciplineInListSerializer(many=True)
 
     class Meta:
@@ -34,38 +35,3 @@ class ProjectSerializer(ProjectInListSerializer):
 
     class Meta(ProjectInListSerializer.Meta):
         pass
-
-    def update(self, instance, validated_data):
-        disciplines_data = validated_data.pop('disciplines', None)
-
-        instance.name = validated_data.get('name', instance.name)
-        instance.comment = validated_data.get('comment', instance.comment)
-
-        client = validated_data.get('client')
-        if client:
-            instance.client = client
-
-        manager = validated_data.get('manager')
-        if manager:
-            instance.manager = manager
-
-        business_importance = validated_data.get('business_importance')
-        if business_importance:
-            instance.business_importance = business_importance
-
-        if disciplines_data:
-            for discipline in disciplines_data:
-                name = discipline.get('name')
-                print(Discipline.objects.get(name=name, project_id=1111111))
-
-                # If this project already has discipline with this name - update existing one
-                try:
-                    existing_discipline = instance.disciplines.get(name=name)
-                    print(existing_discipline)
-                except Discipline.DoesNotExist:
-                    pass
-
-
-        instance.save()
-
-        return instance
