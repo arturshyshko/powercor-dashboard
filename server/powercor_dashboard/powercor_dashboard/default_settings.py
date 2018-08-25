@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['powercor-dashboard.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'dashboard.apps.DashboardConfig',
-    'core.apps.CoreConfig',
 
     'rest_framework',
     'constance',
@@ -94,6 +94,7 @@ DATABASES = {
 
 # User settings
 AUTHENTICATION_BACKENDS = ['powercor_dashboard.backends.EmailBackend',]
+AUTH_USER_MODEL = 'core.User'
 
 
 
