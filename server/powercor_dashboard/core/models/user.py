@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Permission
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 PERMISSIONS = [
     'add_project',
@@ -54,3 +56,15 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+@receiver(post_save, sender=User)
+def user_post_save(sender, instance, **kwargs):
+    if not instance.is_superuser:
+        instance.is_staff = True
+        for permission in PERMISSIONS:
+            instance.user_permissions.add(Permission.objects.get(codename=permission))
+
+        post_save.disconnect(user_post_save, sender=sender)
+        instance.save()
+        post_save.connect(user_post_save, sender=sender)
