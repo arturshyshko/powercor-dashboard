@@ -1,23 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
+PERMISSIONS = [
+    'add_project',
+    'change_project',
+    'delete_project',
+]
+
 
 class PowercorUserManager(BaseUserManager):
     """
     Custom user manager for using email as username.
     """
-    def _create_user(self, email, password, *args, **kwargs):
+    def _create_user(self, email, password, **kwargs):
         """
-        Create and save user with email
+        Creates and saves a User with email and password
         """
         if not email:
-            raise ValueError('The Email must be set.')
+            raise ValueError('The given email must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, **kwargs)
         user.set_password(password)
-        user.save()
+        user.save(using=self._db)
 
         return user
+
+    def create_user(self, email, password=None, **kwargs):
+        kwargs.setdefault('is_superuser', False)
+
+        return self._create_user(email, password, **kwargs)
 
     def create_superuser(self, email, password, *args, **kwargs):
         kwargs.setdefault('is_staff', True)
@@ -28,6 +39,7 @@ class PowercorUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True.')
         if kwargs.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
+
         return self._create_user(email, password, **kwargs)
 
 
