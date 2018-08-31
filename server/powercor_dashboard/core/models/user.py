@@ -27,9 +27,6 @@ class PowercorUserManager(BaseUserManager):
 
         return user
 
-    def create_user(self, email, password=None, **kwargs):
-        return self._create_user(email, password, **kwargs)
-
     def create_superuser(self, email, password, *args, **kwargs):
         kwargs.setdefault('is_staff', True)
         kwargs.setdefault('is_superuser', True)
