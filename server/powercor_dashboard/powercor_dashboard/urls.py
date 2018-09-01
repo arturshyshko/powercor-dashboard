@@ -25,6 +25,8 @@ from dashboard.views.choices import *
 from dashboard.views.discipline import DisciplineViewSet
 from dashboard.views.project import ProjectViewSet
 
+from core.views import models_viewset
+
 
 router = DefaultRouter()
 router.register(r'users', ProjectUserViewSet)
@@ -39,5 +41,6 @@ router.register(r'approved_variations', ApprovedVariationViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(router.urls))
+    url(r'^api/schema', models_viewset),
+    url(r'^api/', include(router.urls)),
 ]
