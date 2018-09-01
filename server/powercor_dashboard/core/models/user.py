@@ -10,9 +10,9 @@ PERMISSIONS = [
     'add_discipline',
     'change_discipline',
     'delete_discipline',
-    'add_approved_variation',
-    'change_approved_variation',
-    'delete_approved_variation',
+    'add_approvedvariation',
+    'change_approvedvariation',
+    'delete_approvedvariation',
 ]
 
 
