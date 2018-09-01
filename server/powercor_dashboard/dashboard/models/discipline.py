@@ -3,7 +3,6 @@ from .project import Project
 from .choices import *
 
 
-
 class Discipline(models.Model):
     NAME_CHOICES = (
         ('PD', 'Primary Design'),
