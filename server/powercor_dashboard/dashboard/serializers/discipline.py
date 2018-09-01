@@ -14,6 +14,7 @@ class DisciplineSerializer(serializers.ModelSerializer):
             'due_date',
             'resources',
             'status',
+            'actual_cost',
             )
 
 
