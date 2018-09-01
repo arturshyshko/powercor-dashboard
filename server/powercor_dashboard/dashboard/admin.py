@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
-
+from .models.approved_variation import ApprovedVariation
 from .models.client import Client
 from .models.manager import Manager
 from .models.discipline import Discipline
@@ -18,9 +17,18 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [DisciplineInline]
 
 
+class ApprovedVariationInline(admin.TabularInline):
+    model = ApprovedVariation
+
+
+class DisciplineAdmin(admin.ModelAdmin):
+    inlines = [ApprovedVariationInline]
+
+
 admin.site.register(Client)
 admin.site.register(Manager)
-admin.site.register(Discipline)
+admin.site.register(ApprovedVariation)
+admin.site.register(Discipline, DisciplineAdmin)
 admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(BusinessImportanceChoice)
