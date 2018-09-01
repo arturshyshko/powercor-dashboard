@@ -1,5 +1,6 @@
 import axios from './httpClient'
 import * as apiUrls from '../constants/apiUrls'
+import { camelizeKeys, decamelizeKeys } from './attributesProcessors'
 
 
 export const fetchData = (cb, url) => {
@@ -8,8 +9,7 @@ export const fetchData = (cb, url) => {
         url: url,
 
     }).then(response => {
-
-        cb(response.data)
+        cb(camelizeKeys(response.data))
 
     }).catch(error => {
         console.log(error)
@@ -19,7 +19,7 @@ export const fetchData = (cb, url) => {
 export const updateObject = (data, cb, url, id) => {
     axios.patch(
         url + id + '/',
-        data
+        decamelizeKeys(data)
     ).then(response => {
         cb(response.data)
     }).catch(error => {
