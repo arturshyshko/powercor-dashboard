@@ -1,15 +1,7 @@
-from rest_framework import serializers
 from dashboard.models.project import Project
-from dashboard.models.discipline import Discipline
-from dashboard.models.client import Client
 
 from dashboard.serializers.discipline import DisciplineSerializer, DisciplineInListSerializer
-from dashboard.serializers.manager import ManagerSerializer
-from dashboard.serializers.client import ClientSerializer
-from dashboard.serializers.choices import BusinessImportanceChoiceSerializer, ResourcesChoiceSerializer, \
-    StageChoiceSerializer, StatusChoiceSerializer
 from drf_writable_nested import WritableNestedModelSerializer
-
 
 
 class ProjectInListSerializer(WritableNestedModelSerializer):
@@ -26,6 +18,7 @@ class ProjectInListSerializer(WritableNestedModelSerializer):
             'disciplines',
             'business_importance',
             'priority',
+            'status',
         )
         read_only_fields = ('priority',)
 
