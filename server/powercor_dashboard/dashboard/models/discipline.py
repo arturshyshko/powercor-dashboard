@@ -19,6 +19,7 @@ class Discipline(models.Model):
     due_date = models.DateField(blank=True, null=True)
     resources = models.ForeignKey(ResourcesChoice, null=True, blank=True, on_delete=models.SET_NULL)
     status = models.ForeignKey(StatusChoice, null=True, blank=True, on_delete=models.SET_NULL)
+    actual_cost = models.DecimalField(max_digits=14, decimal_places=2, blank=True, null=True)
 
     class Meta:
         unique_together=('name', 'project',)

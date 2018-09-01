@@ -13,6 +13,15 @@ from .choices import BusinessImportanceChoice
 
 
 class Project(models.Model):
+    STATUS_CHOICES = (
+        ('FS', 'Feasibility study'),
+        ('PD', 'Preliminary design'),
+        ('DD', 'Detailed design'),
+        ('SS', 'Site support'),
+        ('OH', 'On hold'),
+        ('CA', 'Canceled'),
+    )
+
     network = models.IntegerField(
         primary_key=True,
         validators=[MinValueValidator(1000000), MaxValueValidator(9999999)]
@@ -28,6 +37,7 @@ class Project(models.Model):
         on_delete=models.SET_NULL
         )
     priority = models.IntegerField(blank=True, null=True)
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES)
 
     def __str__(self):
         return f"{self.network} {self.name}"
