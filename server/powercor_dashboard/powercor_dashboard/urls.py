@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 
+from dashboard.views.approved_variation import ApprovedVariationViewSet
 from dashboard.views.manager import ManagerViewSet
 from dashboard.views.client import ClientViewSet
 from dashboard.views.choices import *
@@ -34,6 +35,7 @@ router.register(r'stages', StageChoiceViewSet)
 router.register(r'statuses', StatusChoiceViewSet)
 router.register(r'disciplines', DisciplineViewSet)
 router.register(r'projects', ProjectViewSet)
+router.register(r'approved_variations', ApprovedVariationViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

@@ -7,6 +7,9 @@ PERMISSIONS = [
     'add_project',
     'change_project',
     'delete_project',
+    'add_discipline',
+    'change_discipline',
+    'delete_discipline',
 ]
 
 
