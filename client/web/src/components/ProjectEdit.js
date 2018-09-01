@@ -5,7 +5,7 @@ import { DisciplineForm } from './DisciplineForm'
 import { ProjectForm } from './ProjectForm'
 
 import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/FormElements'
-import { camelizeKeys, filterKeys } from '../services/attributesProcessor'
+import { camelizeKeys, filterKeys } from '../services/attributesProcessors'
 
 
 export class ProjectEdit extends React.Component {

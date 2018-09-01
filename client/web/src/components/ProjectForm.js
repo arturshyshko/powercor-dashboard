@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/FormElements'
 
-import { camelizeKeys, filterKeys } from '../services/attributesProcessor'
+import { camelizeKeys, filterKeys } from '../services/attributesProcessors'
 
 
 export class ProjectForm extends React.Component {
