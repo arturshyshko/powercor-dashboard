@@ -1,0 +1,9 @@
+from django.db import models
+
+from dashboard.models import Discipline
+
+
+class ApprovedVariation(models.Model):
+    comment = models.TextField(blank=True, null=True)
+    actual_cost = models.DecimalField(max_digits=14, decimal_places=2, blank=True, null=True)
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name='approved_variations')
