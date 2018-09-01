@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from dashboard.models.discipline import Discipline
+from dashboard.serializers.approved_variation import ApprovedVariationInListSerializer
 
 
 class DisciplineSerializer(serializers.ModelSerializer):
+    approved_variations = ApprovedVariationInListSerializer(many=True)
+
     class Meta:
         model = Discipline
         fields = (
@@ -15,7 +18,8 @@ class DisciplineSerializer(serializers.ModelSerializer):
             'resources',
             'status',
             'actual_cost',
-            )
+            'approved_variations',
+        )
 
 
 class DisciplineInListSerializer(serializers.ModelSerializer):
