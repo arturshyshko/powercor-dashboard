@@ -29,7 +29,7 @@ export class ProjectsList extends React.Component {
     render() {
         return (
             <div>
-                <table className="table table-bordered table-hover"
+                <table className="table table-bordered table-hover table-striped"
                        style={{textAlign: 'center', marginTop: '20px'}}>
                     <thead style={{textAlign: 'center'}}>
                         <tr>
