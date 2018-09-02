@@ -33,7 +33,7 @@ export class ProjectsList extends React.Component {
                        style={{textAlign: 'center', marginTop: '20px'}}>
                     <thead style={{textAlign: 'center'}}>
                         <tr>
-                            <th rowSpan="2" style={{verticalAlign: 'middle'}}>Name</th>
+                            <th rowSpan="2" style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>Name</th>
                             <th rowSpan="2" style={{verticalAlign: 'middle'}}>Manager</th>
                             {
                                 this.props.disciplineNames.map((discipline, i) => (
@@ -48,7 +48,7 @@ export class ProjectsList extends React.Component {
                         {
                             this.props.projects.map((project, i) => (
                                 <tr key={i} onClick={this.editProject} project={project.network} >
-                                    <td>{project.network + ' ' + project.name}</td>
+                                    <td style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>{project.network + ' ' + project.name}</td>
                                     <td>{this.props.managers.find(man => man.id === project.manager).name}</td>
                                     {
                                         this.props.disciplineNames.map((discipline, i) => {
