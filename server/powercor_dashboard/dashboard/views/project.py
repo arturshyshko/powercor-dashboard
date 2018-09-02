@@ -5,7 +5,7 @@ from dashboard.serializers.project import ProjectSerializer, ProjectInListSerial
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.order_by('-priority')
 
     def get_serializer_class(self):
         # if self.action == 'list':
