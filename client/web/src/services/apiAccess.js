@@ -21,7 +21,7 @@ export const updateObject = (data, cb, url, id) => {
         url + id + '/',
         decamelizeKeys(data)
     ).then(response => {
-        cb(response.data)
+        cb(camelizeKeys(response.data))
     }).catch(error => {
         console.log(error)
     })
