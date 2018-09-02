@@ -35,11 +35,9 @@ export class ProjectEdit extends React.Component {
         console.log(this.props.project)
         // if project passed - replace empty state with values from it
         if (this.props.project) {
-            // Camelize all project attributes
-            let project = camelizeKeys(this.props.project)
             // Leave only values present in state.project
             this.setState({
-                project: {...filterKeys(project, Object.keys(this.state.project))}
+                project: {...filterKeys(this.props.project, Object.keys(this.state.project))}
             })
         }
     }
