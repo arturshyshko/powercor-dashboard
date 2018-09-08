@@ -6,7 +6,7 @@ export const setVariations = (data) => {
     data.map(obj => {
         let variation = ApprovedVariation.create({
             id: obj.id,
-            name: obj.name,
+            comment: obj.comment,
             actualCost: obj.actualCost,
             discipline: obj.discipline,
         })
