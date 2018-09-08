@@ -18,7 +18,7 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 
-from core.views.project_user import ProjectUserViewSet
+from core.views.user import ProjectUserViewSet
 from dashboard.views.approved_variation import ApprovedVariationViewSet
 from dashboard.views.client import ClientViewSet
 from dashboard.views.choices import *
