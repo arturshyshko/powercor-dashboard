@@ -19,7 +19,6 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
 from dashboard.views.approved_variation import ApprovedVariationViewSet
-from dashboard.views.manager import ManagerViewSet
 from dashboard.views.client import ClientViewSet
 from dashboard.views.choices import *
 from dashboard.views.discipline import DisciplineViewSet
@@ -27,7 +26,6 @@ from dashboard.views.project import ProjectViewSet
 
 
 router = DefaultRouter()
-router.register(r'managers', ManagerViewSet)
 router.register(r'clients', ClientViewSet)
 router.register(r'importances', BusinessImportanceChoiceViewSet)
 router.register(r'resources', ResourcesChoiceViewSet)

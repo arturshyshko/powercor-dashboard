@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from dashboard.models.manager import Manager
+from server.powercor_dashboard.core.models.user import User
 
 
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Manager
+        model = User
         fields = ('id', 'name')

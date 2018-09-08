@@ -55,6 +55,10 @@ class User(AbstractUser):
 
     objects = PowercorUserManager()
 
+    @property
+    def name(self):
+        return self.first_name + ' ' + self.last_name
+
     def __str__(self):
         return self.email
 
