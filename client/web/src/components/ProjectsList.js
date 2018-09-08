@@ -49,7 +49,7 @@ export class ProjectsList extends React.Component {
                             this.props.projects.map((project, i) => (
                                 <tr key={i} onClick={this.editProject} project={project.network} >
                                     <td style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>{project.network + ' ' + project.name}</td>
-                                    <td>{this.props.managers.find(man => man.id === project.manager).name}</td>
+                                    <td>{this.props.managers.find(man => man.id === project.manager.id).name}</td>
                                     {
                                         this.props.disciplineNames.map((discipline, i) => {
                                             let a = project.disciplines.find((disc) => (disc['name'] === discipline[0]))

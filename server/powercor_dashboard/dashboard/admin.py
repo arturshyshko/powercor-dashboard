@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models.approved_variation import ApprovedVariation
 from .models.client import Client
-from .models.manager import Manager
 from .models.discipline import Discipline
 from .models.project import Project
 
@@ -26,7 +25,6 @@ class DisciplineAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Client)
-admin.site.register(Manager)
 admin.site.register(ApprovedVariation)
 admin.site.register(Discipline, DisciplineAdmin)
 admin.site.register(Project, ProjectAdmin)
