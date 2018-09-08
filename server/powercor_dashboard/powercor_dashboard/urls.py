@@ -27,7 +27,7 @@ from dashboard.views.project import ProjectViewSet
 
 
 router = DefaultRouter()
-router.register(r'managers', ProjectUserViewSet)
+router.register(r'users', ProjectUserViewSet)
 router.register(r'clients', ClientViewSet)
 router.register(r'importances', BusinessImportanceChoiceViewSet)
 router.register(r'resources', ResourcesChoiceViewSet)
