@@ -11,16 +11,47 @@ export const ApprovedVariation = types.model('ApprovedVariation', {
 
 
 const ApprovedVariationStore = types.model('ApprovedVariationStore', {
-    approvedVariations: types.array(ApprovedVariation)
+    variations: types.array(ApprovedVariation)
 }).views(self => ({
 
-})).actions(self => {
+})).actions(self => ({
 
-    function addVariation(variation) {
-        self.approvedVariations.push(variation)
-    }
+    parseVariation(obj) {
+        return ApprovedVariation.create({
+            id: obj.id,
+            comment: obj.comment,
+            actualCost: obj.actualCost,
+            discipline: obj.discipline,
+        })
+    },
 
-    return { addVariation, }
-})
+    addVariation(object) {
+        self.variations.push(self.parseVariation(object))
+    },
+
+    addVariations(data) {
+        data.map(variation => {
+            self.addVariation(variation)
+        })
+    },
+
+    setVariation(variation) {
+        // Replace old instance if the id's are the same
+        // Add new one if there are no variations with this id
+        let oldVariation = self.variations.find(obj => obj.id === variation.id)
+        if (oldVariation) {
+            self.oldVariation = self.parseVariation(variation)
+        } else{
+            self.addVariation(variation)
+        }
+    },
+
+    setVariations(data) {
+        data.map(variation => {
+            self.setVariation(variation)
+        })
+    },
+
+}))
 
 export default ApprovedVariationStore

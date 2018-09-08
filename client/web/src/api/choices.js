@@ -1,3 +1,5 @@
+import store from '@store'
+
 import { API_IMPORTANCES, API_RESOURCES, API_STAGES, API_STATUSES } from '../constants/apiUrls'
 import { fetchData } from '../services/apiAccess'
 
@@ -16,3 +18,21 @@ export const fetchStagesData = (cb) => {
 export const fetchStatusesData = (cb) => {
     fetchData(cb, API_STATUSES)
 }
+
+
+export const setImportanceChoices = () => {
+    fetchImportancesData(store.businessImportanceChoiceStore.setChoices)
+}
+
+export const setResourcesChoices = () => {
+    fetchResourcesData(store.resourceChoiceStore.setChoices)
+}
+
+export const setStageChoices = () => {
+    fetchStagesData(store.stageChoiceStore.setChoices)
+}
+
+export const setStatusChoices = () => {
+    fetchStatusesData(store.statusChoiceStore.setChoices)
+}
+

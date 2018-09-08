@@ -1,4 +1,4 @@
-import { types, unprotect } from 'mobx-state-tree'
+import { types, addMiddleware } from 'mobx-state-tree'
 
 import ManagerStore from '@store/manager'
 import {
@@ -41,5 +41,11 @@ const rootStore = types.model('root', {
 })
 
 const store = rootStore.create({})
+
+// const logger = addMiddleware(store, (call, next, abort) => {
+//     console.log(call.tree.toJSON())
+
+//     next(call)
+// })
 
 export default store

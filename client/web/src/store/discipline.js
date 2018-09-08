@@ -24,13 +24,49 @@ const DisciplineStore = types.model('DisciplineStore', {
     disciplines: types.array(Discipline)
 }).views(self => ({
 
-})).actions(self => {
+})).actions(self => ({
 
-    function addDiscipline(discipline) {
-        self.disciplines.push(discipline)
-    }
+    parseDiscipline(obj) {
+        return Discipline.create({
+            id: obj.id,
+            name: obj.name,
+            project: obj.project,
+            stage: obj.stage,
+            budget: obj.budget,
+            dueDate: new Date(obj.dueDate),
+            resources: obj.resources,
+            status: obj.status,
+            actualCost: obj.actualCost,
+        })
+    },
 
-    return { addDiscipline, }
-})
+    addDiscipline(object) {
+        self.disciplines.push(self.parseDiscipline(object))
+    },
+
+    addDisciplines(data) {
+        data.map(discipline => {
+            self.addDiscipline(discipline)
+        })
+    },
+
+    setDiscipline(discipline) {
+        // Replace old instance if the id's are the same
+        // Add new one if there are no managers with this id
+        let oldDiscipline = self.disciplines.find(obj => obj.id === discipline.id)
+        if (oldDiscipline) {
+            self.oldDiscipline = self.parseDiscipline(discipline)
+        } else{
+            self.addDiscipline(discipline)
+        }
+    },
+
+    setDisciplines(data) {
+        data.map(discipline => {
+            self.setDiscipline(discipline)
+        })
+    },
+
+}))
 
 export default DisciplineStore
