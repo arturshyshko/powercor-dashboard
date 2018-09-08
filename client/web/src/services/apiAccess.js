@@ -26,15 +26,3 @@ export const updateObject = (data, cb, url, id) => {
         console.log(error)
     })
 }
-
-export const fetchResourcesData = (cb) => {
-    fetchData(cb, apiUrls.API_RESOURCES)
-}
-
-export const fetchStagesData = (cb) => {
-    fetchData(cb, apiUrls.API_STAGES)
-}
-
-export const fetchStatusesData = (cb) => {
-    fetchData(cb, apiUrls.API_STATUSES)
-}
