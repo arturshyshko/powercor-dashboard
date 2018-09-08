@@ -12,6 +12,7 @@ module.exports = function override(config, env) {
 		'@constants': path.resolve(__dirname, 'src', 'constants'),
 		'@services': path.resolve(__dirname, 'src', 'services'),
 		'@api': path.resolve(__dirname, 'src', 'api'),
+		'@store': path.resolve(__dirname, 'src', 'store'),
 	}
 
 	// Add new alises to webpack config
