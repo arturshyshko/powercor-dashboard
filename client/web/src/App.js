@@ -11,6 +11,8 @@ import { setManagers } from '@api/managers'
 import { setClients } from '@api/clients'
 import { setImportanceChoices, setResourcesChoices, setStageChoices, setStatusChoices } from '@api/choices'
 
+import { Dashboard } from '@components/Dashboard'
+
 
 class App extends React.Component {
     componentDidMount() {
@@ -27,7 +29,9 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>Base MobX setup testing</div>
+            <Switch>
+                <Route exact path={DASHBOARD} component={Dashboard} />
+            </Switch>
         )
     }
 }
