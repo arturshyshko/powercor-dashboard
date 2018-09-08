@@ -23,13 +23,13 @@ export class Dashboard extends React.Component {
         this.cb = this.cb.bind(this)
     }
 
-    componentWillMount() {
-        fetchClientsData(this.props.getClients)
-        fetchManagersData(this.props.getManagers)
-        fetchProjectsData(this.props.getProjects)
-        fetchDisciplineNames(this.props.getDisciplineNames)
-        fetchImportancesData(this.props.getImportances)
-    }
+    // componentWillMount() {
+    //     fetchClientsData(this.props.getClients)
+    //     fetchManagersData(this.props.getManagers)
+    //     fetchProjectsData(this.props.getProjects)
+    //     fetchDisciplineNames(this.props.getDisciplineNames)
+    //     fetchImportancesData(this.props.getImportances)
+    // }
 
     createProject() {
         this.setState({
