@@ -27,8 +27,6 @@ export class ProjectsList extends React.Component {
     }
 
     render() {
-        console.log(this.props.managers)
-        console.log(this.props.projects)
         return (
             <div>
                 <table className="table table-bordered table-hover table-striped"
