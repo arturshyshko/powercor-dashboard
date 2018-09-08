@@ -59,15 +59,15 @@ export class ProjectEdit extends React.Component {
 
     render() {
         let store = this.props.store
-        console.log(store.toJSON())
+
         return(
             <div>
                 <form >
                     <ProjectForm
                         project={this.state.project}
-                        managers={this.props.managers}
-                        clients={this.props.clients}
-                        importances={this.props.importances}
+                        managers={store.managerStore.managers}
+                        clients={store.clientStore.clients}
+                        importances={store.businessImportanceChoiceStore.choices}
                         handleInputChange={this.handleProjectChange}
                     />
                     {
