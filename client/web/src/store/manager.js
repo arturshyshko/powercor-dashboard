@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 
 
 export const Manager = types.model('Manager', {
-    id: types.identifier,
+    id: types.identifierNumber,
     name: types.string
 })
 

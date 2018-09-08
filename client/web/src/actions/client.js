@@ -5,7 +5,7 @@ import { Client } from '@store/client'
 export const setClients = (data) => {
     data.map(obj => {
         let client = Client.create({
-            id: `${obj.id}`,
+            id: obj.id,
             name: obj.name,
             weight: obj.weight,
         })

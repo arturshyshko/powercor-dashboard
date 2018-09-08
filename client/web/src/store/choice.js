@@ -7,7 +7,7 @@ const Choice = types.model('Choice', {
 })
 
 export const BusinessImportanceChoice = Choice.named('BusinessImportanceChoice')
-export const ResourcesChoice = Choice.named('ResourcesChoice')
+export const ResourceChoice = Choice.named('ResourceChoice')
 export const StageChoice = Choice.named('StageChoice')
 export const StatusChoice = Choice.named('StatusChoice')
 
@@ -40,8 +40,8 @@ export const BusinessImportanceChoiceStore = types.model('BusinessImportanceChoi
     return { addChoice, }
 })
 
-export const ResourcesChoiceStore = types.model('ResourcesChoiceStore', {
-    choices: types.array(ResourcesChoice)
+export const ResourceChoiceStore = types.model('ResourceChoiceStore', {
+    choices: types.array(ResourceChoice)
 }).views(self => ({
 
 })).actions(self => {

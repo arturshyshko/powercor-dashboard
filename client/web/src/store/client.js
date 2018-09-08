@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 
 
 export const Client = types.model('Client', {
-    id: types.identifier,
+    id: types.identifierNumber,
     name: types.string,
     weight: types.number,
 })

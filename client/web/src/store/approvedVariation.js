@@ -3,10 +3,10 @@ import { Discipline } from '@store/discipline'
 
 
 export const ApprovedVariation = types.model('ApprovedVariation', {
-    id: types.identifier,
-    comment: types.string,
-    actualCost: types.number,
-    discipline: types.reference(Discipline)
+    id: types.identifierNumber,
+    comment: types.optional(types.string, ''),
+    actualCost: types.optional(types.number, 0.00),
+    discipline: types.maybeNull(types.reference(Discipline)),
 })
 
 

@@ -3,20 +3,20 @@ import { types } from 'mobx-state-tree'
 import { Project } from '@store/project'
 import { Client } from '@store/client'
 import {
-    BusinessImportanceChoice, StatusChoice, StageChoice, ResourcesChoice
+    BusinessImportanceChoice, StatusChoice, StageChoice, ResourceChoice
 } from '@store/choice'
 
 
 export const Discipline = types.model('Discipline', {
-    id: types.identifier,
+    id: types.identifierNumber,
     name: types.string,
-    project: types.reference(Project),
-    stage: types.reference(StageChoice),
-    budget: types.number,
-    dueDate: types.Date,
-    resources: types.reference(ResourcesChoice),
-    status: types.reference(StatusChoice),
-    actualCost: types.number,
+    project: types.maybeNull(types.reference(Project)),
+    stage: types.maybeNull(types.reference(StageChoice)),
+    budget: types.optional(types.number, 0.00),
+    dueDate: types.maybeNull(types.Date),
+    resources: types.maybeNull(types.reference(ResourceChoice)),
+    status: types.maybeNull(types.reference(StatusChoice)),
+    actualCost: types.maybeNull(types.number),
 })
 
 

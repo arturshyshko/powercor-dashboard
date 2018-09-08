@@ -5,12 +5,12 @@ import { Project } from '@store/project'
 export const setProjects = (data) => {
     data.map(obj => {
         let project = Project.create({
-            network: `${obj.network}`,
+            network: obj.network,
             name: obj.name,
-            manager: `${obj.manager}`,
-            client: `${obj.client}`,
+            manager: obj.manager,
+            client: obj.client,
             comment: obj.comment,
-            businessImportance: `${obj.businessImportance}`,
+            businessImportance: obj.businessImportance,
             priority: obj.priority,
             status: obj.status,
         })

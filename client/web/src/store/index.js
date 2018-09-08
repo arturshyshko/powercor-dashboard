@@ -2,7 +2,7 @@ import { types, unprotect } from 'mobx-state-tree'
 
 import ManagerStore from '@store/manager'
 import {
-    BusinessImportanceChoiceStore, StatusChoiceStore, StageChoiceStore, ResourcesChoiceStore
+    BusinessImportanceChoiceStore, StatusChoiceStore, StageChoiceStore, ResourceChoiceStore
 } from '@store/choice'
 import ClientStore from '@store/client'
 import ProjectStore from '@store/project'
@@ -20,7 +20,7 @@ const rootStore = types.model('root', {
     businessImportanceChoiceStore: types.optional(BusinessImportanceChoiceStore, {
         choices: []
     }),
-    resourcesChoiceStore: types.optional(ResourcesChoiceStore, {
+    resourceChoiceStore: types.optional(ResourceChoiceStore, {
         choices: []
     }),
     stageChoiceStore: types.optional(StageChoiceStore, {

@@ -1,5 +1,5 @@
 import store from '@store'
-import { BusinessImportanceChoice, ResourcesChoice, StageChoice, StatusChoice } from '@store/choice'
+import { BusinessImportanceChoice, ResourceChoice, StageChoice, StatusChoice } from '@store/choice'
 
 // TODO
 // Figure out how to use this method for the 4 methods below
@@ -42,11 +42,11 @@ export const setImportanceChoices = (data) => {
 
 export const setResourcesChoices = (data) => {
     data.map(obj => {
-        let choice = ResourcesChoice.create({
+        let choice = ResourceChoice.create({
             name: obj.choice,
             weight: obj.weight,
         })
-        store.resourcesChoice.addChoice(choice)
+        store.resourceChoiceStore.addChoice(choice)
     })
 }
 
@@ -56,7 +56,7 @@ export const setStageChoices = (data) => {
             name: obj.choice,
             weight: obj.weight,
         })
-        store.stageChoice.addChoice(choice)
+        store.stageChoiceStore.addChoice(choice)
     })
 }
 
@@ -66,6 +66,6 @@ export const setStatusChoices = (data) => {
             name: obj.choice,
             weight: obj.weight,
         })
-        store.statusChoice.addChoice(choice)
+        store.statusChoiceStore.addChoice(choice)
     })
 }
