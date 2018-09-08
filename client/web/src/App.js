@@ -5,7 +5,6 @@ import './App.css';
 import { fetchData } from '@services/apiAccess'
 import { configureStore } from '@store'
 import store from '@store'
-import { API_STORE } from '@constants/apiUrls'
 
 import { DASHBOARD } from '@constants/clientUrls'
 import { TestView } from '@components/testMobX'
