@@ -7,7 +7,6 @@ from drf_writable_nested import WritableNestedModelSerializer
 
 class ProjectInListSerializer(WritableNestedModelSerializer):
     disciplines = DisciplineInListSerializer(many=True)
-    manager = ProjectUserSerializer()
 
     class Meta:
         model = Project
@@ -27,7 +26,6 @@ class ProjectInListSerializer(WritableNestedModelSerializer):
 
 class ProjectSerializer(ProjectInListSerializer):
     disciplines = DisciplineSerializer(many=True, partial=True)
-    manager = ProjectUserSerializer()
 
     class Meta(ProjectInListSerializer.Meta):
         pass
