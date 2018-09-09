@@ -1,9 +1,12 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import '../App.css'
-import ProjectEditContainer from '../containers/ProjectEdit'
+
+import ProjectEdit from '@components/ProjectEdit'
 
 
-
+@inject('store')
+@observer
 export class ProjectsList extends React.Component {
     constructor(props) {
         super(props)
@@ -27,52 +30,55 @@ export class ProjectsList extends React.Component {
     }
 
     render() {
+        // return (
+            // <div>
+                // <table className="table table-bordered table-hover table-striped"
+                       // style={{textAlign: 'center', marginTop: '20px'}}>
+                    // <thead style={{textAlign: 'center'}}>
+                        // <tr>
+                            // <th rowSpan="2" style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>Name</th>
+                            // <th rowSpan="2" style={{verticalAlign: 'middle'}}>Manager</th>
+                            // {
+                                // this.props.disciplineNames.map((discipline, i) => (
+                                    // <th key={i} colSpan="2" style={{verticalAlign: 'middle'}}>{discipline[1]}</th>
+                                // ))
+                            // }
+                            // <th rowSpan="2" style={{verticalAlign: 'middle'}}>Priority</th>
+                            // <th rowSpan="2" style={{verticalAlign: 'middle'}}>Comments</th>
+                        // </tr>
+                    // </thead>
+                    // <tbody>
+                        // {
+                            // this.props.projects.map((project, i) => (
+                                // <tr key={i} onClick={this.editProject} project={project.network} >
+                                    // <td style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>{project.network + ' ' + project.name}</td>
+                                    // <td>{this.props.managers.find(man => man.id === project.manager.id).name}</td>
+                                    // {
+                                        // this.props.disciplineNames.map((discipline, i) => {
+                                            // let a = project.disciplines.find((disc) => (disc['name'] === discipline[0]))
+                                            // return [
+                                                // <td key={i}>{a ? a['stage'] : ''}</td>,
+                                                // <td key={i + 5}>{a ? a['dueDate'] : ''}</td>
+                                            // ]
+                                        // })
+                                    // }
+                                    // <td>{project.priority}</td>
+                                    // <td>{project.comment}</td>
+                                // </tr>
+                                // ))
+                        // }
+                    // </tbody>
+                // </table>
+                // {
+                    // this.state.showEditProject &&
+                    // <ProjectEditContainer
+                        // project={this.state.editableProject}
+                    // />
+                // }
+            // </div>
+            // )
         return (
-            <div>
-                <table className="table table-bordered table-hover table-striped"
-                       style={{textAlign: 'center', marginTop: '20px'}}>
-                    <thead style={{textAlign: 'center'}}>
-                        <tr>
-                            <th rowSpan="2" style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>Name</th>
-                            <th rowSpan="2" style={{verticalAlign: 'middle'}}>Manager</th>
-                            {
-                                this.props.disciplineNames.map((discipline, i) => (
-                                    <th key={i} colSpan="2" style={{verticalAlign: 'middle'}}>{discipline[1]}</th>
-                                ))
-                            }
-                            <th rowSpan="2" style={{verticalAlign: 'middle'}}>Priority</th>
-                            <th rowSpan="2" style={{verticalAlign: 'middle'}}>Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.props.projects.map((project, i) => (
-                                <tr key={i} onClick={this.editProject} project={project.network} >
-                                    <td style={{verticalAlign: 'middle', whiteSpace: 'nowrap'}}>{project.network + ' ' + project.name}</td>
-                                    <td>{this.props.managers.find(man => man.id === project.manager.id).name}</td>
-                                    {
-                                        this.props.disciplineNames.map((discipline, i) => {
-                                            let a = project.disciplines.find((disc) => (disc['name'] === discipline[0]))
-                                            return [
-                                                <td key={i}>{a ? a['stage'] : ''}</td>,
-                                                <td key={i + 5}>{a ? a['dueDate'] : ''}</td>
-                                            ]
-                                        })
-                                    }
-                                    <td>{project.priority}</td>
-                                    <td>{project.comment}</td>
-                                </tr>
-                                ))
-                        }
-                    </tbody>
-                </table>
-                {
-                    this.state.showEditProject &&
-                    <ProjectEditContainer
-                        project={this.state.editableProject}
-                    />
-                }
-            </div>
-            )
+            <div>Oleh, we are waiting for you</div>
+        )
     }
 }

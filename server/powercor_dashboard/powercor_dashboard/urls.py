@@ -39,5 +39,5 @@ router.register(r'approved_variations', ApprovedVariationViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(router.urls))
+    url(r'^api/', include(router.urls)),
 ]

@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import '../App.css'
 
 import { DisciplineForm } from './DisciplineForm'
@@ -8,6 +9,8 @@ import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/Fo
 import { camelizeKeys, filterKeys } from '../services/attributesProcessors'
 
 
+@inject('store')
+@observer
 export class ProjectEdit extends React.Component {
 
     constructor(props) {
@@ -26,13 +29,11 @@ export class ProjectEdit extends React.Component {
         }
 
         this.handleProjectChange = this.handleProjectChange.bind(this)
-        this.handleDisciplineChange = this.handleDisciplineChange.bind(this)
 
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentWillMount() {
-        console.log(this.props.project)
         // if project passed - replace empty state with values from it
         if (this.props.project) {
             // Leave only values present in state.project
@@ -51,39 +52,22 @@ export class ProjectEdit extends React.Component {
         })
     }
 
-    handleDisciplineChange(e) {
-        // const value = e.target.value
-        // const name = e.target.name || e.target.control
-        // // if we changed discipline name - get needed one by name and remove it from list
-        // //
-        // if (name === 'name' ) {
-        //     let disciplines = this.state.project.disciplines.filter(disc => disc['name'] != value)
-
-        // }
-
-        // if (discipline) {
-        //     this.setState({
-        //         pro
-        //     })
-        // }
-        console.log(1)
-    }
-
     handleSubmit(e) {
         e.preventDefault()
         console.log(this.state)
     }
 
     render() {
-        console.log(this.state.project)
+        let store = this.props.store
+
         return(
             <div>
                 <form >
                     <ProjectForm
                         project={this.state.project}
-                        managers={this.props.managers}
-                        clients={this.props.clients}
-                        importances={this.props.importances}
+                        managers={store.managerStore.managers}
+                        clients={store.clientStore.clients}
+                        importances={store.businessImportanceChoiceStore.choices}
                         handleInputChange={this.handleProjectChange}
                     />
                     {
