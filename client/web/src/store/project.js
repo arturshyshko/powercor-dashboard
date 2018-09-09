@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, getRoot } from 'mobx-state-tree'
 
 import { Manager } from '@store/manager'
 import { Client } from '@store/client'
@@ -14,7 +14,11 @@ export const Project = types.model('Project', {
     businessImportance: types.maybeNull(types.reference(BusinessImportanceChoice)),
     priority: types.maybeNull(types.number),
     status: types.string,
-})
+}).views(self => ({
+    get disciplines() {
+        return getRoot(self).disciplineStore.getProjectDisciplines(self)
+    }
+}))
 
 
 const ProjectStore = types.model('ProjectStore', {

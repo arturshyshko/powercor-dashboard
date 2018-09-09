@@ -24,6 +24,10 @@ const DisciplineStore = types.model('DisciplineStore', {
     disciplines: types.array(Discipline)
 }).views(self => ({
 
+    getProjectDisciplines(project) {
+        return self.disciplines.filter(disc => disc.project.network === project.network)
+    }
+
 })).actions(self => ({
 
     parseDiscipline(obj) {
