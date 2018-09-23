@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree'
+import createBaseActions from '@store/helpers/baseActions'
 
 
 const Choice = types.model('Choice', {
@@ -26,6 +27,14 @@ export const StatusChoice = Choice.named('StatusChoice')
 
 //     return { addChoice, }
 // })
+
+export const testStore = types.compose(
+    types.model('test', {
+        tests: types.array(Choice)
+    }),
+    createBaseActions('tests', 'name')
+)
+
 
 export const BusinessImportanceChoiceStore = types.model('BusinessImportanceChoiceStore', {
     choices: types.array(BusinessImportanceChoice)

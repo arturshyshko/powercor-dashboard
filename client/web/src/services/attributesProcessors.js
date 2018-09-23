@@ -10,6 +10,8 @@ export const decamelizeKeys = (object) => (
     ))
 )
 
+// Function to change casing of the keys
+// It just goes through object recursively and applies passed function
 const changeKeysCasing = (object, keyProcessor) => {
     if (Array.isArray(object)) {
         return object.map(v => changeKeysCasing(v, keyProcessor))
@@ -25,6 +27,7 @@ const changeKeysCasing = (object, keyProcessor) => {
     return object
 }
 
+// Return new object only will allowed attributes
 export const filterKeys = (object, allowed) => (
     Object.keys(object)
         .filter(key => allowed.includes(key))
@@ -35,3 +38,16 @@ export const filterKeys = (object, allowed) => (
             }
         }, {})
 )
+
+export const safeProps = (obj, path, def = '') => {
+    const keys = path.split('.')
+    return Object.keys(obj).indexOf(keys[0]) >= 0
+        ? keys.length > 1
+            ? safeProps(obj[keys[0]], keys.slice(1).join('.'), def)
+            : obj[keys[0]]
+                ? obj[keys[0]]
+                : def
+            : def
+}
+
+

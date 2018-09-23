@@ -1,8 +1,8 @@
-import { types, addMiddleware } from 'mobx-state-tree'
+import { types, onSnapshot, onPatch, unprotect } from 'mobx-state-tree'
 
 import ManagerStore from '@store/manager'
 import {
-    BusinessImportanceChoiceStore, StatusChoiceStore, StageChoiceStore, ResourceChoiceStore
+    BusinessImportanceChoiceStore, StatusChoiceStore, StageChoiceStore, ResourceChoiceStore, testStore
 } from '@store/choice'
 import ClientStore from '@store/client'
 import ProjectStore from '@store/project'
@@ -38,14 +38,15 @@ const rootStore = types.model('root', {
     approvedVariationStore: types.optional(ApprovedVariationStore, {
         approvedVariations: []
     }),
+    // test: types.optional(testStore, {
+    //     tests: []
+    // })
 })
 
 const store = rootStore.create({})
 
-// const logger = addMiddleware(store, (call, next, abort) => {
-//     console.log(call.tree.toJSON())
-
-//     next(call)
+// onSnapshot(store, newSnap => {
+//     console.log(newSnap)
 // })
 
 export default store

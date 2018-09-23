@@ -3,6 +3,14 @@
     box-shadow: 0 0 10px black;
     border-radius: 5px;
     padding: 20px;
-    width: 1400px;
+    width: 100%;
     max-width: none;
+}
+
+.border-left {
+    border-left: 2px solid black !important;
+}
+
+.border-right {
+    border-right: 2px solid black !important;
 }
