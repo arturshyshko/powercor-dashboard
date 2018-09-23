@@ -29,11 +29,10 @@ export class Dashboard extends React.Component {
 
     render() {
         return(
-            <div className="container">
+            <div>
                 {this.state.showCreate &&
                     <ProjectEdit />
                 }
-                <button className="btn btn-default" onClick={this.toggleCreate}>Create new project</button>
                 <ProjectsList />
             </div>
         )
