@@ -8,10 +8,11 @@ module.exports = function override(config, env) {
 	// After adding new alias you have to restart application
 	var localModules = {
 		'@actions': path.resolve(__dirname, 'src', 'actions'),
+		'@api': path.resolve(__dirname, 'src', 'api'),
 		'@components': path.resolve(__dirname, 'src', 'components'),
 		'@constants': path.resolve(__dirname, 'src', 'constants'),
+		'@helpers': path.resolve(__dirname, 'src', 'helpers'),
 		'@services': path.resolve(__dirname, 'src', 'services'),
-		'@api': path.resolve(__dirname, 'src', 'api'),
 		'@store': path.resolve(__dirname, 'src', 'store'),
 	}
 
