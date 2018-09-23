@@ -11,6 +11,11 @@ export const setDisciplines = () => {
     fetchDisciplinesData(store.disciplineStore.setDisciplines)
 }
 
+
 export const fetchDisciplineNames = (cb) => {
     fetchData(cb, API_DISCIPLINE_NAMES)
+}
+
+export const setDisciplineNames = () => {
+    fetchDisciplineNames(store.disciplineStore.setDisciplineNames)
 }
