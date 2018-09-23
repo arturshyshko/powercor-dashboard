@@ -1,6 +1,7 @@
 import axios from './httpClient'
 import * as apiUrls from '../constants/apiUrls'
 import { camelizeKeys, decamelizeKeys } from './attributesProcessors'
+import { observable } from 'mobx'
 
 
 export const fetchData = (cb, url) => {
@@ -10,6 +11,7 @@ export const fetchData = (cb, url) => {
 
     }).then(response => {
         cb(camelizeKeys(response.data))
+        tracker.inc()
 
     }).catch(error => {
         console.log(error)
@@ -21,20 +23,22 @@ export const updateObject = (data, cb, url, id) => {
         url + id + '/',
         decamelizeKeys(data)
     ).then(response => {
-        cb(response.data)
+        cb(camelizeKeys(response.data))
     }).catch(error => {
         console.log(error)
     })
 }
 
-export const fetchResourcesData = (cb) => {
-    fetchData(cb, apiUrls.API_RESOURCES)
+class Tracker {
+    @observable count = 0
+
+    inc() {
+        this.count += 1
+    }
+
+    getCount() {
+        return this.count
+    }
 }
 
-export const fetchStagesData = (cb) => {
-    fetchData(cb, apiUrls.API_STAGES)
-}
-
-export const fetchStatusesData = (cb) => {
-    fetchData(cb, apiUrls.API_STATUSES)
-}
+export const tracker = new Tracker()

@@ -148,6 +148,12 @@ STATICFILES_DIRS = [
 ]
 
 
+# Settings for REST Framework
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False
+}
+
+
 # Setup DB for storing dynamic contance settings values
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 

@@ -1,3 +1,4 @@
+from core.serializers.user import ProjectUserSerializer
 from dashboard.models.project import Project
 
 from dashboard.serializers.discipline import DisciplineSerializer, DisciplineInListSerializer
