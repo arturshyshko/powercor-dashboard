@@ -1,4 +1,5 @@
 import { types, getRoot } from 'mobx-state-tree'
+import createBaseActions from '@store/helpers'
 
 import { Project } from '@store/project'
 import { Client } from '@store/client'
@@ -21,98 +22,45 @@ export const Discipline = types.model('Discipline', {
     get verboseName() {
         return getRoot(self).disciplineStore.names.find(name => name.id === self.name).name
     }
+})).preProcessSnapshot(snapshot => ({
+    id: snapshot.id,
+    name: snapshot.name,
+    project: snapshot.project,
+    stage: snapshot.stage,
+    budget: snapshot.budget,
+    dueDate: new Date(snapshot.dueDate),
+    resources: snapshot.resources,
+    status: snapshot.status,
+    actualCost: snapshot.actualCost,
 }))
 
 
 export const DisciplineName = types.model('DisciplineName', {
     id: types.identifier,
     name: types.string,
-})
-
-
-const DisciplineStore = types.model('DisciplineStore', {
-    disciplines: types.array(Discipline),
-    names: types.array(DisciplineName),
-}).views(self => ({
-
-    getProjectDisciplines(project) {
-        return self.disciplines.filter(disc => disc.project.network === project.network)
-    },
-
-    get verboseNames() {
-        return self.names.map(disciplineName => disciplineName.name)
-    }
-
-})).actions(self => ({
-
-    parseDiscipline(obj) {
-        return Discipline.create({
-            id: obj.id,
-            name: obj.name,
-            project: obj.project,
-            stage: obj.stage,
-            budget: obj.budget,
-            dueDate: new Date(obj.dueDate),
-            resources: obj.resources,
-            status: obj.status,
-            actualCost: obj.actualCost,
-        })
-    },
-
-    addDiscipline(object) {
-        self.disciplines.push(self.parseDiscipline(object))
-    },
-
-    addDisciplines(data) {
-        data.map(discipline => {
-            self.addDiscipline(discipline)
-        })
-    },
-
-    setDiscipline(discipline) {
-        // Replace old instance if the id's are the same
-        // Add new one if there are no managers with this id
-        let oldDiscipline = self.disciplines.find(obj => obj.id === discipline.id)
-        if (oldDiscipline) {
-            self.oldDiscipline = self.parseDiscipline(discipline)
-        } else{
-            self.addDiscipline(discipline)
-        }
-    },
-
-    setDisciplines(data) {
-        data.map(discipline => {
-            self.setDiscipline(discipline)
-        })
-    },
-
-
-    parseDisciplineName(obj) {
-        return DisciplineName.create({
-            id: obj['id'] || obj[0],
-            name: obj['name'] || obj[1],
-        })
-    },
-
-    addDisciplineName(object) {
-        self.names.push(self.parseDisciplineName(object))
-    },
-
-    setDisciplineName(name) {
-        let oldName = self.names.find(obj => obj.id === name.id)
-        if (oldName) {
-            self.oldName = self.parseDisciplineName(name)
-        } else{
-            self.addDisciplineName(name)
-        }
-    },
-
-    setDisciplineNames(data) {
-        data.map(name => {
-            self.setDisciplineName(name)
-        })
-    },
-
+}).preProcessSnapshot(snapshot => ({
+    id: snapshot[0],
+    name: snapshot[1],
 }))
+
+
+const DisciplineStore = types.compose(
+    types.model('DisciplineStore', {
+        disciplines: types.array(Discipline),
+        names: types.array(DisciplineName),
+    }).views(self => ({
+
+        getProjectDisciplines(project) {
+            return self.disciplines.filter(disc => disc.project.network === project.network)
+        },
+
+        get verboseNames() {
+            return self.names.map(disciplineName => disciplineName.name)
+        }
+
+    })),
+    createBaseActions('disciplines'),
+    createBaseActions('names')
+)
 
 export default DisciplineStore

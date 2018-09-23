@@ -1,4 +1,5 @@
 import { types, getRoot } from 'mobx-state-tree'
+import createBaseActions from '@store/helpers'
 
 import { Manager } from '@store/manager'
 import { Client } from '@store/client'
@@ -23,55 +24,23 @@ export const Project = types.model('Project', {
         }, {})
     },
 
+})).preProcessSnapshot(snapshot => ({
+    network: snapshot.network,
+    name: snapshot.name,
+    manager: snapshot.manager,
+    client: snapshot.client,
+    comment: snapshot.comment,
+    businessImportance: snapshot.businessImportance,
+    priority: snapshot.priority,
+    status: snapshot.status,
 }))
 
 
-const ProjectStore = types.model('ProjectStore', {
-    projects: types.array(Project)
-}).views(self => ({
-
-})).actions(self => ({
-    parseProject(obj) {
-        return Project.create({
-            network: obj.network,
-            name: obj.name,
-            manager: obj.manager,
-            client: obj.client,
-            comment: obj.comment,
-            businessImportance: obj.businessImportance,
-            priority: obj.priority,
-            status: obj.status,
-        })
-
-    },
-
-    addProject(object) {
-        self.projects.push(self.parseProject(object))
-    },
-
-    addProjects(data) {
-        data.map(project => {
-            self.addProject(project)
-        })
-    },
-
-    setProject(project) {
-        // Replace old instance if the id's are the same
-        // Add new one if there are no projects with this id
-        let oldProject = self.projects.find(obj => obj.network === project.network)
-        if (oldProject) {
-            self.oldProject = self.parseProject(project)
-        } else{
-            self.addProject(project)
-        }
-    },
-
-    setProjects(data) {
-        data.map(project => {
-            self.setProject(project)
-        })
-    },
-
-}))
+const ProjectStore = types.compose(
+    types.model('ProjectStore', {
+        projects: types.array(Project)
+    }),
+    createBaseActions('projects', 'network')
+)
 
 export default ProjectStore
