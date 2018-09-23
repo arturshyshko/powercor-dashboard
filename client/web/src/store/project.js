@@ -15,9 +15,14 @@ export const Project = types.model('Project', {
     priority: types.maybeNull(types.number),
     status: types.string,
 }).views(self => ({
+
     get disciplines() {
-        return getRoot(self).disciplineStore.getProjectDisciplines(self)
-    }
+        return getRoot(self).disciplineStore.getProjectDisciplines(self).reduce((result, disc) => {
+            result[disc.name] = disc
+            return result
+        }, {})
+    },
+
 }))
 
 

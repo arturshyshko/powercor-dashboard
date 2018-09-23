@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, getRoot } from 'mobx-state-tree'
 
 import { Project } from '@store/project'
 import { Client } from '@store/client'
@@ -17,15 +17,30 @@ export const Discipline = types.model('Discipline', {
     resources: types.maybeNull(types.reference(ResourceChoice)),
     status: types.maybeNull(types.reference(StatusChoice)),
     actualCost: types.maybeNull(types.number),
+}).views(self => ({
+    get verboseName() {
+        return getRoot(self).disciplineStore.names.find(name => name.id === self.name).name
+    }
+}))
+
+
+export const DisciplineName = types.model('DisciplineName', {
+    id: types.identifier,
+    name: types.string,
 })
 
 
 const DisciplineStore = types.model('DisciplineStore', {
-    disciplines: types.array(Discipline)
+    disciplines: types.array(Discipline),
+    names: types.array(DisciplineName),
 }).views(self => ({
 
     getProjectDisciplines(project) {
         return self.disciplines.filter(disc => disc.project.network === project.network)
+    },
+
+    get verboseNames() {
+        return self.names.map(disciplineName => disciplineName.name)
     }
 
 })).actions(self => ({
@@ -68,6 +83,33 @@ const DisciplineStore = types.model('DisciplineStore', {
     setDisciplines(data) {
         data.map(discipline => {
             self.setDiscipline(discipline)
+        })
+    },
+
+
+    parseDisciplineName(obj) {
+        return DisciplineName.create({
+            id: obj['id'] || obj[0],
+            name: obj['name'] || obj[1],
+        })
+    },
+
+    addDisciplineName(object) {
+        self.names.push(self.parseDisciplineName(object))
+    },
+
+    setDisciplineName(name) {
+        let oldName = self.names.find(obj => obj.id === name.id)
+        if (oldName) {
+            self.oldName = self.parseDisciplineName(name)
+        } else{
+            self.addDisciplineName(name)
+        }
+    },
+
+    setDisciplineNames(data) {
+        data.map(name => {
+            self.setDisciplineName(name)
         })
     },
 
