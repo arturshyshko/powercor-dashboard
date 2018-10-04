@@ -14,3 +14,11 @@
 .border-right {
     border-right: 2px solid black !important;
 }
+
+.vertical-center {
+    vertical-align: middle !important;
+}
+
+.horizontal-center {
+    text-align: center;
+}
