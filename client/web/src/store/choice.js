@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import createBaseActions from '@store/helpers'
+import { createBaseActions } from '@store/helpers'
 
 
 const Choice = types.model('Choice', {

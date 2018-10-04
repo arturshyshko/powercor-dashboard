@@ -1,15 +1,16 @@
 import { types, getRoot } from 'mobx-state-tree'
-import createBaseActions from '@store/helpers'
+import { createBaseActions } from '@store/helpers'
 
 import { Manager } from '@store/manager'
 import { Client } from '@store/client'
-import {BusinessImportanceChoice } from '@store/choice'
+import { BusinessImportanceChoice } from '@store/choice'
+import { asyncReference } from '@store/helpers/asyncIdentifier'
 
 
 export const Project = types.model('Project', {
     network: types.identifierNumber,
     name: types.string,
-    manager: types.maybeNull(types.reference(Manager)),
+    manager: asyncReference,
     client: types.maybeNull(types.reference(Client)),
     comment: types.optional(types.string, ''),
     businessImportance: types.maybeNull(types.reference(BusinessImportanceChoice)),

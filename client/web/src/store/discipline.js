@@ -1,5 +1,5 @@
 import { types, getRoot } from 'mobx-state-tree'
-import createBaseActions from '@store/helpers'
+import { createBaseActions } from '@store/helpers'
 
 import { Project } from '@store/project'
 import { Client } from '@store/client'
