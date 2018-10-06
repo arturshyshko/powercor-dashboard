@@ -1,5 +1,8 @@
 import { types } from 'mobx-state-tree'
-import { createBaseActions } from '@store/helpers'
+
+import createAllActions from '@store/helpers'
+
+import { API_IMPORTANCES, API_RESOURCES, API_STAGES, API_STATUSES } from '@constants/apiUrls'
 
 
 const Choice = types.model('Choice', {
@@ -19,26 +22,26 @@ export const BusinessImportanceChoiceStore = types.compose(
     types.model('BusinessImportanceChoiceStore', {
         choices: types.array(BusinessImportanceChoice)
     }),
-    createBaseActions('choices', 'name')
+    createAllActions('choices', API_IMPORTANCES, 'name')
 )
 
 export const ResourceChoiceStore = types.compose(
     types.model('ResourceChoiceStore', {
         choices: types.array(ResourceChoice)
     }),
-    createBaseActions('choices', 'name')
+    createAllActions('choices', API_RESOURCES, 'name')
 )
 
 export const StageChoiceStore = types.compose(
     types.model('StageChoiceStore', {
         choices: types.array(StageChoice)
     }),
-    createBaseActions('choices', 'name')
+    createAllActions('choices', API_STAGES, 'name')
 )
 
 export const StatusChoiceStore = types.compose(
     types.model('StatusChoiceStore', {
         choices: types.array(StatusChoice)
     }),
-    createBaseActions('choices', 'name')
+    createAllActions('choices', API_STATUSES, 'name')
 )

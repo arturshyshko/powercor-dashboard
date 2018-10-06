@@ -1,5 +1,9 @@
 import { types, getRoot } from 'mobx-state-tree'
-import { createBaseActions } from '@store/helpers'
+
+import asyncReference from '@store/helpers/asyncIdentifier'
+import createAllActions, {createBaseActions} from '@store/helpers'
+
+import { API_DISCIPLINES } from '@constants/apiUrls'
 
 import { Project } from '@store/project'
 import { Client } from '@store/client'
@@ -11,12 +15,12 @@ import {
 export const Discipline = types.model('Discipline', {
     id: types.identifierNumber,
     name: types.string,
-    project: types.maybeNull(types.reference(Project)),
-    stage: types.maybeNull(types.reference(StageChoice)),
+    project: asyncReference(Project),
+    stage: asyncReference(StageChoice, 'getOrLoadChoice'),
     budget: types.optional(types.number, 0.00),
     dueDate: types.maybeNull(types.Date),
-    resources: types.maybeNull(types.reference(ResourceChoice)),
-    status: types.maybeNull(types.reference(StatusChoice)),
+    resources: asyncReference(ResourceChoice, 'getOrLoadChoice'),
+    status: asyncReference(StatusChoice, 'getOrLoadChoice'),
     actualCost: types.maybeNull(types.number),
 }).views(self => ({
     get verboseName() {
@@ -59,7 +63,7 @@ const DisciplineStore = types.compose(
         }
 
     })),
-    createBaseActions('disciplines'),
+    createAllActions('disciplines', API_DISCIPLINES),
     createBaseActions('names')
 )
 

@@ -1,5 +1,8 @@
 import { types } from 'mobx-state-tree'
-import { createBaseActions } from '@store/helpers'
+
+import createAllActions from '@store/helpers'
+
+import { API_CLIENTS } from '@constants/apiUrls'
 
 
 export const Client = types.model('Client', {
@@ -17,7 +20,7 @@ const ClientStore = types.compose(
     types.model('ClientStore', {
         clients: types.array(Client)
     }),
-    createBaseActions('clients')
+    createAllActions('clients', API_CLIENTS)
 )
 
 export default ClientStore

@@ -1,19 +1,22 @@
 import { types, getRoot } from 'mobx-state-tree'
-import { createBaseActions } from '@store/helpers'
+
+import createAllActions from '@store/helpers'
+import asyncReference from '@store/helpers/asyncIdentifier'
+
+import { API_PROJECTS } from '@constants/apiUrls'
 
 import { Manager } from '@store/manager'
 import { Client } from '@store/client'
 import { BusinessImportanceChoice } from '@store/choice'
-import { asyncReference } from '@store/helpers/asyncIdentifier'
 
 
 export const Project = types.model('Project', {
     network: types.identifierNumber,
     name: types.string,
-    manager: asyncReference,
-    client: types.maybeNull(types.reference(Client)),
+    manager: asyncReference(Manager),
+    client: asyncReference(Client),
     comment: types.optional(types.string, ''),
-    businessImportance: types.maybeNull(types.reference(BusinessImportanceChoice)),
+    businessImportance: asyncReference(BusinessImportanceChoice, 'getOrLoadChoice'),
     priority: types.maybeNull(types.number),
     status: types.string,
 }).views(self => ({
@@ -41,7 +44,7 @@ const ProjectStore = types.compose(
     types.model('ProjectStore', {
         projects: types.array(Project)
     }),
-    createBaseActions('projects', 'network')
+    createAllActions('projects', API_PROJECTS, 'network')
 )
 
 export default ProjectStore

@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { createBaseActions } from '@store/helpers'
+import createAllActions from '@store/helpers'
 
 import { setManagers } from '@api/managers'
 import {fetchData} from '@services/apiAccess'
@@ -19,15 +19,7 @@ const ManagerStore = types.compose(
     types.model('ManagerStore', {
         managers: types.array(Manager)
     }),
-    createBaseActions('managers')
-).views(self => ({
-    getOrLoadManager(id) {
-        const manager = self.managers.find(man => man.id === id) || {}
-        if (Object.keys(manager).length === 0 && manager.constructor === Object) {
-            fetchData((data) => self.addManager(data), `${API_MANAGERS}${id}/`)
-        }
-        return manager
-    }
-}))
+    createAllActions('managers', API_MANAGERS)
+)
 
 export default ManagerStore
