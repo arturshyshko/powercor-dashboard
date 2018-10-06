@@ -23,6 +23,7 @@ export const setObjectsToArray = (objects, destinationArray, findField='id') => 
     objects.map(obj => {setObjectToArray(obj, destinationArray, findField)})
 }
 
+
 const createBaseActions = (collection, findField='id') => (
     types.model({}).actions(self => ({
 

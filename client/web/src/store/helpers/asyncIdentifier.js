@@ -1,27 +1,30 @@
 import { types, getRoot } from 'mobx-state-tree'
-import { Manager } from '@store/manager'
+
+import { safeProps } from '@services/attributesProcessors'
+import { createFunctionName } from './functionProcessors'
 
 
-export const asyncReference = types.maybe(
-    types.reference(Manager, {
+const createAsyncReference = (referencee, loadFunction=null, store=null, identifierField='id') => {
+    if (loadFunction === null) {
+        // If no load function name was passed use default pattern - getOrLoad<Object>
+        // referencee is mobx-state-tree instance -> has 'name' property
+        loadFunction = createFunctionName('getOrLoad', referencee.name, true)
+    }
+    if (store === null) {
+        // If no store name was passed use default pattern - <object>Store
+        // referencee is mobx-state-tree instance -> has 'name' property
+        store = referencee.name[0].toLowerCase() + referencee.name.slice(1) + 'Store'
+    }
+
+    return types.maybe(types.reference(referencee, {
         get(identifier, parent) {
-            return getRoot(parent).managerStore.getOrLoadManager(identifier)
+            return safeProps(getRoot(parent), store)[loadFunction](identifier)
         },
 
         set(value) {
-            return value.id
-        }
-    })
-)
-
-export const createAsyncReference = (referencee, store, loadFunction, identifierType='id') => (
-    types.maybe(types.reference(referencee, {
-        get(identifier, parent) {
-            return getRoot(parent)[store][loadFunction](identifier)
-        },
-
-        set(value) {
-            return value[identifierType]
+            return value[identifierField]
         }
     }))
-)
+}
+
+export default createAsyncReference
