@@ -17,5 +17,5 @@ export const fetchDisciplineNames = (cb) => {
 }
 
 export const setDisciplineNames = () => {
-    fetchDisciplineNames(store.disciplineStore.setDisciplineNames)
+    fetchDisciplineNames(store.disciplineStore.setNames)
 }

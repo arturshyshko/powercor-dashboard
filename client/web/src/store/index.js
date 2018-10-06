@@ -2,7 +2,7 @@ import { types, onSnapshot, onPatch, unprotect } from 'mobx-state-tree'
 
 import ManagerStore from '@store/manager'
 import {
-    BusinessImportanceChoiceStore, StatusChoiceStore, StageChoiceStore, ResourceChoiceStore, testStore
+    BusinessImportanceChoiceStore, StatusChoiceStore, StageChoiceStore, ResourceChoiceStore
 } from '@store/choice'
 import ClientStore from '@store/client'
 import ProjectStore from '@store/project'
@@ -38,15 +38,12 @@ const rootStore = types.model('root', {
     approvedVariationStore: types.optional(ApprovedVariationStore, {
         approvedVariations: []
     }),
-    // test: types.optional(testStore, {
-    //     tests: []
-    // })
 })
 
 const store = rootStore.create({})
 
-// onSnapshot(store, newSnap => {
-//     console.log(newSnap)
-// })
+onSnapshot(store, newSnap => {
+    console.log(newSnap)
+})
 
 export default store

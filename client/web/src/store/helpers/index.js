@@ -1,20 +1,22 @@
-export const addObjectToArray = (object, destinationArray) => {
-    destinationArray.push(object)
-}
+import { types } from 'mobx-state-tree'
 
-export const addObjectsToArray = (objects, destinationArray) => {
-    objects.map(obj => {addObjectToArray(obj, destinationArray)})
-}
+import { createFunctionName } from './functionProcessors'
+import createBaseActions from './baseActions'
+import createAsyncActions from './asyncActions'
 
-export const setObjectToArray =(object, destinationArray, findField='id') => {
-    let oldObject = destinationArray.find(arrayObj => arrayObj[findField] === object[findField])
-    if (oldObject) {
-        oldObject = object
-    } else {
-        addObjectToArray(object, destinationArray)
-    }
-}
+const createAllActions = (collection, apiEndpoint, identifierField='id') => (
+    types.compose(
+        createBaseActions(collection, identifierField),
+        createAsyncActions(
+            collection,
+            createFunctionName('set', collection, false),
+            apiEndpoint,
+            identifierField
+        ),
+    )
+)
 
-export const setObjectsToArray = (objects, destinationArray, findField='id') => {
-    objects.map(obj => {setObjectToArray(obj, destinationArray, findField)})
-}
+export { default as createBaseActions } from './baseActions'
+export { default as createAsyncActions } from './asyncActions'
+
+export default createAllActions
