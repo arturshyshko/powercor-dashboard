@@ -19,26 +19,19 @@ export class ProjectsList extends React.Component {
         this.disciplineColumns = this.disciplineColumns.bind(this)
     }
 
+// TODO: I should probably make special class for columns which will deal with a lot of stuff
+// For example put empty styling for all column children
     projectColumns(project) {
         let result = {
             0: {
                 header: 'Name',
                 accessor: project => `${project.network} ${project.name}`,
-                style: {whiteSpace: 'noWrap'}
+                style: {whiteSpace: 'noWrap'},
             },
             1: {
                 header: 'DM',
                 accessor: project => `${project.manager.name || 'N/A'}`,
             },
-            7: {
-                header: 'Comments',
-                accessor: project => project.comment,
-                style: {whiteSpace: 'normal'}
-            },
-            8 :{
-                header: 'Priority',
-                accessor: project => project.priority,
-            }
         }
 
         this.props.store.disciplineStore.names.forEach((verbose, i) => (
@@ -54,31 +47,32 @@ export class ProjectsList extends React.Component {
             columns: {
                 0: {
                     header: 'Stage',
-                    accessor: project => {
-                        if (!project.disciplines[disciplineName.id]) return 'N/A'
-                        return safeProps(project.disciplines[disciplineName.id], 'stage.name')
+                    accessor: project => safeProps(project.disciplines[disciplineName.id], 'stage.name'),
+                    empty: {
+                        style: {backgroundColor: '#aeb1b7', borderRight: '0px'}
                     },
                 },
                 1: {
                     header: 'Due Date',
-                    accessor: project => {
-                        if (!project.disciplines[disciplineName.id]) return 'N/A'
-                        return moment(safeProps(project.disciplines[disciplineName.id], 'dueDate', new Date()))
-                            .format('DD:MM:YYYY')
+                    accessor: project => moment(safeProps(project.disciplines[disciplineName.id], 'dueDate', new Date()))
+                        .format('DD-MM-YYYY'),
+                    style: {whiteSpace: 'noWrap'},
+                    empty: {
+                        style: {backgroundColor: '#aeb1b7', border: '0px'}
                     },
                 },
                 2: {
                     header: 'Resources',
-                    accessor: project => {
-                        if (!project.disciplines[disciplineName.id]) return 'N/A'
-                        return safeProps(project.disciplines[disciplineName.id], 'resources.name')
+                    accessor: project => safeProps(project.disciplines[disciplineName.id], 'resources.name'),
+                    empty: {
+                        style: {backgroundColor: '#aeb1b7', border: '0px'}
                     },
                 },
                 3: {
                     header: 'Budget Cost',
-                    accessor: project => {
-                        if (!project.disciplines[disciplineName.id]) return 'N/A'
-                        return safeProps(project.disciplines[disciplineName.id], 'budget')
+                    accessor: project => safeProps(project.disciplines[disciplineName.id], 'budget'),
+                    empty: {
+                        style: {backgroundColor: '#aeb1b7', borderLeft: '0px'}
                     },
                 },
             },
@@ -91,8 +85,10 @@ export class ProjectsList extends React.Component {
         return (
             <ProjectsTable
                 className="table table-bordered table-hover table-striped horizontal-center"
-                headCellClassName="vertical-center"
-                bodyCellClassName="vertical-center"
+                style={{fontSize: '10pt'}}
+                headCellClassName="vertical-center less-padding"
+                bodyCellClassName="vertical-center less-padding"
+                defaultEmpty="N/A"
                 data={projects}
                 columns={this.projectColumns()}
             />

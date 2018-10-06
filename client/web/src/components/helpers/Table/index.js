@@ -15,17 +15,19 @@ class Table extends React.Component {
 
     render() {
         const {
-            data, columns,
-            className, headClassName, headCellClassName,
+            data, columns, defaultEmpty,
+            className, style,
+            headClassName, headCellClassName,
             bodyClassName, bodyRowClassName, bodyCellClassName
         } = this.props
 
         return (
-            <table className={className}>
+            <table className={className} style={style}>
                 <thead className={headClassName}>
                     <TableHead
                         columns={columns}
-                        className={headCellClassName}
+                        className={headClassName}
+                        cellClassName={headCellClassName}
                     />
                 </thead>
                 <tbody className={bodyClassName}>
@@ -38,6 +40,7 @@ class Table extends React.Component {
                                 columns={flattenColumns(columns)}
                                 tableid={index + 1}
                                 data={object}
+                                defaultEmpty={defaultEmpty}
                             />
                         ))
                     }

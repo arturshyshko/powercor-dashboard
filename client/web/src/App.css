@@ -20,5 +20,14 @@
 }
 
 .horizontal-center {
-    text-align: center;
+    text-align: center !important;
+}
+
+.less-padding {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+}
+
+.project-table {
+    border: 1px solid #ddd !important
 }
