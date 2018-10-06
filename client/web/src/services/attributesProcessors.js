@@ -40,6 +40,9 @@ export const filterKeys = (object, allowed) => (
 )
 
 export const safeProps = (obj, path, def = '') => {
+    if (obj == null) {
+        return def
+    }
     const keys = path.split('.')
     return Object.keys(obj).indexOf(keys[0]) >= 0
         ? keys.length > 1
