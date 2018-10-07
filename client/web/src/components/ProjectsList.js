@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { observer, inject } from 'mobx-react'
 import moment from 'moment'
 import '../App.css'
@@ -7,6 +7,8 @@ import ReactTable from 'react-table'
 import ProjectsTable from '@components/helpers/Table'
 
 import { safeProps } from '@services/attributesProcessors'
+import './helpers/MobxTable'
+import { MobxTable } from './helpers/MobxTable'
 
 
 @inject('store')
@@ -82,16 +84,43 @@ export class ProjectsList extends React.Component {
     render() {
         const { projects } = this.props.store.projectStore
 
+        const columns = [
+            {
+                header: 'LOL',
+                accessor: project => project.name,
+            },
+            {
+                header: 'WUT',
+                accessor: project => project.manager.name,
+            },
+            {
+                header: 'DISCIPLINE',
+                columns: [
+                    {
+                        header: 'Stage',
+                        accessor: project => project.disciplines['PD'].stage.name
+                    },
+                    {
+                        header: 'Due Date',
+                        accessor: project => moment(project.disciplines['PD'].dueDate).format('DD-MM-YYYY'),
+                    }
+                ]
+            }
+        ]
+
         return (
-            <ProjectsTable
-                className="table table-bordered table-hover table-striped horizontal-center"
-                style={{fontSize: '10pt'}}
-                headCellClassName="vertical-center less-padding"
-                bodyCellClassName="vertical-center less-padding"
-                defaultEmpty="N/A"
-                data={projects}
-                columns={this.projectColumns()}
-            />
+            <Fragment>
+                <MobxTable columns={columns} data={projects}/>
+                <ProjectsTable
+                    className="table table-bordered table-hover table-striped horizontal-center"
+                    style={{fontSize: '10pt'}}
+                    headCellClassName="vertical-center less-padding"
+                    bodyCellClassName="vertical-center less-padding"
+                    defaultEmpty="N/A"
+                    data={projects}
+                    columns={this.projectColumns()}
+                />
+            </Fragment>
         )
     }
 }
