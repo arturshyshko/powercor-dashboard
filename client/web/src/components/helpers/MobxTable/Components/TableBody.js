@@ -23,6 +23,7 @@ class TableRow extends React.Component {
 
     render() {
         const {object, columns} = this.props
+        console.log(columns.map(col => col.toJSON))
         return (
             <tr>
                 {columns.map(
@@ -38,10 +39,37 @@ class TableRow extends React.Component {
 class TableCell extends React.Component {
     @observable cell = new Cell(this.props.column, this.props.row)
 
-    render() {
+    constructor(props) {
+        super(props)
+
+        this.cellStyle = this.cellStyle.bind(this)
+    }
+
+    componentDidMount() {
         this.cell.value = this.props.data
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.data !== prevProps.data) {
+            this.cell.value = this.props.data
+        }
+    }
+
+    cellStyle() {
+        if (this.cell.isEmpty) {
+            return this.cell.emptyStyle
+        } else {
+            return this.cell.columnStyle
+        }
+    }
+
+    render() {
         return (
-            <td>{this.cell.value}</td>
+            <td
+                style={this.cellStyle()}
+            >
+                {this.cell.value}
+            </td>
         )
     }
 }

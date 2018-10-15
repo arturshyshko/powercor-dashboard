@@ -8,11 +8,11 @@ class Column {
     @observable id
     @observable name=''
     @observable initialLayer
-    @observable children = []
+    @observable children = {}
     @observable cells = []
     @observable parent = null
 
-    constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null) {
+    constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null, style=null, type='string') {
         this.id = _id++
         this.name = name
         this.initialRowSpan = rowSpan
@@ -20,7 +20,10 @@ class Column {
         this.initialLayer = layer
         this.header = header
         this.accessor = accessor
-        autorun(() => this.children.forEach(child => {child.parent = this}))
+        this.style = style
+        this.type = type
+
+        autorun(() => this.children.columns.forEach(child => {child.parent = this}))
         autorun(() => this.cells.forEach(cell => {cell.column = this}))
     }
 
@@ -30,7 +33,7 @@ class Column {
         } else if (!this.hasChildren) {
             return 1
         } else {
-            return this.children.reduce((result, child) => (result += child.colSpan), 0)
+            return this.children.columns.reduce((result, child) => (result += child.colSpan), 0)
         }
     }
 
@@ -58,22 +61,53 @@ class Column {
         }
     }
 
+    // Function to check whether this column has children or not
     @computed get hasChildren() {
-        if (this.children == null)
+        if (this.children.columns == null)
             return false
-        if (this.children.length === 0) {
+        if (this.children.columns.filter(child => child != null).length === 0) {
             return false
         }
         return true
     }
 
-    toJSON() {
+    // Function to return inherited styling to this column cells
+    @computed get inheritedStyle() {
+        // If this column has no parents - return styling from children attribute
+        // Otherwise append styling from children attribute to same styling in parentive column
+        if (this.parent == null) {
+            return this.children.style
+        } else {
+            return { ...this.parent.inheritedStyle, ...this.children.style }
+        }
+    }
+
+    child(id) {
+        return this.children.columns.find(child => child.id === id)
+    }
+
+    removeChild(value) {
+        let childIndex = null
+
+        if (value instanceof Column) {
+            childIndex = this.children.columns.findIndex(child => child.id === value.id)
+        } else {
+            childIndex = this.children.columns.findIndex(child => child.id === value)
+        }
+
+        if (childIndex != null) {
+            this.children.columns.splice(childIndex, 1)
+        }
+    }
+
+    get toJSON() {
         let result = {
             id: this.id,
             name: this.name,
             accessor: this.accessor,
             header: this.header,
-            children: this.children.map(child => child.toJSON())
+            children: this.children.columns.map(child => child.toJSON),
+            cells: this.cells
         }
 
         const allowed = Object.values(arguments)
@@ -83,6 +117,12 @@ class Column {
 
         return result
     }
+
+    // delete() {
+    //     if (this.cells.length !== 0) {
+    //         this.cells.forEach(cell => cell.delete())
+    //     }
+    // }
 }
 
 export default Column

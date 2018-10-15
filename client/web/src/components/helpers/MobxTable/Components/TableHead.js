@@ -8,36 +8,28 @@ class TableHead extends React.Component {
     constructor(props) {
         super(props)
 
-        this.buildHeader = this.buildHeader.bind(this)
     }
 
-    buildHeader() {
+    render() {
         const { header } = this.props
-
         return (
-            <Fragment>
+            <thead>
                 {
                     Object.values(header.layers).map(layer => (
                         <tr>
                             {
                                 layer.map(column => (
                                     <th
+                                        tableid={column.id}
                                         rowSpan={column.rowSpan}
                                         colSpan={column.colSpan}
+                                        onClick={this.props.onColumnClick}
                                     >{column.name}</th>
                                 ))
                             }
                         </tr>
                     ))
                 }
-            </Fragment>
-        )
-    }
-
-    render() {
-        return (
-            <thead>
-                {this.buildHeader()}
             </thead>
         )
     }

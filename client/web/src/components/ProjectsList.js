@@ -92,25 +92,47 @@ export class ProjectsList extends React.Component {
             {
                 header: 'WUT',
                 accessor: project => project.manager.name,
+                style: {
+                    backgroundColor: 'green',
+                    empty: {
+                        backgroundColor: 'red',
+                    }
+                }
             },
             {
                 header: 'DISCIPLINE',
-                columns: [
-                    {
-                        header: 'Stage',
-                        accessor: project => project.disciplines['PD'].stage.name
+                accessor: project => project.disciplines['UD'],
+                children: {
+                    style: {
+                        empty: {
+                            backgroundColor: 'red',
+                        }
                     },
-                    {
-                        header: 'Due Date',
-                        accessor: project => moment(project.disciplines['PD'].dueDate).format('DD-MM-YYYY'),
-                    }
-                ]
+                    columns: [
+                        {
+                            header: 'Stage',
+                            accessor: project => project.disciplines['PD'].stage.name
+                        },
+                        {
+                            header: 'Due Date',
+                            accessor: project => moment(project.disciplines['PD'].dueDate).format('DD-MM-YYYY'),
+                        },
+                        {
+                            header: 'Budget',
+                            accessor: project => project.disciplines['PD'].budget
+                        }
+                    ]
+                }
             }
         ]
 
         return (
             <Fragment>
-                <MobxTable columns={columns} data={projects}/>
+                <MobxTable
+                    className="table table-bordered table-hover table-striped horizontal-center"
+                    columns={columns}
+                    data={projects}
+                />
                 <ProjectsTable
                     className="table table-bordered table-hover table-striped horizontal-center"
                     style={{fontSize: '10pt'}}
@@ -126,7 +148,7 @@ export class ProjectsList extends React.Component {
 }
 
 
-// Possible future alternate relization for table
+// Possible future alternate realization for table
 //        <Table data={projects}>
 //            <Column header="Name">{project => `${project.network} ${project.name}`}</Column>
 //            <Column header="DM">{project => project.manager.name}</Column>

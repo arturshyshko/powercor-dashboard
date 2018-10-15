@@ -33,11 +33,38 @@ class Header {
     }
 
     column(id) {
-        this.columns.find(column => column.id === id)
+        return this.columns.find(column => column.id == id)
     }
 
     setColumns(objects) {
-        parseColumns(objects, this.columns)
+        return parseColumns(objects, this.columns)
+    }
+
+    get toJSON() {
+        return this.columns.map(column => column.toJSON)
+    }
+
+    delete(id) {
+        const column = this.column(id)
+        if (column) {
+            if (column.hasChildren) {
+                // Currently we do nothing if this column has children
+                return
+                // TODO remove children of this column if it is clicked
+
+                // Remove children from the end of array due to index changes
+                // Tried this - some unexpected bug where i delete another random column
+
+                // column.children.parent = null
+            }
+            column.delete()
+            if (column.parent != null) {
+                if (column.parent.hasChildren === false) {
+                    this.delete(column.parent.id)
+                }
+            }
+            this.columns.splice(this.columns.findIndex(col => col.id == column.id), 1)
+        }
     }
 }
 
