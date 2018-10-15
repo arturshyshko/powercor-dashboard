@@ -22,20 +22,9 @@ const createColumn = (column, headerArray=null) => {
         style,
     )
 
-    let childrenStyle = null
-
-    // Process full syntax of column children if 'children' attribute is present
-    if(children != null) {
-        columns = children.columns
-        childrenStyle = children.style
-    }
-
     // Add embedded columns to children array of parent column
-    result.children.columns = [].concat(columns)
+    result.children = [].concat(columns)
         .filter(elem => elem != null).map(child => createColumn(child, headerArray))
-
-    // Set optional parent style attribute for column
-    result.children.style = childrenStyle
 
     if (headerArray != null) {
         headerArray.push(result)

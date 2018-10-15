@@ -8,7 +8,7 @@ class Column {
     @observable id
     @observable name=''
     @observable initialLayer
-    @observable children = {}
+    @observable children = []
     @observable cells = []
     @observable parent = null
 
@@ -20,10 +20,13 @@ class Column {
         this.initialLayer = layer
         this.header = header
         this.accessor = accessor
+        // This attribute is internally used by 'style' getter and setter
+        // It is here just for convenience and can be safely removed
+        this._style = {standard: null, empty: null}
         this.style = style
         this.type = type
 
-        autorun(() => this.children.columns.forEach(child => {child.parent = this}))
+        autorun(() => this.children.forEach(child => {child.parent = this}))
         autorun(() => this.cells.forEach(cell => {cell.column = this}))
     }
 
@@ -33,7 +36,7 @@ class Column {
         } else if (!this.hasChildren) {
             return 1
         } else {
-            return this.children.columns.reduce((result, child) => (result += child.colSpan), 0)
+            return this.children.reduce((result, child) => (result += child.colSpan), 0)
         }
     }
 
@@ -61,42 +64,64 @@ class Column {
         }
     }
 
-    // Function to check whether this column has children or not
+    // Check whether this column has children or not
     @computed get hasChildren() {
-        if (this.children.columns == null)
+        if (this.children == null)
             return false
-        if (this.children.columns.filter(child => child != null).length === 0) {
+        if (this.children.filter(child => child != null).length === 0) {
             return false
         }
         return true
     }
 
-    // Function to return inherited styling to this column cells
-    @computed get inheritedStyle() {
-        // If this column has no parents - return styling from children attribute
-        // Otherwise append styling from children attribute to same styling in parentive column
+    // Return inherited styling to this column cells
+    @computed get style() {
         if (this.parent == null) {
-            return this.children.style
+            return {
+                standard: {...this._style.standard},
+                empty: {...this._style.empty},
+            }
         } else {
-            return { ...this.parent.inheritedStyle, ...this.children.style }
+            return {
+                standard: {...this.parent.style.standard, ...this._style.standard},
+                empty: {...this.parent.style.empty, ...this._style.empty},
+            }
         }
     }
 
+    set style(object) {
+        if (object == null) {
+            return
+        }
+
+        let standard = {}
+        let empty = {}
+
+        if (object.standard != null) {
+            standard = object.standard
+            empty = object.empty || empty
+        } else {
+            ({empty={}, ...standard} = {...object})
+        }
+
+        this._style = {empty, standard}
+    }
+
     child(id) {
-        return this.children.columns.find(child => child.id === id)
+        return this.children.find(child => child.id === id)
     }
 
     removeChild(value) {
         let childIndex = null
 
         if (value instanceof Column) {
-            childIndex = this.children.columns.findIndex(child => child.id === value.id)
+            childIndex = this.children.findIndex(child => child.id === value.id)
         } else {
-            childIndex = this.children.columns.findIndex(child => child.id === value)
+            childIndex = this.children.findIndex(child => child.id === value)
         }
 
         if (childIndex != null) {
-            this.children.columns.splice(childIndex, 1)
+            this.children.splice(childIndex, 1)
         }
     }
 
@@ -106,7 +131,7 @@ class Column {
             name: this.name,
             accessor: this.accessor,
             header: this.header,
-            children: this.children.columns.map(child => child.toJSON),
+            children: this.children.map(child => child.toJSON),
             cells: this.cells
         }
 

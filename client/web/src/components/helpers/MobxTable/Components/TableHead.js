@@ -15,11 +15,12 @@ class TableHead extends React.Component {
         return (
             <thead>
                 {
-                    Object.values(header.layers).map(layer => (
-                        <tr>
+                    Object.values(header.layers).map((layer, i) => (
+                        <tr key={`h${i}`}>
                             {
-                                layer.map(column => (
+                                layer.map((column, i) => (
                                     <th
+                                        key={`hl${i}`}
                                         tableid={column.id}
                                         rowSpan={column.rowSpan}
                                         colSpan={column.colSpan}

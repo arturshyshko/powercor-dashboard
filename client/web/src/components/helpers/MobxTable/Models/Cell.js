@@ -58,14 +58,13 @@ class Cell {
         return this.row.style
     }
 
-    // Get style which is used if cell value is empty - isEmpty === true
-    @computed get emptyStyle() {
-        return this.column && this.column.style && this.column.style.empty
-    }
-
-    // Get resultive inherited style from all parentive columns
-    @computed get parentStyle() {
-        return this.column && this.column.inheritedStyle
+    @computed get style() {
+        // If i will somehow manage to add row styling it should always take precedence over column styling
+        if (this.rowStyle != null) {
+            return this.rowStyle
+        } else {
+            return this.columnStyle
+        }
     }
 
     // delete() {

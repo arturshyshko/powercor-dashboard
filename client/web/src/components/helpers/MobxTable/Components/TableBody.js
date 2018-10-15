@@ -11,7 +11,7 @@ class TableBody extends React.Component {
         const { data, columns } = this.props
         return (
             <tbody>
-                {data && data.map(object => <TableRow object={object} columns={columns} />)}
+                {data && data.map((object, i) => <TableRow key={i} object={object} columns={columns} />)}
             </tbody>
         )
     }
@@ -23,12 +23,11 @@ class TableRow extends React.Component {
 
     render() {
         const {object, columns} = this.props
-        console.log(columns.map(col => col.toJSON))
         return (
             <tr>
                 {columns.map(
-                    column => (
-                        <TableCell column={column} data={object} row={this.row} />
+                    (column, i) => (
+                        <TableCell key={`${column.id}-${i}`} column={column} data={object} row={this.row} />
                 ))}
             </tr>
         )
@@ -57,17 +56,15 @@ class TableCell extends React.Component {
 
     cellStyle() {
         if (this.cell.isEmpty) {
-            return this.cell.emptyStyle
+            return this.cell.style.empty
         } else {
-            return this.cell.columnStyle
+            return this.cell.style.standard
         }
     }
 
     render() {
         return (
-            <td
-                style={this.cellStyle()}
-            >
+            <td style={this.cellStyle()} >
                 {this.cell.value}
             </td>
         )
