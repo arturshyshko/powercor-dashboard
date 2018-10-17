@@ -12,22 +12,23 @@ class Column {
     @observable cells = []
     @observable parent = null
 
-    constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null, style=null, type='string') {
+    constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null, style=null, type='string', mark=null) {
         this.id = _id++
+        this.mark = mark
         this.name = name
         this.initialRowSpan = rowSpan
         this.initialColSpan = colSpan
         this.initialLayer = layer
         this.header = header
-        this.accessor = accessor
+        this._accessor = accessor
         // This attribute is internally used by 'style' getter and setter
-        // It is here just for convenience and can be safely removed
         this._style = {standard: null, empty: null}
         this.style = style
         this.type = type
 
         autorun(() => this.children.forEach(child => {child.parent = this}))
         autorun(() => this.cells.forEach(cell => {cell.column = this}))
+        autorun(() => {if (this._accessor != null) this._accessor.column = this})
     }
 
     @computed get colSpan() {
@@ -62,6 +63,15 @@ class Column {
         } else {
             return 0
         }
+    }
+
+    // TODO: somehow avoid using columns 2 times if it is both in marks and names array
+    accessor(object) {
+        if (this._accessor == null) {
+            return null
+        }
+
+        return this._accessor.accessor(object)
     }
 
     // Check whether this column has children or not
