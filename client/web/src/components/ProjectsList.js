@@ -3,11 +3,7 @@ import { observer, inject } from 'mobx-react'
 import moment from 'moment'
 import '../App.css'
 
-import ReactTable from 'react-table'
-import ProjectsTable from '@components/helpers/Table'
-
 import { safeProps } from '@services/attributesProcessors'
-import './helpers/MobxTable'
 import { MobxTable } from './helpers/MobxTable'
 
 
@@ -18,131 +14,59 @@ export class ProjectsList extends React.Component {
     constructor(props) {
         super(props)
         this.projectColumns = this.projectColumns.bind(this)
-        this.disciplineColumns = this.disciplineColumns.bind(this)
     }
 
-// TODO: I should probably make special class for columns which will deal with a lot of stuff
-// For example put empty styling for all column children
-    projectColumns(project) {
-        let result = {
-            0: {
-                header: 'Name',
-                accessor: project => `${project.network} ${project.name}`,
+    projectColumns() {
+        return [
+            {
+                name: 'Name',
+                value: project => `${project.network} ${project.name}`,
                 style: {whiteSpace: 'noWrap'},
             },
-            1: {
-                header: 'DM',
-                accessor: project => `${project.manager.name || 'N/A'}`,
+            {
+                name: 'DM',
+                value: project => project.manager.name,
             },
-        }
+        ].concat(
+            this.props.store.disciplineStore.names.map(discipline => ({
+                name: discipline.name,
+                columns: [
+                    {
+                        name: 'Stage',
+                        value: project => {
+                            let disc = project.disciplines[discipline.id]
+                            return disc ? disc.stage.name : 'N/A'
+                        }
+                    },
+                    {
+                        name: 'Due Date',
+                        value: project => {
+                            let disc = project.disciplines[discipline.id]
+                            if (disc) {
+                                let date = disc.dueDate
+                                if (date) {
+                                    return moment(date).format('DD-MM-YYYY')
+                                }
+                            }
 
-        this.props.store.disciplineStore.names.forEach((verbose, i) => (
-            this.disciplineColumns(verbose, project, result, i + 2)
-        ))
-
-        return result
-    }
-
-    disciplineColumns(disciplineName, project, object, i) {
-        object[i] = {
-            header: disciplineName.name,
-            columns: {
-                0: {
-                    header: 'Stage',
-                    accessor: project => safeProps(project.disciplines[disciplineName.id], 'stage.name'),
-                    empty: {
-                        style: {backgroundColor: '#aeb1b7', borderRight: '0px'}
-                    },
-                },
-                1: {
-                    header: 'Due Date',
-                    accessor: project => moment(safeProps(project.disciplines[disciplineName.id], 'dueDate', new Date()))
-                        .format('DD-MM-YYYY'),
-                    style: {whiteSpace: 'noWrap'},
-                    empty: {
-                        style: {backgroundColor: '#aeb1b7', border: '0px'}
-                    },
-                },
-                2: {
-                    header: 'Resources',
-                    accessor: project => safeProps(project.disciplines[disciplineName.id], 'resources.name'),
-                    empty: {
-                        style: {backgroundColor: '#aeb1b7', border: '0px'}
-                    },
-                },
-                3: {
-                    header: 'Budget Cost',
-                    accessor: project => safeProps(project.disciplines[disciplineName.id], 'budget'),
-                    empty: {
-                        style: {backgroundColor: '#aeb1b7', borderLeft: '0px'}
-                    },
-                },
-            },
-        }
+                            return 'N/A'
+                        },
+                    }
+                ]
+            }))
+        )
     }
 
     render() {
         const { projects } = this.props.store.projectStore
-
-        const columns = [
-            {
-                header: 'LOL',
-                accessor: project => project.name,
-            },
-            {
-                header: 'WUT',
-                accessor: project => project.manager.name,
-                style: {
-                    backgroundColor: 'green',
-                    empty: {
-                        backgroundColor: 'red',
-                    }
-                }
-            },
-            {
-                header: 'DISCIPLINE',
-                accessor: project => project.disciplines['UD'],
-                children: {
-                    style: {
-                        empty: {
-                            backgroundColor: 'red',
-                        }
-                    },
-                    columns: [
-                        {
-                            header: 'Stage',
-                            accessor: project => project.disciplines['PD'].stage.name
-                        },
-                        {
-                            header: 'Due Date',
-                            accessor: project => moment(project.disciplines['PD'].dueDate).format('DD-MM-YYYY'),
-                        },
-                        {
-                            header: 'Budget',
-                            accessor: project => project.disciplines['PD'].budget
-                        }
-                    ]
-                }
-            }
-        ]
-
         return (
-            <Fragment>
-                <MobxTable
-                    className="table table-bordered table-hover table-striped horizontal-center"
-                    columns={columns}
-                    data={projects}
-                />
-                <ProjectsTable
-                    className="table table-bordered table-hover table-striped horizontal-center"
-                    style={{fontSize: '10pt'}}
-                    headCellClassName="vertical-center less-padding"
-                    bodyCellClassName="vertical-center less-padding"
-                    defaultEmpty="N/A"
-                    data={projects}
-                    columns={this.projectColumns()}
-                />
-            </Fragment>
+            <MobxTable
+                className="table table-bordered table-hover table-striped horizontal-center"
+                headCellClassName="vertical-center less-padding"
+                bodyCellClassName="vertical-center less-padding"
+                columns={this.projectColumns()}
+                data={projects}
+            />
         )
     }
 }
