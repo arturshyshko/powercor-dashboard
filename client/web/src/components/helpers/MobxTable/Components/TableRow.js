@@ -11,12 +11,18 @@ class TableRow extends React.Component {
     @observable row = new Row(this.props.object)
 
     render() {
-        const {object, columns} = this.props
+        const {object, columns, className, cellClassName} = this.props
         return (
-            <tr>
+            <tr className={this.props.className} >
                 {columns.map(
                     (column, i) => (
-                        <TableCell key={`${column.id}-${i}`} column={column} data={object} row={this.row} />
+                        <TableCell
+                            key={`${column.id}-${i}`}
+                            className={cellClassName}
+                            column={column}
+                            data={object}
+                            row={this.row}
+                        />
                 ))}
             </tr>
         )

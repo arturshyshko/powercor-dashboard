@@ -35,7 +35,7 @@ class TableCell extends React.Component {
 
     render() {
         return (
-            <td style={this.cellStyle()} >
+            <td className={this.props.className} style={this.cellStyle()} >
                 {this.cell.value}
             </td>
         )
