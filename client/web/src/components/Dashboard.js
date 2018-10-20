@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { observer, inject } from 'mobx-react'
 import '../App.css'
 
@@ -29,12 +29,12 @@ export class Dashboard extends React.Component {
 
     render() {
         return(
-            <div>
+            <Fragment>
                 {this.state.showCreate &&
                     <ProjectEdit />
                 }
                 <ProjectsList />
-            </div>
+            </Fragment>
         )
     }
 }
