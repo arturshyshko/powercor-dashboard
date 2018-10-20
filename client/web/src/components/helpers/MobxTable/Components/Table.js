@@ -48,10 +48,21 @@ class MobxTable extends React.Component {
     }
 
     render() {
+        const { data, className, headClassName, headCellClassName, bodyClassName, bodyCellClassName } = this.props
+
         return (
-            <table className={this.props.className} >
-               <TableHead header={this.header} />
-               <TableBody data={this.props.data} columns={this.header.appliedColumns} />
+            <table className={className} >
+               <TableHead
+                   header={this.header}
+                   className={headClassName}
+                   cellClassName={headCellClassName}
+               />
+               <TableBody
+                   data={this.props.data}
+                   columns={this.header.appliedColumns}
+                   className={bodyClassName}
+                   cellClassName={bodyCellClassName}
+               />
             </table>
         )
     }
