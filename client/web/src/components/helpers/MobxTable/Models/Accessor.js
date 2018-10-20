@@ -1,89 +1,99 @@
 class Accessor {
 
-    constructor(accessor, name=null, mark=null, accumulatorType='array') {
+    constructor(accessor, accumulator='array', selectors=null) {
         this.column = null
-        this._accessor = accessor
-        this.names = name
-        this.marks = mark
-        this.accumulatorType = accumulatorType
+        this.accessor = accessor
+        this.accumulator = accumulator
+        this.selectors = selectors
     }
 
-    accessor(object) {
-        if (this.names == null && this.marks == null) {
-            return this._accessor(object)
-        } else {
-            let namesValues = this.getValuesForAccessorObject(object, this.names)
-            let marksValues = this.getValuesForAccessorObject(object, this.marks, 'mark')
-
-
-            return this._accessor([].concat(namesValues, marksValues))
-        }
+    // Apply accessor function to either object in corresponding row or to selected columns
+    value(object) {
+        return this.selectors == null ? this.accessor(object) : this.accessor(this.getValues(object))
     }
 
-    // TODO: rename this method
-    getValuesForAccessorObject(object, getters, getterType='name') {
-        let gettersArray = [].concat(getters).filter(elem => elem != null)
-        let result = []
+    // Aggregate all values for all selectors for accessor function
+    getValues(object) {
         let values = []
-        if (this.accumulatorType === 'object') {
-            let result = {}
+
+        this.selectors.forEach(selector => {
+            let selectorName = Object.keys(selector)[0]
+            let selectorValues = Object.values(selector)[0]
+
+            this.getSelectorValues(object, selector)
+
+            values = values.concat(this.getSelectorValues(object, selector))
+        })
+
+        return values
+    }
+
+    // Get values from columns that pass selector requirements as an 'accumulator' type object
+    getSelectorValues(object, selector) {
+        let selectorName = Object.keys(selector)[0]
+        let getters = selector[selectorName]
+
+        let result = []
+        if (this.accumulator === 'object') {
+            result = {}
         }
 
-        gettersArray.forEach(getter => {
-            switch (typeof Object.values(getter)[0]) {
+        let values = []
 
-                // If getter value is number - use maxAmount
+        getters.forEach(getter => {
+            let getterName = Object.keys(getter)[0]
+            let getterValue = getter[getterName]
+            switch (typeof getterValue) {
                 case 'number':
-                    values = this.getColumnsValuesOnGetterType(object, getter, getterType, Object.values(getter)[0])
-                    if (Array.isArray(result)) {
-                        result = values.map(value => [Object.keys(getter)[0], value])
-                    } else if (typeof result === 'object') {
-                        result[Object.keys(getter)[0]] = values
-                    }
+                    values = this.selectValues(object, getterName, selectorName, getterValue)
                     break
-
-                // If getter value is array - use indexArray
                 case 'object':
-                    values = this.getColumnsValuesOnGetterType(object, getter, getterType, null, Object.values(getter)[0])
-                    if (Array.isArray(result)) {
-                        result =values.map(value => [Object.keys(getter)[0], value])
-                    } else if (typeof result === 'object') {
-                        result[Object.keys(getter)[0]] = values
-                    }
+                    values = this.selectValues(object, getterName, selectorName, null, getterValue)
                     break
-
-                // If getter value is 'all' or anything else
                 default:
-                    values = this.getColumnsValuesOnGetterType(object, getter, getterType)
-                    if (Array.isArray(result)) {
-                        result = values.map(value => [Object.keys(getter)[0], value])
-                    } else if (typeof result === 'object') {
-                        result[getter] = values
-                    }
+                    values = this.selectValues(object, getterName, selectorName)
                     break
+            }
+
+            if (this.accumulator === 'array') {
+                result = result.concat(values.map(value => [getterName, value]))
+            } else if (this.accumulator === 'object') {
+                result[getterName] = values
             }
         })
 
         return result
     }
 
-    // TODO: rename this method
-    // Return array which consists of results of all applied column's accessors called object
-    // getter is object which looks like {'Budget': maxAmount || indexArray || 'all'}
-    getColumnsValuesOnGetterType(object, getter, getterType, maxAmount=null, indexArray=null) {
-        return this.column.header.appliedColumns.reduce((accumulator, column, index) => {
-            if ((column.id != this.column.id) || (indexArray != null && indexArray.includes(index))) {
-                if ((maxAmount != null) && (index >= maxAmount)) {
-                    return accumulator
-                }
-                if (column[getterType] === Object.keys(getter)[0]) {
-                    return accumulator.concat(column.accessor(object))
-                }
-            }
-            return accumulator
-        }, [])
+    // Filter columns and get their values
+    selectValues(object, getterName, selectorName, maxAmount=null, indexArray=null) {
+        let columns = this.selectColumns(getterName, selectorName, maxAmount)
+        columns = this.filterColumns(columns, indexArray)
+
+        return columns.reduce((accumulator, column) => accumulator.concat(column.accessor(object)), [])
     }
 
+    // Filter columns where required attribute equals required value
+    // Also if there is maAmount of columns passed - return only first 'maxAmount' columns
+    selectColumns(getterName, selectorName, maxAmount) {
+        let currentAmount = 0
+
+        return this.column.header.appliedColumns.filter(column => {
+            if (column[selectorName] === getterName && (maxAmount == null || currentAmount < maxAmount)) {
+                currentAmount += 1
+                return column
+            }
+        })
+    }
+
+    // Filter columns array by indexes from indexArray
+    filterColumns(columns, indexArray) {
+        return columns.filter((column, index) => {
+            if (indexArray == null || indexArray.includes(index)) {
+                return column
+            }
+        })
+    }
 }
 
 export default Accessor

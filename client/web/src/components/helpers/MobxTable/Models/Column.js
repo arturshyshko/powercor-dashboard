@@ -65,13 +65,12 @@ class Column {
         }
     }
 
-    // TODO: somehow avoid using columns 2 times if it is both in marks and names array
     accessor(object) {
         if (this._accessor == null) {
             return null
         }
 
-        return this._accessor.accessor(object)
+        return this._accessor.value(object)
     }
 
     // Check whether this column has children or not
