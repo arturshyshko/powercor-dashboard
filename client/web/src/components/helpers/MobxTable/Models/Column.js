@@ -66,7 +66,14 @@ class Column {
     }
 
     accessor(object) {
-        if (this._accessor == null) {
+        // If parent column has accessor - that means it checks whether requested sub-object exists
+        // If it does not exist - requested property of this non-existant sub-object should not be looked
+        // Avoid 'undefined does not have property' error
+        // this.column.parent != null &&
+        //     this.column.parent._accessor != null &&
+        //     this.column.parent.accessor(object) == null
+        if (this._accessor == null ||
+            (this.parent && this.parent._accessor != null && this.parent.accessor(object) == null)) {
             return null
         }
 
@@ -81,6 +88,14 @@ class Column {
             return false
         }
         return true
+    }
+
+    @computed get ancestors() {
+        if (this.parent != null) {
+            return [].concat(this.parent.ancestors, this.parent).filter(elem => elem != null)
+        } else {
+            return []
+        }
     }
 
     // Return inherited styling to this column cells

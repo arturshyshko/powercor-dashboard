@@ -43,9 +43,7 @@ class Cell {
     }
 
     set value(object) {
-        if (this.column != null) {
-            this._value = this.column.accessor(object)
-        }
+        this._value = this.column.accessor(object)
     }
 
     // Get this cell's direct column style
