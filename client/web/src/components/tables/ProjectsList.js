@@ -1,10 +1,9 @@
 import React, {Fragment} from 'react'
 import { observer, inject } from 'mobx-react'
 import moment from 'moment'
-import '../App.css'
 
 import { safeProps } from '@services/attributesProcessors'
-import { MobxTable } from './helpers/MobxTable'
+import { MobxTable } from '@components/helpers/MobxTable'
 
 
 @inject('store')

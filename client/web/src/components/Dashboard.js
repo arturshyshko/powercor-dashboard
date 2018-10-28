@@ -3,9 +3,8 @@ import { observer, inject } from 'mobx-react'
 import '../App.css'
 
 
-import { ProjectEdit } from '@components/ProjectEdit'
-import ProjectsList from '@components/ProjectsList'
-import FinancialReport from '@components/FinancialReport'
+import { ProjectEdit } from '@components/forms/ProjectEdit'
+import { ProjectsList, FinancialReport } from '@components/tables'
 
 
 @inject('store')

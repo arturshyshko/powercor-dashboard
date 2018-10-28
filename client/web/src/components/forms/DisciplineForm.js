@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/FormElements'
+import { FormControl, InputText, InputTextArea, InputSelect } from '@components/helpers/FormElements'
 
 
 export class DisciplineForm extends React.Component {
