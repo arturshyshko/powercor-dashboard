@@ -12,6 +12,12 @@ export const Manager = types.model('Manager', {
 }).preProcessSnapshot(snapshot => ({
     id: snapshot.id,
     name: snapshot.name
+})).views(self => ({
+
+    get initials() {
+        return self.name.split(' ').map(word => word[0].toLocaleUpperCase()).join('. ') + '.'
+    },
+
 }))
 
 

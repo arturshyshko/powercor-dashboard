@@ -9,7 +9,7 @@ import { MobxTable } from './helpers/MobxTable'
 
 @inject('store')
 @observer
-export class ProjectsList extends React.Component {
+class ProjectsList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -19,37 +19,49 @@ export class ProjectsList extends React.Component {
     projectColumns() {
         return [
             {
-                name: 'Name',
+                name: 'Project',
                 value: project => `${project.network} ${project.name}`,
                 style: {whiteSpace: 'noWrap'},
             },
             {
                 name: 'DM',
-                value: project => project.manager.name,
+                value: project => project.manager.initials,
             },
         ].concat(
             this.props.store.disciplineStore.names.map(discipline => ({
                 name: discipline.name,
-                columns: [
+                value: {
+                    empty: 'N/A',
+                    accessor: project => project.disciplines[discipline.id],
+                },
+                style: {
+                    own: {
+                        borderLeft: '1px solid black',
+                        borderRight: '1px solid black',
+                    },
+                    empty: {
+                        backgroundColor: 'red',
+                    },
+                },
+                children: [
                     {
                         name: 'Stage',
-                        value: project => {
-                            let disc = project.disciplines[discipline.id]
-                            return disc ? disc.stage.name : 'N/A'
-                        }
+                        value: project => project.disciplines[discipline.id].stage.name,
+                        style: {
+                            borderLeft: '1px solid black',
+                            own: {
+                                borderLeft: '1px solid black',
+                            },
+                        },
                     },
                     {
                         name: 'Due Date',
-                        value: project => {
-                            let disc = project.disciplines[discipline.id]
-                            if (disc) {
-                                let date = disc.dueDate
-                                if (date) {
-                                    return moment(date).format('DD-MM-YYYY')
-                                }
-                            }
-
-                            return 'N/A'
+                        value: project => moment(project.disciplines[discipline.id].dueDate).format('DD-MM-YYYY'),
+                        style: {
+                            borderRight: '1px solid black',
+                            own : {
+                                borderRight: '1px solid black',
+                            },
                         },
                     }
                 ]
@@ -70,6 +82,8 @@ export class ProjectsList extends React.Component {
         )
     }
 }
+
+export default ProjectsList
 
 
 // Possible future alternate realization for table

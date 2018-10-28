@@ -22,6 +22,7 @@ class TableHead extends React.Component {
                                     <th
                                         key={`hl${i}`}
                                         className={cellClassName}
+                                        style={column.style.own}
                                         tableid={column.id}
                                         rowSpan={column.rowSpan}
                                         colSpan={column.colSpan}

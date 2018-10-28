@@ -4,7 +4,8 @@ import '../App.css'
 
 
 import { ProjectEdit } from '@components/ProjectEdit'
-import { ProjectsList } from '@components/ProjectsList'
+import ProjectsList from '@components/ProjectsList'
+import FinancialReport from '@components/FinancialReport'
 
 
 @inject('store')
@@ -30,10 +31,13 @@ export class Dashboard extends React.Component {
     render() {
         return(
             <Fragment>
-                {this.state.showCreate &&
-                    <ProjectEdit />
-                }
-                <ProjectsList />
+                <div className="container-fluid">
+                    {this.state.showCreate &&
+                        <ProjectEdit />
+                    }
+                    <ProjectsList />
+                    <FinancialReport />
+                </div>
             </Fragment>
         )
     }

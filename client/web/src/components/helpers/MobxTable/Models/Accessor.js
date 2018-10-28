@@ -1,8 +1,9 @@
 class Accessor {
 
-    constructor(accessor, accumulator='array', selectors=null, ignore=null) {
+    constructor(accessor, empty, accumulator='array', selectors=null, ignore=null) {
         this.column = null
         this.accessor = accessor
+        this._empty = empty || null
         this.accumulator = accumulator
         this.selectors = selectors
         this.ignore = ignore
@@ -11,6 +12,22 @@ class Accessor {
     // Apply accessor function to either object in corresponding row or to selected columns
     value(object) {
         return this.selectors == null ? this.accessor(object) : this.accessor(this.getValues(object))
+    }
+
+    // Get either self empty value or nearest ancestor empty value
+    get empty() {
+        if (this._empty) {
+            return this._empty
+        } else {
+            let emptyValue = null
+            this.column.ancestors.forEach(ancestor => {
+                if (ancestor._accessor && ancestor._accessor.empty != null) {
+                    emptyValue = ancestor._accessor.empty
+                }
+            })
+
+            return emptyValue
+        }
     }
 
     // Aggregate all values for all selectors for accessor function

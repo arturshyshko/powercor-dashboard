@@ -55,12 +55,12 @@ const parseAccessor = (object) => {
     if (typeof object === 'function') {
         return new Accessor(object)
     } else {
-        let { columns: selectors, accumulator='array', accessor, ignore } = object
+        let { columns: selectors, accumulator='array', accessor, ignore, empty, } = object
         if (selectors != null) {
             selectors = Object.keys(selectors).map(key => ({[key]: parseSelector(selectors[key])}))
         }
 
-        return new Accessor(accessor, accumulator, selectors, ignore)
+        return new Accessor(accessor, empty, accumulator, selectors, ignore)
     }
 }
 
@@ -85,4 +85,17 @@ const parseSelector = (object) => {
     } else if (typeof object === 'object') {
         return [object]
     }
+}
+
+const parseStyleObject = (object) => {
+    if (object == null) {
+        return null
+    }
+
+    let { empty={}, own={}, conditional={}, standard } = {...object}
+    if (standard == null) {
+        standard = {...object}
+    }
+
+    return {empty, own, conditional, standard}
 }

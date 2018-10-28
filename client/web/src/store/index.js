@@ -42,8 +42,8 @@ const rootStore = types.model('root', {
 
 const store = rootStore.create({})
 
-onSnapshot(store, newSnap => {
-    console.log(newSnap)
-})
+// onSnapshot(store, newSnap => {
+//     console.log(newSnap)
+// })
 
 export default store

@@ -21,8 +21,9 @@ class Column {
         this.initialLayer = layer
         this.header = header
         this._accessor = accessor
+        this.isEmpty = false
         // This attribute is internally used by 'style' getter and setter
-        this._style = {standard: null, empty: null}
+        this._style = {standard: null, empty: null, own: null, conditional: null}
         this.style = style
         this.type = type
 
@@ -65,18 +66,21 @@ class Column {
         }
     }
 
+    // TODO: this now returns not null but other value so isEmpty for cell is not working
     accessor(object) {
         // If parent column has accessor - that means it checks whether requested sub-object exists
         // If it does not exist - requested property of this non-existant sub-object should not be looked
         // Avoid 'undefined does not have property' error
-        // this.column.parent != null &&
-        //     this.column.parent._accessor != null &&
-        //     this.column.parent.accessor(object) == null
         if (this._accessor == null ||
             (this.parent && this.parent._accessor != null && this.parent.accessor(object) == null)) {
-            return null
+            this.isEmpty = true
+            if (this._accessor == null) {
+                return null
+            } else {
+                return this._accessor.empty
+            }
         }
-
+        this.isEmpty = false
         return this._accessor.value(object)
     }
 
@@ -101,34 +105,28 @@ class Column {
     // Return inherited styling to this column cells
     @computed get style() {
         if (this.parent == null) {
-            return {
-                standard: {...this._style.standard},
-                empty: {...this._style.empty},
-            }
+            return this._style
         } else {
             return {
                 standard: {...this.parent.style.standard, ...this._style.standard},
                 empty: {...this.parent.style.empty, ...this._style.empty},
+                conditional: {...this._style.conditional},
+                own: {...this._style.own},
             }
         }
     }
 
     set style(object) {
         if (object == null) {
-            return
+            return null
         }
 
-        let standard = {}
-        let empty = {}
-
-        if (object.standard != null) {
-            standard = object.standard
-            empty = object.empty || empty
-        } else {
-            ({empty={}, ...standard} = {...object})
+        let { empty={}, own={}, conditional={}, standard } = {...object}
+        if (standard == null) {
+            standard = {...object}
         }
-
-        this._style = {empty, standard}
+        console.log(123, empty)
+        this._style = {empty, own, conditional, standard}
     }
 
     child(id) {
