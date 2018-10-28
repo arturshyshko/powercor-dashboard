@@ -7,12 +7,12 @@ class Cell {
     @observable column
     @observable row
 
-    constructor(column=null, row=null, defaultEmpty) {
+    constructor(column=null, row=null) {
         this.column = column
         this.row = row
-        this.defaultEmpty = defaultEmpty
         autorun(() => this.column.cells.push(this))
-        autorun(() => {this.isEmpty = this._value == null})
+        // autorun(() => {this.isEmpty = this._value == null})
+        autorun(() => {this.isEmpty = this.column.isEmpty})
     }
 
     @computed get id() {
@@ -24,8 +24,8 @@ class Cell {
     }
 
     get emptyValue() {
-        if (this.defaultEmpty) {
-            return this.defaultEmpty
+        if (this.column._accessor.empty) {
+            return this.column._accessor.empty
         }
 
         switch(this.type) {
@@ -36,6 +36,7 @@ class Cell {
 
     @computed get value() {
         if (this.isEmpty) {
+            console.log(12345, this.style)
             return this.emptyValue
         } else {
             return this._value
@@ -43,9 +44,7 @@ class Cell {
     }
 
     set value(object) {
-        if (this.column != null) {
-            this._value = this.column.accessor(object)
-        }
+        this._value = this.column.accessor(object)
     }
 
     // Get this cell's direct column style

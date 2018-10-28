@@ -16,7 +16,7 @@ export const parseColumns = (columns, headerArray=null) => (
 // 'headerArray' - array of Header object which will contain all created columns
 const createColumn = (column, headerArray=null) => {
     // Set initial variables for new Column object
-    let { name, value: accessor, columns, style, colSpan, rowSpan, layer, type, children,} = column
+    let { name, value: accessor, children, style, colSpan, rowSpan, layer, type, } = column
     // Set header to null just to pass it in Column constructor (or add some logic in the future)
     const header = null
     // Set column type to string or passed value (it is user for data formatting in cells of this column)
@@ -36,7 +36,7 @@ const createColumn = (column, headerArray=null) => {
     )
 
     // Add embedded columns to children array of parent column
-    result.children = [].concat(columns)
+    result.children = [].concat(children)
         .filter(elem => elem != null).map(child => createColumn(child, headerArray))
 
     if (headerArray != null) {
@@ -55,12 +55,12 @@ const parseAccessor = (object) => {
     if (typeof object === 'function') {
         return new Accessor(object)
     } else {
-        let { columns: selectors, accumulator='array', accessor } = object
+        let { columns: selectors, accumulator='array', accessor, ignore, empty, } = object
         if (selectors != null) {
             selectors = Object.keys(selectors).map(key => ({[key]: parseSelector(selectors[key])}))
         }
 
-        return new Accessor(accessor, accumulator, selectors)
+        return new Accessor(accessor, empty, accumulator, selectors, ignore)
     }
 }
 
@@ -85,4 +85,17 @@ const parseSelector = (object) => {
     } else if (typeof object === 'object') {
         return [object]
     }
+}
+
+const parseStyleObject = (object) => {
+    if (object == null) {
+        return null
+    }
+
+    let { empty={}, own={}, conditional={}, standard } = {...object}
+    if (standard == null) {
+        standard = {...object}
+    }
+
+    return {empty, own, conditional, standard}
 }

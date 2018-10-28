@@ -24,7 +24,11 @@ export const ApprovedVariation = types.model('ApprovedVariation', {
 const ApprovedVariationStore = types.compose(
     types.model('ApprovedVariationStore', {
         variations: types.array(ApprovedVariation)
-    }),
+    }).views(self => ({
+        getDisciplineVariations(discipline) {
+            return self.variations.filter(variation => variation.discipline.id === discipline.id)
+        },
+    })),
     createAllActions('variations', API_VARIATIONS)
 )
 

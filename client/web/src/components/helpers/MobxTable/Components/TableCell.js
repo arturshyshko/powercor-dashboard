@@ -26,6 +26,7 @@ class TableCell extends React.Component {
     }
 
     cellStyle() {
+        console.log(1, this.cell.isEmpty, this.cell.style.empty)
         if (this.cell.isEmpty) {
             return this.cell.style.empty
         } else {

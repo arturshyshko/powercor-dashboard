@@ -23,9 +23,15 @@ export const Discipline = types.model('Discipline', {
     status: asyncReference(StatusChoice, 'getOrLoadChoice'),
     actualCost: types.maybeNull(types.number),
 }).views(self => ({
+
     get verboseName() {
         return getRoot(self).disciplineStore.names.find(name => name.id === self.name).name
-    }
+    },
+
+    get variations() {
+        return getRoot(self).approvedVariationStore.getDisciplineVariations(self)
+    },
+
 })).preProcessSnapshot(snapshot => ({
     id: snapshot.id,
     name: snapshot.name,

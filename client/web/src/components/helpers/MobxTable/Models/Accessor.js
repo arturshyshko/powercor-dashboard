@@ -1,15 +1,33 @@
 class Accessor {
 
-    constructor(accessor, accumulator='array', selectors=null) {
+    constructor(accessor, empty, accumulator='array', selectors=null, ignore=null) {
         this.column = null
         this.accessor = accessor
+        this._empty = empty || null
         this.accumulator = accumulator
         this.selectors = selectors
+        this.ignore = ignore
     }
 
     // Apply accessor function to either object in corresponding row or to selected columns
     value(object) {
         return this.selectors == null ? this.accessor(object) : this.accessor(this.getValues(object))
+    }
+
+    // Get either self empty value or nearest ancestor empty value
+    get empty() {
+        if (this._empty) {
+            return this._empty
+        } else {
+            let emptyValue = null
+            this.column.ancestors.forEach(ancestor => {
+                if (ancestor._accessor && ancestor._accessor.empty != null) {
+                    emptyValue = ancestor._accessor.empty
+                }
+            })
+
+            return emptyValue
+        }
     }
 
     // Aggregate all values for all selectors for accessor function
@@ -79,9 +97,19 @@ class Accessor {
         let currentAmount = 0
 
         return this.column.header.appliedColumns.filter(column => {
-            if (column[selectorName] === getterName && (maxAmount == null || currentAmount < maxAmount)) {
-                currentAmount += 1
-                return column
+            // Do not include columns after maxAmount
+            if (maxAmount == null || currentAmount < maxAmount) {
+                // Check if the column meets selector requirements
+                if (column[selectorName] === getterName) {
+                    // Do not include yourself
+                    if (column.id != this.column.id) {
+                        // Do not include columns which have ignorable ancestor
+                        if (this.filterByAncestors(column)) {
+                            currentAmount += 1
+                            return true
+                        }
+                    }
+                }
             }
         })
     }
@@ -93,6 +121,27 @@ class Accessor {
                 return column
             }
         })
+    }
+
+    // If any column ancestor has attribute included in this.ignore - do not count column value
+    filterByAncestors(column) {
+        if (this.ignore) {
+            // If ignore object was passed but empty - do not check anything
+            if (Object.keys(this.ignore).length > 0) {
+                return !Object.keys(this.ignore).some((key => {
+                    // Convert values to ignore to array for consistancy
+                    let ignorableValues = [].concat(this.ignore[key]).filter(elem => elem != null)
+                    // If at least one ancestor has attribute with ignorable value - exclude this column
+                    if (column.ancestors.length > 0) {
+                        return column.ancestors.some(ancestor => ignorableValues.some(value => value === ancestor[key]))
+                    }
+
+                    return false
+                }))
+            }
+        }
+        // If no ignore was passed or all ancestors are fine - do not filter this column out
+        return true
     }
 }
 
