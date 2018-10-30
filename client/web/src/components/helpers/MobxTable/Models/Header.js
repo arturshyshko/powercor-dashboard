@@ -33,7 +33,7 @@ class Header {
     }
 
     column(id) {
-        return this.columns.find(column => column.id == id)
+        return this.columns.find(column => column.id === id)
     }
 
     setColumns(objects) {
@@ -63,7 +63,7 @@ class Header {
                     this.delete(column.parent.id)
                 }
             }
-            this.columns.splice(this.columns.findIndex(col => col.id == column.id), 1)
+            this.columns.splice(this.columns.findIndex(col => col.id === column.id), 1)
         }
     }
 }

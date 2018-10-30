@@ -1,4 +1,4 @@
-import { observable, computed, autorun } from 'mobx'
+import { observable, autorun } from 'mobx'
 
 let _id = 0
 

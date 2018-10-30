@@ -13,7 +13,7 @@ class TableRow extends React.Component {
     render() {
         const {object, columns, className, cellClassName} = this.props
         return (
-            <tr className={this.props.className} >
+            <tr className={className} >
                 {columns.map(
                     (column, i) => (
                         <TableCell

@@ -2,7 +2,7 @@ import React from 'react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 
-import { Header, Column, Cell, Row, History } from '../Models'
+import { Header, History } from '../Models'
 import TableHead from './TableHead'
 import TableBody from './TableBody'
 
@@ -30,7 +30,7 @@ class MobxTable extends React.Component {
 
     setHeader(columns) {
         if (columns != null) {
-            const columnsWithID = this.header.setColumns(columns)
+            this.header.setColumns(columns)
             this.history.push(this.header)
         }
     }
@@ -58,7 +58,7 @@ class MobxTable extends React.Component {
                    cellClassName={headCellClassName}
                />
                <TableBody
-                   data={this.props.data}
+                   data={data}
                    columns={this.header.appliedColumns}
                    className={bodyClassName}
                    cellClassName={bodyCellClassName}

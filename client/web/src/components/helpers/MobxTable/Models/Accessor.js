@@ -1,9 +1,9 @@
 class Accessor {
 
-    constructor(accessor, empty, accumulator='array', selectors=null, ignore=null) {
+    constructor(accessor, empty=null, accumulator='array', selectors=null, ignore=null) {
         this.column = null
         this.accessor = accessor
-        this._empty = empty || null
+        this._empty = empty
         this.accumulator = accumulator
         this.selectors = selectors
         this.ignore = ignore
@@ -11,6 +11,16 @@ class Accessor {
 
     // Apply accessor function to either object in corresponding row or to selected columns
     value(object) {
+        // If any ancestor has accesstor - try using it first
+        if (this.column.parent && this.column.parent._accessor != null) {
+            // If it results in null - do not call ours accessor
+            // This is usefull when we don't want to always check for intermediate objects
+            if (this.column.parent.accessor(object) == null) {
+                return null
+            }
+            // TODO: Make realization for passing intermediate object to our accessor (by default - we might want not to do this)
+        }
+
         return this.selectors == null ? this.accessor(object) : this.accessor(this.getValues(object))
     }
 
@@ -35,14 +45,8 @@ class Accessor {
         let values = []
 
         this.selectors.forEach(selector => {
-            let selectorName = Object.keys(selector)[0]
-            let selectorValues = Object.values(selector)[0]
-
-            this.getSelectorValues(object, selector)
-
             values = values.concat(this.getSelectorValues(object, selector))
         })
-
         return values
     }
 
@@ -102,7 +106,7 @@ class Accessor {
                 // Check if the column meets selector requirements
                 if (column[selectorName] === getterName) {
                     // Do not include yourself
-                    if (column.id != this.column.id) {
+                    if (column.id !== this.column.id) {
                         // Do not include columns which have ignorable ancestor
                         if (this.filterByAncestors(column)) {
                             currentAmount += 1
@@ -111,6 +115,8 @@ class Accessor {
                     }
                 }
             }
+
+            return false
         })
     }
 
@@ -118,8 +124,9 @@ class Accessor {
     filterColumns(columns, indexArray) {
         return columns.filter((column, index) => {
             if (indexArray == null || indexArray.includes(index)) {
-                return column
+                return true
             }
+            return false
         })
     }
 

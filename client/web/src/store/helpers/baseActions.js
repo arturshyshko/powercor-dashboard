@@ -7,7 +7,7 @@ export const addObjectToArray = (object, destinationArray) => {
 }
 
 export const addObjectsToArray = (objects, destinationArray) => {
-    objects.map(obj => {addObjectToArray(obj, destinationArray)})
+    objects.forEach(obj => {addObjectToArray(obj, destinationArray)})
 }
 
 export const setObjectToArray =(object, destinationArray, findField='id') => {
@@ -20,7 +20,7 @@ export const setObjectToArray =(object, destinationArray, findField='id') => {
 }
 
 export const setObjectsToArray = (objects, destinationArray, findField='id') => {
-    objects.map(obj => {setObjectToArray(obj, destinationArray, findField)})
+    objects.forEach(obj => {setObjectToArray(obj, destinationArray, findField)})
 }
 
 

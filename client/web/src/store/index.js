@@ -1,4 +1,4 @@
-import { types, onSnapshot, onPatch, unprotect } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import ManagerStore from '@store/manager'
 import {
@@ -41,9 +41,5 @@ const rootStore = types.model('root', {
 })
 
 const store = rootStore.create({})
-
-// onSnapshot(store, newSnap => {
-//     console.log(newSnap)
-// })
 
 export default store
