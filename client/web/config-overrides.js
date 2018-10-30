@@ -11,6 +11,7 @@ module.exports = function override(config, env) {
 		'@api': path.resolve(__dirname, 'src', 'api'),
 		'@components': path.resolve(__dirname, 'src', 'components'),
 		'@constants': path.resolve(__dirname, 'src', 'constants'),
+		'@pages': path.resolve(__dirname, 'src', 'pages'),
 		'@services': path.resolve(__dirname, 'src', 'services'),
 		'@store': path.resolve(__dirname, 'src', 'store'),
 	}
