@@ -1,22 +1,17 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { MobxTable } from '@components/helpers/MobxTable'
+import { projectName, projectManager } from '@components/tables/columns'
 
 @inject('store')
 @observer
 class FinancialReport extends React.Component {
     render() {
         const { projects } = this.props.store.projectStore
-        const columns = [{
-            name: 'Project',
-            value: project => `${project.network} ${project.name}`,
-            style: {
-                whiteSpace: 'noWrap'
-            },
-        }, {
-            name: 'DM',
-            value: project => project.manager.initials,
-        }].concat(
+        const columns = [
+            projectName,
+            projectManager,
+        ].concat(
             this.props.store.disciplineStore.names.map(discName => ({
                 name: discName.name,
                 value: project => project.disciplines[discName.id],
@@ -67,10 +62,12 @@ class FinancialReport extends React.Component {
                             },
                             accessor: values => values.reduce((acc, val) => {
                                 if (val[0] === 'Budget') {
-                                    return acc += val[1]
+                                    acc += val[1]
                                 } else if (val[0] === 'Actuals') {
-                                    return acc -= val[1]
+                                    acc -= val[1]
                                 }
+
+                                return acc
                             }, 0)
                         }
                     }

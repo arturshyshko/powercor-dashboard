@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import { observer, inject } from 'mobx-react'
 import moment from 'moment'
 
-import { safeProps } from '@services/attributesProcessors'
 import { MobxTable } from '@components/helpers/MobxTable'
+import { projectName, projectManager } from '@components/tables/columns'
 
 
 @inject('store')
@@ -17,15 +17,8 @@ class ProjectsList extends React.Component {
 
     projectColumns() {
         return [
-            {
-                name: 'Project',
-                value: project => `${project.network} ${project.name}`,
-                style: {whiteSpace: 'noWrap'},
-            },
-            {
-                name: 'DM',
-                value: project => project.manager.initials,
-            },
+            projectName,
+            projectManager,
         ].concat(
             this.props.store.disciplineStore.names.map(discipline => ({
                 name: discipline.name,
@@ -34,12 +27,12 @@ class ProjectsList extends React.Component {
                     accessor: project => project.disciplines[discipline.id],
                 },
                 style: {
-                    own: {
+                    header: {
                         borderLeft: '1px solid black',
                         borderRight: '1px solid black',
                     },
                     empty: {
-                        backgroundColor: 'red',
+                        backgroundColor: 'gray',
                     },
                 },
                 children: [
@@ -48,9 +41,12 @@ class ProjectsList extends React.Component {
                         value: project => project.disciplines[discipline.id].stage.name,
                         style: {
                             borderLeft: '1px solid black',
-                            own: {
+                            header: {
                                 borderLeft: '1px solid black',
                             },
+                            empty: {
+                                borderRight: '1px solid gray',
+                            }
                         },
                     },
                     {
@@ -58,7 +54,7 @@ class ProjectsList extends React.Component {
                         value: project => moment(project.disciplines[discipline.id].dueDate).format('DD-MM-YYYY'),
                         style: {
                             borderRight: '1px solid black',
-                            own : {
+                            header : {
                                 borderRight: '1px solid black',
                             },
                         },
