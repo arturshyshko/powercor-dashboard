@@ -6,10 +6,7 @@ import createAllActions, {createBaseActions} from '@store/helpers'
 import { API_DISCIPLINES } from '@constants/apiUrls'
 
 import { Project } from '@store/project'
-import { Client } from '@store/client'
-import {
-    BusinessImportanceChoice, StatusChoice, StageChoice, ResourceChoice
-} from '@store/choice'
+import { StatusChoice, StageChoice, ResourceChoice } from '@store/choice'
 
 
 export const Discipline = types.model('Discipline', {

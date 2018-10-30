@@ -24,6 +24,7 @@ export const Project = types.model('Project', {
     get disciplines() {
         return getRoot(self).disciplineStore.getProjectDisciplines(self).reduce((result, disc) => {
             result[disc.name] = disc
+
             return result
         }, {})
     },

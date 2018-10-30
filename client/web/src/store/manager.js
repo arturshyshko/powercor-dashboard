@@ -1,8 +1,6 @@
 import { types } from 'mobx-state-tree'
 import createAllActions from '@store/helpers'
 
-import { setManagers } from '@api/managers'
-import {fetchData} from '@services/apiAccess'
 import {API_MANAGERS} from '@constants/apiUrls'
 
 
