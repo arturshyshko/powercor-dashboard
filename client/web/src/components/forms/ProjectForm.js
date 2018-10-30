@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/FormElements'
+import { FormControl, InputText, InputTextArea, InputSelect } from '@components/helpers/FormElements'
 
-import { camelizeKeys, filterKeys } from '../services/attributesProcessors'
+import { camelizeKeys, filterKeys } from '@services/attributesProcessors'
 
 
 export class ProjectForm extends React.Component {

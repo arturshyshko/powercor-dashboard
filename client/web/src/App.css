@@ -1,8 +1,8 @@
-.container {
-    margin: 0 auto;
-    box-shadow: 0 0 10px black;
+.container-fluid {
+    /*box-shadow: 0 0 10px black;*/
     border-radius: 5px;
     padding: 20px;
+    margin-top: 5px;
     width: 100%;
     max-width: none;
 }
@@ -13,4 +13,21 @@
 
 .border-right {
     border-right: 2px solid black !important;
+}
+
+.vertical-center {
+    vertical-align: middle !important;
+}
+
+.horizontal-center {
+    text-align: center !important;
+}
+
+.less-padding {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+}
+
+.project-table {
+    border: 1px solid #ddd !important
 }

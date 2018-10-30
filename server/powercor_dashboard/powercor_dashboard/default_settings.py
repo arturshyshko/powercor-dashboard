@@ -93,7 +93,7 @@ DATABASES = {
 
 
 # User settings
-AUTHENTICATION_BACKENDS = ['powercor_dashboard.backends.EmailBackend',]
+AUTHENTICATION_BACKENDS = ('powercor_dashboard.backends.EmailBackend', 'django.contrib.auth.backends.ModelBackend')
 AUTH_USER_MODEL = 'core.User'
 
 

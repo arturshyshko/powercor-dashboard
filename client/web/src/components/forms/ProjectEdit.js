@@ -1,12 +1,11 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import '../App.css'
 
 import { DisciplineForm } from './DisciplineForm'
 import { ProjectForm } from './ProjectForm'
 
-import { FormControl, InputText, InputTextArea, InputSelect } from './helpers/FormElements'
-import { camelizeKeys, filterKeys } from '../services/attributesProcessors'
+import { FormControl, InputText, InputTextArea, InputSelect } from '@components/helpers/FormElements'
+import { camelizeKeys, filterKeys } from '@services/attributesProcessors'
 
 
 @inject('store')
