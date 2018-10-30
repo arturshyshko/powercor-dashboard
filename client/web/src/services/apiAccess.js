@@ -1,5 +1,4 @@
 import axios from './httpClient'
-import * as apiUrls from '../constants/apiUrls'
 import { camelizeKeys, decamelizeKeys } from './attributesProcessors'
 import { observable } from 'mobx'
 
