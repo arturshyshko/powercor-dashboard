@@ -11,8 +11,7 @@ class Cell {
         this.column = column
         this.row = row
         autorun(() => this.column.cells.push(this))
-        // autorun(() => {this.isEmpty = this._value == null})
-        autorun(() => {this.isEmpty = this.column.isEmpty})
+        autorun(() => {this.isEmpty = this._value == null})
     }
 
     @computed get id() {
@@ -24,8 +23,8 @@ class Cell {
     }
 
     get emptyValue() {
-        if (this.column._accessor.empty) {
-            return this.column._accessor.empty
+        if (this.column.empty) {
+            return this.column.empty
         }
 
         switch(this.type) {
@@ -36,7 +35,6 @@ class Cell {
 
     @computed get value() {
         if (this.isEmpty) {
-            console.log(12345, this.style)
             return this.emptyValue
         } else {
             return this._value

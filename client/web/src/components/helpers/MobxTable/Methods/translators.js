@@ -1,6 +1,4 @@
-import Column from '../Models/Column'
-import Accessor from '../Models/Accessor'
-
+import { Column, Accessor, Style } from '../Models'
 
 // Function which parses whole JSON object into Columns class instances and builds Header with all these columns
 export const parseColumns = (columns, headerArray=null) => (
@@ -23,6 +21,8 @@ const createColumn = (column, headerArray=null) => {
     type = type == null ? 'string' : type
     // Parse accessor object into <Accessor> instance
     accessor = parseAccessor(accessor)
+    // Parse style object into <Style> instance
+    style = parseStyle(style)
 
     // Create initial Column instance with basic values
     let result = new Column(
@@ -33,6 +33,7 @@ const createColumn = (column, headerArray=null) => {
         rowSpan,
         layer,
         style,
+        type,
     )
 
     // Add embedded columns to children array of parent column
@@ -59,7 +60,6 @@ const parseAccessor = (object) => {
         if (selectors != null) {
             selectors = Object.keys(selectors).map(key => ({[key]: parseSelector(selectors[key])}))
         }
-
         return new Accessor(accessor, empty, accumulator, selectors, ignore)
     }
 }
@@ -87,15 +87,12 @@ const parseSelector = (object) => {
     }
 }
 
-const parseStyleObject = (object) => {
+const parseStyle = (object) => {
     if (object == null) {
-        return null
+        return new Style()
     }
 
-    let { empty={}, own={}, conditional={}, standard } = {...object}
-    if (standard == null) {
-        standard = {...object}
-    }
+    let { empty={}, header={}, conditionals=[], standard={}, ...common={} } = {...object}
 
-    return {empty, own, conditional, standard}
+    return new Style(standard, empty, header, conditionals, common)
 }

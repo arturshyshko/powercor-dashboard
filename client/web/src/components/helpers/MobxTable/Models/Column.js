@@ -15,21 +15,23 @@ class Column {
     constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null, style=null, type='string', mark=null) {
         this.id = _id++
         this.mark = mark
+
+        this.header = header
         this.name = name
+
         this.initialRowSpan = rowSpan
         this.initialColSpan = colSpan
         this.initialLayer = layer
-        this.header = header
+
         this._accessor = accessor
-        this.isEmpty = false
-        // This attribute is internally used by 'style' getter and setter
-        this._style = {standard: null, empty: null, own: null, conditional: null}
+
         this.style = style
         this.type = type
 
         autorun(() => this.children.forEach(child => {child.parent = this}))
         autorun(() => this.cells.forEach(cell => {cell.column = this}))
         autorun(() => {if (this._accessor != null) this._accessor.column = this})
+        autorun(() => {if (this.style != null) this.style.column = this})
     }
 
     @computed get colSpan() {
@@ -66,22 +68,16 @@ class Column {
         }
     }
 
-    // TODO: this now returns not null but other value so isEmpty for cell is not working
     accessor(object) {
-        // If parent column has accessor - that means it checks whether requested sub-object exists
-        // If it does not exist - requested property of this non-existant sub-object should not be looked
-        // Avoid 'undefined does not have property' error
-        if (this._accessor == null ||
-            (this.parent && this.parent._accessor != null && this.parent.accessor(object) == null)) {
-            this.isEmpty = true
-            if (this._accessor == null) {
+        if (this._accessor == null) {
                 return null
-            } else {
-                return this._accessor.empty
-            }
         }
-        this.isEmpty = false
+
         return this._accessor.value(object)
+    }
+
+    get empty() {
+        return this._accessor.empty
     }
 
     // Check whether this column has children or not
@@ -100,33 +96,6 @@ class Column {
         } else {
             return []
         }
-    }
-
-    // Return inherited styling to this column cells
-    @computed get style() {
-        if (this.parent == null) {
-            return this._style
-        } else {
-            return {
-                standard: {...this.parent.style.standard, ...this._style.standard},
-                empty: {...this.parent.style.empty, ...this._style.empty},
-                conditional: {...this._style.conditional},
-                own: {...this._style.own},
-            }
-        }
-    }
-
-    set style(object) {
-        if (object == null) {
-            return null
-        }
-
-        let { empty={}, own={}, conditional={}, standard } = {...object}
-        if (standard == null) {
-            standard = {...object}
-        }
-        console.log(123, empty)
-        this._style = {empty, own, conditional, standard}
     }
 
     child(id) {

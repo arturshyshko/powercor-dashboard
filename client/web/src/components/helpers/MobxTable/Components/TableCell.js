@@ -26,11 +26,15 @@ class TableCell extends React.Component {
     }
 
     cellStyle() {
-        console.log(1, this.cell.isEmpty, this.cell.style.empty)
         if (this.cell.isEmpty) {
             return this.cell.style.empty
         } else {
-            return this.cell.style.standard
+            let result = { ...this.cell.style.standard }
+            if (this.cell.style.hasConditionals) {
+                result = {...result, ...this.cell.style.conditionals(this.props.data)}
+            }
+
+            return result
         }
     }
 

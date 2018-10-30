@@ -1,4 +1,4 @@
-import { observable, computed, toJS } from 'mobx'
+import { observable, computed } from 'mobx'
 
 
 class History {
