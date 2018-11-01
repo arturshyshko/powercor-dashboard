@@ -12,7 +12,7 @@ class Column {
     @observable cells = []
     @observable parent = null
 
-    constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null, style=null, type='string', mark=null) {
+    constructor(name, accessor, header=null, colSpan=null, rowSpan=null, layer=null, style=null, format, mark=null) {
         this.id = _id++
         this.mark = mark
 
@@ -26,7 +26,7 @@ class Column {
         this._accessor = accessor
 
         this.style = style
-        this.type = type
+        this.format = format
 
         autorun(() => this.children.forEach(child => {child.parent = this}))
         autorun(() => this.cells.forEach(cell => {cell.column = this}))
