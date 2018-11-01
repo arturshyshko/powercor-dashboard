@@ -96,7 +96,7 @@ class Accessor {
     }
 
     // Filter columns where required attribute equals required value
-    // Also if there is maAmount of columns passed - return only first 'maxAmount' columns
+    // Also if there is maxAmount of columns passed - return only first 'maxAmount' columns
     selectColumns(getterName, selectorName, maxAmount) {
         let currentAmount = 0
 
