@@ -1,4 +1,4 @@
-import { Column, Accessor, Style } from '../Models'
+import { Column, Accessor, Style, Format } from '../Models'
 
 // Function which parses whole JSON object into Columns class instances and builds Header with all these columns
 export const parseColumns = (columns, headerArray=null) => (
@@ -14,11 +14,11 @@ export const parseColumns = (columns, headerArray=null) => (
 // 'headerArray' - array of Header object which will contain all created columns
 const createColumn = (column, headerArray=null) => {
     // Set initial variables for new Column object
-    let { name, value: accessor, children, style, colSpan, rowSpan, layer, type, } = column
+    let { name, value: accessor, children, style, colSpan, rowSpan, layer, format, } = column
     // Set header to null just to pass it in Column constructor (or add some logic in the future)
     const header = null
-    // Set column type to string or passed value (it is user for data formatting in cells of this column)
-    type = type == null ? 'string' : type
+    // Set column format to string or passed value (it is user for data formatting in cells of this column)
+    format = parseFormat(format)
     // Parse accessor object into <Accessor> instance
     accessor = parseAccessor(accessor)
     // Parse style object into <Style> instance
@@ -33,7 +33,7 @@ const createColumn = (column, headerArray=null) => {
         rowSpan,
         layer,
         style,
-        type,
+        format,
     )
 
     // Add embedded columns to children array of parent column
@@ -95,4 +95,16 @@ const parseStyle = (object) => {
     let { empty={}, header={}, conditionals=[], standard={}, ...common={} } = {...object}
 
     return new Style(standard, empty, header, conditionals, common)
+}
+
+const parseFormat = (object) => {
+    if (object == null) {
+        return new Format('string')
+    } else if (typeof object === 'string') {
+        return new Format(object)
+    } else {
+        const { type='string', options=[] } = object
+
+        return new Format(type, options)
+    }
 }

@@ -18,7 +18,7 @@ class Accessor {
             if (this.column.parent.accessor(object) == null) {
                 return null
             }
-            // TODO: Make realization for passing intermediate object to our accessor (by default - we might want not to do this)
+            // TODO: Make realization for passing intermediate object to our accessor (by default, we might want not to do this)
         }
 
         return this.selectors == null ? this.accessor(object) : this.accessor(this.getValues(object))
@@ -96,7 +96,7 @@ class Accessor {
     }
 
     // Filter columns where required attribute equals required value
-    // Also if there is maAmount of columns passed - return only first 'maxAmount' columns
+    // Also if there is maxAmount of columns passed - return only first 'maxAmount' columns
     selectColumns(getterName, selectorName, maxAmount) {
         let currentAmount = 0
 
