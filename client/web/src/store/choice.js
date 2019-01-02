@@ -23,7 +23,13 @@ export const BusinessImportanceChoiceStore = types.compose(
         choices: types.array(BusinessImportanceChoice)
     }),
     createAllActions('choices', API_IMPORTANCES, 'name')
-)
+).views(self => ({
+
+    get selectMap() {
+        return self.choices.map(choice => ({id: choice.name, display: choice.name}))
+    },
+
+}))
 
 export const ResourceChoiceStore = types.compose(
     types.model('ResourceChoiceStore', {
