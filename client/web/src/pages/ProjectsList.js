@@ -7,7 +7,6 @@ import ProjectEdit from '@components/forms/ProjectEdit'
 const ProjectsList = (props) => (
     <Fragment>
         <ProjectsListTable />
-        <ProjectEdit />
     </Fragment>
 )
 

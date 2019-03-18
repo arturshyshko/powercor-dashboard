@@ -22,11 +22,11 @@ class MobxTable extends React.Component {
         this.setHeader(this.props.columns)
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.columns !== prevProps.columns) {
-            this.setHeader(this.props.columns)
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.columns !== prevProps.columns) {
+    //         this.setHeader(this.props.columns)
+    //     }
+    // }
 
     setHeader(columns) {
         if (columns != null) {
@@ -48,7 +48,7 @@ class MobxTable extends React.Component {
     }
 
     render() {
-        const { data, className, headClassName, headCellClassName, bodyClassName, bodyCellClassName } = this.props
+        const { data, className, headClassName, headCellClassName, bodyClassName, bodyCellClassName, handleClick } = this.props
 
         return (
             <table className={className} >
@@ -59,6 +59,7 @@ class MobxTable extends React.Component {
                />
                <TableBody
                    data={data}
+                   handleClick={handleClick}
                    columns={this.header.appliedColumns}
                    className={bodyClassName}
                    cellClassName={bodyCellClassName}

@@ -45,13 +45,13 @@ class ProjectEdit extends React.Component {
     }
 
     render() {
-        const { store } = this.props
+        const { store, project } = this.props
 
         return(
             <div>
                 <form method="post" action="/">
                     <ProjectForm
-                        project={store.projectStore.projects[0]}
+                        project={project}
                         managers={store.managerStore.selectMap}
                         clients={store.clientStore.selectMap}
                         importances={store.businessImportanceChoiceStore.selectMap}
