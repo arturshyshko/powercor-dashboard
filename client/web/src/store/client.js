@@ -21,6 +21,12 @@ const ClientStore = types.compose(
         clients: types.array(Client)
     }),
     createAllActions('clients', API_CLIENTS)
-)
+).views(self => ({
+
+    get selectMap() {
+        return self.clients.map(client => ({id: client.id, display: client.name}))
+    }
+
+}))
 
 export default ClientStore

@@ -11,9 +11,9 @@ class TableRow extends React.Component {
     @observable row = new Row(this.props.object)
 
     render() {
-        const {object, columns, className, cellClassName} = this.props
+        const {object, columns, className, cellClassName, handleClick } = this.props
         return (
-            <tr className={className} >
+            <tr className={className} onClick={handleClick} >
                 {columns.map(
                     (column, i) => (
                         <TableCell

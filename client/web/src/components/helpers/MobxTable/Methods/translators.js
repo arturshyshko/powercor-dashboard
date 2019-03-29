@@ -92,7 +92,7 @@ const parseStyle = (object) => {
         return new Style()
     }
 
-    let { empty={}, header={}, conditionals=[], standard={}, ...common={} } = {...object}
+    let { empty={}, header={}, conditionals=[], standard={}, ...common } = {...object}
 
     return new Style(standard, empty, header, conditionals, common)
 }

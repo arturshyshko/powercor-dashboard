@@ -1,10 +1,13 @@
-import React from 'react'
-import { ProjectsListTable } from '@components/tables'
+import React, { Fragment } from 'react'
 import siteTemplate from '@components/template'
+import { ProjectsListTable } from '@components/tables'
 
+import ProjectEdit from '@components/forms/ProjectEdit'
 
 const ProjectsList = (props) => (
-    <ProjectsListTable />
+    <Fragment>
+        <ProjectsListTable />
+    </Fragment>
 )
 
 export default siteTemplate(ProjectsList)
