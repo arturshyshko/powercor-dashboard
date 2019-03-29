@@ -8,6 +8,7 @@ class Command(BaseCommand):
     help = 'Load fixtures to db'
 
     def handle(self, *args, **options):
+        print('Loading fixtures.')
         if settings.APP_ENV == 'prod':
             print('Loading fixtures is turned off for production environment')
             return

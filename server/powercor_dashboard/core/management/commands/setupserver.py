@@ -22,4 +22,5 @@ class Command(BaseCommand):
             call_command('load-fixtures')
 
         if settings.COLLECT_STATIC:
+            print('Loading static files.')
             call_command('collectstatic', interactive=False)
