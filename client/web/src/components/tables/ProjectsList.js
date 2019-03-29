@@ -79,7 +79,7 @@ class ProjectsList extends React.Component {
                     bodyCellClassName="vertical-center less-padding"
                     columns={this.projectColumns()}
                     data={projects}
-                    handleClick={() => {this.isPopupOpen = true; console.log(123, this.isPopupOpen)}}
+                    handleClick={() => {this.isPopupOpen = true}}
                 />
                 <ProjectEditPopup isOpen={this.isPopupOpen} handleClose={() => {this.isPopupOpen = false}} project={projects[0]} />
             </Fragment>
