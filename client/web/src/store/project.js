@@ -29,15 +29,30 @@ export const Project = types.model('Project', {
         }, {})
     },
 
-})).preProcessSnapshot(snapshot => ({
-    network: snapshot.network,
-    name: snapshot.name,
-    manager: snapshot.manager,
-    client: snapshot.client,
-    comment: snapshot.comment,
-    businessImportance: snapshot.businessImportance,
-    priority: snapshot.priority,
-    status: snapshot.status,
+})).actions(self => ({
+
+    setManager(manager) {
+        self.manager = manager;
+    },
+    setName(name) {
+        self.name = name
+    },
+    setNetwork(network) {
+        self.network = network
+    },
+    setClient(client) {
+        self.client = client
+    },
+    setComment(comment) {
+        self.comment = comment
+    },
+    setBusinessImportance(importance) {
+        self.businessImportance = importance
+    },
+    setStatus(status) {
+        self.status = status
+    },
+
 }))
 
 
