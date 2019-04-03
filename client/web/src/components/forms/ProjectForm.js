@@ -2,8 +2,6 @@ import React, { Fragment } from 'react'
 
 import { InputText, InputTextArea, InputSelect } from '@components/helpers/Form'
 
-import { camelizeKeys, filterKeys } from '@services/attributesProcessors'
-
 
 class ProjectForm extends React.Component {
   render() {
