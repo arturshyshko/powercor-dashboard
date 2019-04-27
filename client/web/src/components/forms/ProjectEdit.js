@@ -34,7 +34,7 @@ class ProjectEdit extends React.Component {
     }
 
     componentDidMount() {
-        const { store, project } = this.props
+        const { project } = this.props
         if (project) {
             this.setState({
                 project: getSnapshot(project),
@@ -83,7 +83,7 @@ class ProjectEdit extends React.Component {
     }
 
     render() {
-        const { store, project } = this.props
+        const { store } = this.props
 
         return(
             <div>
