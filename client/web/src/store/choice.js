@@ -36,18 +36,36 @@ export const ResourceChoiceStore = types.compose(
         choices: types.array(ResourceChoice)
     }),
     createAllActions('choices', API_RESOURCES, 'name')
-)
+).views(self => ({
+
+    get selectMap() {
+        return self.choices.map(choice => ({ id: choice.name, display: choice.name }))
+    },
+
+}))
 
 export const StageChoiceStore = types.compose(
     types.model('StageChoiceStore', {
         choices: types.array(StageChoice)
     }),
     createAllActions('choices', API_STAGES, 'name')
-)
+).views(self => ({
+
+    get selectMap() {
+        return self.choices.map(choice => ({ id: choice.name, display: choice.name }))
+    },
+
+}))
 
 export const StatusChoiceStore = types.compose(
     types.model('StatusChoiceStore', {
         choices: types.array(StatusChoice)
     }),
     createAllActions('choices', API_STATUSES, 'name')
-)
+).views(self => ({
+
+    get selectMap() {
+        return self.choices.map(choice => ({ id: choice.name, display: choice.name }))
+    },
+
+}))

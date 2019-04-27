@@ -55,7 +55,11 @@ const DisciplineStore = types.compose(
 
         get verboseNames() {
             return self.names.map(disciplineName => disciplineName.name)
-        }
+        },
+
+        get selectMap() {
+            return self.names.map(name => ({id: name.id, display: name.name}))
+        },
 
     })),
     createAllActions('disciplines', API_DISCIPLINES),

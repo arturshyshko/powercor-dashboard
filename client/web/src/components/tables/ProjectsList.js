@@ -6,7 +6,7 @@ import moment from 'moment'
 import { MobxTable } from '@components/helpers/MobxTable'
 import { projectName, projectManager } from '@components/tables/columns'
 
-import {ProjectEditPopup} from '@components/popup/Popup'
+import { ProjectEditPopup } from '@components/popup/Popup'
 
 
 @inject('store')
