@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { observer } from 'mobx-react'
 
-import { InputText, InputTextArea, InputSelect } from '@components/helpers/Form'
+import { InputText, InputSelect } from '@components/helpers/Form'
 import ApprovedVariationForm from './ApprovedVariationForm'
 
 
@@ -67,8 +67,9 @@ class DisciplineForm extends React.Component {
                         handleChange={e => handleInputChange(e, discipline.id)}
                     />
                 </div>
-                {discipline.approvedVariations.map(variation => (
+                {discipline.approvedVariations.map((variation, i) => (
                     <ApprovedVariationForm
+                        key={`variation-form-${i}`}
                         variation={variation}
                         handleInputChange={handleVariationChange}
                     />

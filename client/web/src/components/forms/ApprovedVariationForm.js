@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { observer } from 'mobx-react'
 
-import { InputSelect, InputText, InputTextArea } from '@components/helpers/Form'
+import { InputText, InputTextArea } from '@components/helpers/Form'
 
 
 @observer
