@@ -2,8 +2,10 @@ from rest_framework import serializers
 from dashboard.models.discipline import Discipline
 from dashboard.serializers.approved_variation import ApprovedVariationInListSerializer
 
+from drf_writable_nested import WritableNestedModelSerializer
 
-class DisciplineSerializer(serializers.ModelSerializer):
+
+class DisciplineSerializer(WritableNestedModelSerializer):
     approved_variations = ApprovedVariationInListSerializer(many=True)
 
     class Meta:
@@ -11,7 +13,6 @@ class DisciplineSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'project',
             'stage',
             'budget',
             'due_date',
