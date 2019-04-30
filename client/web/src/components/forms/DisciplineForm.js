@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { observer } from 'mobx-react'
 
-import { InputText, InputSelect } from '@components/helpers/Form'
+import { InputText, InputSelect, InputCalendar } from '@components/helpers/Form'
 import ApprovedVariationForm from './ApprovedVariationForm'
 
 
@@ -17,7 +17,6 @@ class DisciplineForm extends React.Component {
                     <InputSelect
                         label="Name: "
                         control="name"
-                        colWidth="2"
                         className="form-control"
                         value={discipline.name}
                         options={disciplineNames}
@@ -26,16 +25,21 @@ class DisciplineForm extends React.Component {
                     <InputSelect
                         label="Stage: "
                         control="stage"
-                        colWidth="2"
                         className="form-control"
                         value={discipline.stage}
                         options={stages}
                         handleChange={e => handleInputChange(e, discipline.id)}
                     />
+                    <InputCalendar
+                        label="Due Date: "
+                        control="dueDate"
+                        className="form-control"
+                        value={discipline.dueDate}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
                     <InputSelect
                         label="Resources: "
                         control="resources"
-                        colWidth="2"
                         className="form-control"
                         value={discipline.resources}
                         options={resources}
@@ -44,7 +48,6 @@ class DisciplineForm extends React.Component {
                     <InputSelect
                         label="Status: "
                         control="status"
-                        colWidth="2"
                         className="form-control"
                         value={discipline.status}
                         options={statuses}
@@ -53,7 +56,6 @@ class DisciplineForm extends React.Component {
                     <InputText
                         label="Budget: "
                         control="budget"
-                        colWidth="2"
                         className="form-control"
                         value={discipline.budget}
                         handleChange={e => handleInputChange(e, discipline.id)}
@@ -61,7 +63,6 @@ class DisciplineForm extends React.Component {
                     <InputText
                         label="Actual Cost: "
                         control="actualCost"
-                        colWidth="2"
                         className="form-control"
                         value={discipline.actualCost}
                         handleChange={e => handleInputChange(e, discipline.id)}

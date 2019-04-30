@@ -3,9 +3,9 @@ import React from 'react'
 export const withLabel = (WrappedComponent) =>
     class WithLabel extends React.Component {
         render() {
-            const { id, label, colWidth=3, ...props } = this.props
+            const { id, label, colWidth, ...props } = this.props
             return (
-                <div className={`form-group col-md-${colWidth}`} >
+                <div className={`form-group col-md${colWidth ? '-' + colWidth : ''}`} >
                     <label htmlFor={id}>{label}</label>
                     <WrappedComponent id={id} {...props} />
                 </div>
