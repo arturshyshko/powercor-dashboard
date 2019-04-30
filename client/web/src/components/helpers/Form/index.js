@@ -1,1 +1,1 @@
-export { InputText, InputTextArea, InputSelect } from './controls'
+export { InputText, InputTextArea, InputSelect, InputCalendar } from './controls'
