@@ -12,6 +12,7 @@ const TextArea = (props) => (
 
 const Select = ({options=[], ...props}) => (
     <select {...props} >
+        {props.value === null && <option disabled selected value style={{display: 'none'}}>-------</option>}
         {options.map((option, i) => (
             <option key={`select-${i}`} value={option.id} >{option.display}</option>
         ))}
