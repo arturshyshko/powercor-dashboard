@@ -8,7 +8,7 @@ import ApprovedVariationForm from './ApprovedVariationForm'
 @observer
 class DisciplineForm extends React.Component {
     render() {
-        const { discipline, handleInputChange, handleVariationChange,
+        const { discipline, handleInputChange, handleVariationChange, handleDelete,
             disciplineNames, stages, resources, statuses} = this.props
 
         return (
@@ -67,6 +67,15 @@ class DisciplineForm extends React.Component {
                         value={discipline.actualCost}
                         handleChange={e => handleInputChange(e, discipline.id)}
                     />
+                    <div className="form-group">
+                        <button
+                            type="button"
+                            className="btn btn-danger btn-sm"
+                            onClick={() => handleDelete(discipline.id)}
+                        >
+                        X
+                        </button>
+                    </div>
                 </div>
                 {discipline.approvedVariations.map((variation, i) => (
                     <ApprovedVariationForm

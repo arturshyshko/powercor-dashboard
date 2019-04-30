@@ -33,6 +33,7 @@ class ProjectEdit extends React.Component {
         this.handleProjectChange = this.handleProjectChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDisciplineChange = this.handleDisciplineChange.bind(this)
+        this.handleDisciplineDelete = this.handleDisciplineDelete.bind(this)
         this.handleApprovedVariationChange = this.handleApprovedVariationChange.bind(this)
     }
 
@@ -60,6 +61,16 @@ class ProjectEdit extends React.Component {
 
         // Just change value of the 'name' field in the required discipline, otherwise - return same object.
         const disciplines = this.state.project.disciplines.map(d => d.id === disciplineID ? ({...d, [name]: value}) : d)
+
+        this.setState({
+            project: {...this.state.project, disciplines: disciplines}
+        })
+    }
+
+    handleDisciplineDelete(disciplineID) {
+        const { project } = this.state
+        // Delete discipline from project disciplines array by it's id.
+        const disciplines = project.disciplines.filter(discipline => discipline.id !== disciplineID)
 
         this.setState({
             project: {...this.state.project, disciplines: disciplines}
@@ -115,6 +126,7 @@ class ProjectEdit extends React.Component {
                             statuses={store.statusChoiceStore.selectMap}
                             discipline={discipline}
                             handleInputChange={this.handleDisciplineChange}
+                            handleDelete={this.handleDisciplineDelete}
                             handleVariationChange={this.handleApprovedVariationChange}
                         />
                     ))}
@@ -125,7 +137,7 @@ class ProjectEdit extends React.Component {
                                 className="btn btn-default"
                                 onClick={this.handleSubmit}
                             >
-                            Create
+                            Submit
                             </button>
                         </div>
                     </div>
