@@ -95,13 +95,17 @@ class ProjectEdit extends React.Component {
         e.preventDefault()
         const { project } = this.state
 
+        // DRF accepts only iso date format for now
+        // TODO: Figure out how to properly accept microseconds (as date stored in MST now).
         const disciplines = project.disciplines.map(
             d => ({...d, dueDate: moment(d.dueDate).format('YYYY-MM-DD'),
                 approvedVariations: d.approvedVariations.map(variation =>
                     ({...variation, dueDate: moment(variation.dueDate).format('YYYY-MM-DD')}))}))
 
         let projectInfo = {...project, disciplines}
-        updateProject(projectInfo, (resp) => (console.log(resp)))
+        updateProject(projectInfo, (resp) => {
+            this.props.store.projectStore.setProject(resp)
+        })
     }
 
     render() {
