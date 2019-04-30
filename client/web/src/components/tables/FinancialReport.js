@@ -14,21 +14,21 @@ class FinancialReport extends React.Component {
         ].concat(
             this.props.store.disciplineStore.names.map(discName => ({
                 name: discName.name,
-                value: project => project.disciplines[discName.id],
+                value: project => project.getDiscipline(discName.id),
                 children: [{
                         name: 'Budget',
-                        value: project => project.disciplines[discName.id].budget,
+                    value: project => project.getDiscipline(discName.id).budget,
                         format: 'currency',
                     }, {
                         name: 'Variations',
                         value: project => (
-                            project.disciplines[discName.id].variations
+                            project.getDiscipline(discName.id).approvedVariations
                                 .reduce((acc, variation) => acc += variation.actualCost, 0)
                         ),
                         format: 'currency',
                     }, {
                         name: 'Actuals',
-                        value: project => project.disciplines[discName.id].actualCost,
+                        value: project => project.getDiscipline(discName.id).actualCost,
                         format: 'currency',
                     }]
                 })

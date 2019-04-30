@@ -29,7 +29,7 @@ class ProjectsList extends React.Component {
                 name: discipline.name,
                 value: {
                     empty: 'N/A',
-                    accessor: project => project.disciplines[discipline.id],
+                    accessor: project => project.getDiscipline(discipline.id),
                 },
                 style: {
                     header: {
@@ -43,7 +43,7 @@ class ProjectsList extends React.Component {
                 children: [
                     {
                         name: 'Stage',
-                        value: project => project.disciplines[discipline.id].stage.name,
+                        value: project => project.getDiscipline(discipline.id).stage.name,
                         style: {
                             borderLeft: '1px solid black',
                             header: {
@@ -56,7 +56,7 @@ class ProjectsList extends React.Component {
                     },
                     {
                         name: 'Due Date',
-                        value: project => moment(project.disciplines[discipline.id].dueDate).format('DD-MM-YYYY'),
+                        value: project => moment(project.getDiscipline(discipline.id).dueDate).format('DD-MM-YYYY'),
                         style: {
                             borderRight: '1px solid black',
                             header : {

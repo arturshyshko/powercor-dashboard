@@ -20,7 +20,11 @@ export const Project = types.model('Project', {
     priority: types.maybeNull(types.number),
     status: types.string,
     disciplines: types.array(Discipline),
-})
+}).views(self => ({
+    getDiscipline(name) {
+        return self.disciplines.find(discipline => discipline.name == name)
+    },
+}))
 
 
 const ProjectStore = types.compose(
