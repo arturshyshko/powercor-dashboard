@@ -1,9 +1,12 @@
 import React from 'react'
+import moment from "moment";
 import { observer, inject } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 
 import DisciplineForm from './DisciplineForm'
 import ProjectForm from './ProjectForm'
+
+import { updateProject } from '@api/projects'
 
 
 @inject('store')
@@ -79,7 +82,15 @@ class ProjectEdit extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        console.log(this.state)
+        const { project } = this.state
+
+        const disciplines = project.disciplines.map(
+            d => ({...d, dueDate: moment(d.dueDate).format('YYYY-MM-DD'),
+                approvedVariations: d.approvedVariations.map(variation =>
+                    ({...variation, dueDate: moment(variation.dueDate).format('YYYY-MM-DD')}))}))
+
+        let projectInfo = {...project, disciplines}
+        updateProject(projectInfo, (resp) => (console.log(resp)))
     }
 
     render() {
