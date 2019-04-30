@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable } from 'mobx'
 import moment from 'moment'
+import { safeProps } from '@services/attributesProcessors'
 
 import { MobxTable } from '@components/helpers/MobxTable'
 import { projectName, projectManager } from '@components/tables/columns'
@@ -43,7 +44,7 @@ class ProjectsList extends React.Component {
                 children: [
                     {
                         name: 'Stage',
-                        value: project => project.getDiscipline(discipline.id).stage.name,
+                        value: project => safeProps(project.getDiscipline(discipline.id), 'stage.name', 'N/A'),
                         style: {
                             borderLeft: '1px solid black',
                             header: {

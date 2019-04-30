@@ -11,11 +11,11 @@ import { ApprovedVariation } from "@store/approvedVariation";
 export const Discipline = types.model('Discipline', {
     id: types.identifierNumber,
     name: types.string,
-    stage: types.reference(StageChoice),
+    stage: types.maybeNull(types.reference(StageChoice)),
     budget: types.optional(types.number, 0.00),
     dueDate: types.maybeNull(types.Date),
-    resources: types.reference(ResourceChoice),
-    status: types.reference(StatusChoice),
+    resources: types.maybeNull(types.reference(ResourceChoice)),
+    status: types.maybeNull(types.reference(StatusChoice)),
     actualCost: types.maybeNull(types.number),
     approvedVariations: types.array(ApprovedVariation),
 }).views(self => ({
