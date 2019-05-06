@@ -35,8 +35,8 @@ class ResourceAllocation extends React.Component {
                 name: discipline.name,
                 value: {
                     empty: 'N/A',
-                    accessor: project => project.disciplines[discipline.id]
-                        && project.disciplines[discipline.id].resources.name,
+                    accessor: project => project.getDiscipline(discipline.id)
+                        && project.getDiscipline(discipline.id).resources.name,
                 },
                 style: {
                     empty: {
@@ -44,7 +44,7 @@ class ResourceAllocation extends React.Component {
                     },
                     conditionals: resourcesMap.map(res => ({
                         condition: project => {
-                            const disc = project.disciplines[discipline.id]
+                            const disc = project.getDiscipline(discipline.id)
                             return disc.resources && disc.resources.name === res.name
                         },
                         style: {

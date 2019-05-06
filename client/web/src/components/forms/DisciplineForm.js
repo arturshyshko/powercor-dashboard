@@ -1,96 +1,92 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { observer } from 'mobx-react'
 
-import { FormControl, InputText, InputTextArea, InputSelect } from '@components/helpers/FormElements'
+import { InputText, InputSelect, InputCalendar } from '@components/helpers/Form'
+import ApprovedVariationForm from './ApprovedVariationForm'
 
 
-export class DisciplineForm extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            'name': '',
-            'stage': '',
-            'budget': '',
-            'due_date': '',
-            'resources': '',
-            'status': ''
-        }
-
-        this.parseDisciplineToOption = this.parseDisciplineToOption.bind(this)
-
-    }
-
-    parseDisciplineToOption(discipline) {
-        return {
-            'id': discipline[0],
-            'name': discipline[1]
-        }
-    }
-
+@observer
+class DisciplineForm extends React.Component {
     render() {
+        const { discipline, handleInputChange, handleVariationChange, handleDelete,
+            disciplineNames, stages, resources, statuses} = this.props
+
         return (
-            <div>
+            <Fragment>
                 <div className="form-row">
-                    <FormControl label="Discipline name:" id="discipline_name" colWidth="3">
-                        <InputSelect
-                            control="name"
-                            value={this.props.disciplineNames[0]}
-                            options={this.props.disciplineNames.map(this.parseDisciplineToOption)}
-                            handleChange={this.props.handleInputChange}
-                        />
-                    </FormControl>
+                    <InputSelect
+                        label="Name: "
+                        control="name"
+                        className="form-control"
+                        value={discipline.name}
+                        options={disciplineNames}
+                        handleChange={(e) => handleInputChange(e, discipline.id)}
+                    />
+                    <InputSelect
+                        label="Stage: "
+                        control="stage"
+                        className="form-control"
+                        value={discipline.stage}
+                        options={stages}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
+                    <InputCalendar
+                        label="Due Date: "
+                        control="dueDate"
+                        className="form-control"
+                        value={discipline.dueDate}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
+                    <InputSelect
+                        label="Resources: "
+                        control="resources"
+                        className="form-control"
+                        value={discipline.resources}
+                        options={resources}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
+                    <InputSelect
+                        label="Status: "
+                        control="status"
+                        className="form-control"
+                        value={discipline.status}
+                        options={statuses}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
+                    <InputText
+                        label="Budget: "
+                        control="budget"
+                        className="form-control"
+                        value={discipline.budget}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
+                    <InputText
+                        label="Actual Cost: "
+                        control="actualCost"
+                        className="form-control"
+                        value={discipline.actualCost}
+                        handleChange={e => handleInputChange(e, discipline.id)}
+                    />
+                    <div className="form-group">
+                        <button
+                            type="button"
+                            className="btn btn-danger btn-sm"
+                            onClick={() => handleDelete(discipline.id)}
+                        >
+                        X
+                        </button>
+                    </div>
                 </div>
-                <div className="form-row">
-                    <FormControl label="Discipline name:" id="discipline_name" colWidth="3">
-                        <InputSelect
-                            control="name"
-                            value={this.props.disciplineNames[0]}
-                            options={this.props.disciplineNames.map(this.parseDisciplineToOption)}
-                            handleChange={this.props.handleInputChange}
-                        />
-                    </FormControl>
-                </div>
-                <div className="form-row">
-                    <FormControl label="Discipline name:" id="discipline_name" colWidth="3">
-                        <InputSelect
-                            control="name"
-                            value={this.props.disciplineNames[0]}
-                            options={this.props.disciplineNames.map(this.parseDisciplineToOption)}
-                            handleChange={this.props.handleInputChange}
-                        />
-                    </FormControl>
-                </div>
-                <div className="form-row">
-                    <FormControl label="Discipline name:" id="discipline_name" colWidth="3">
-                        <InputSelect
-                            control="name"
-                            value={this.props.disciplineNames[0]}
-                            options={this.props.disciplineNames.map(this.parseDisciplineToOption)}
-                            handleChange={this.props.handleInputChange}
-                        />
-                    </FormControl>
-                </div>
-                <div className="form-row">
-                    <FormControl label="Discipline name:" id="discipline_name" colWidth="3">
-                        <InputSelect
-                            control="name"
-                            value={this.props.disciplineNames[0]}
-                            options={this.props.disciplineNames.map(this.parseDisciplineToOption)}
-                            handleChange={this.props.handleInputChange}
-                        />
-                    </FormControl>
-                </div>
-                <div className="form-row">
-                    <FormControl label="Discipline name:" id="discipline_name" colWidth="3">
-                        <InputSelect
-                            control="name"
-                            value={this.props.disciplineNames[0]}
-                            options={this.props.disciplineNames.map(this.parseDisciplineToOption)}
-                            handleChange={this.props.handleInputChange}
-                        />
-                    </FormControl>
-                </div>
-            </div>
+                {discipline.approvedVariations.map((variation, i) => (
+                    <ApprovedVariationForm
+                        key={`variation-form-${i}`}
+                        variation={variation}
+                        handleInputChange={handleVariationChange}
+                    />
+                ))}
+            </Fragment>
         )
     }
 }
+
+export default DisciplineForm;

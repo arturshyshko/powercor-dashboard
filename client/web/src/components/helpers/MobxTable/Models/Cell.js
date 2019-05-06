@@ -37,7 +37,7 @@ class Cell {
         if (this.isEmpty) {
             return this.emptyValue
         } else {
-            return this._value
+            return this.column.format.value(this._value)
         }
     }
 

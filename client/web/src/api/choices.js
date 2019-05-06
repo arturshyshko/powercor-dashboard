@@ -19,7 +19,6 @@ export const fetchStatusesData = (cb) => {
     fetchData(cb, API_STATUSES)
 }
 
-
 export const setImportanceChoices = () => {
     fetchImportancesData(store.businessImportanceChoiceStore.setChoices)
 }

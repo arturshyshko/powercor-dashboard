@@ -1,10 +1,10 @@
-import { types, getRoot } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import createAllActions from '@store/helpers'
-import asyncReference from '@store/helpers/asyncIdentifier'
 
 import { API_PROJECTS } from '@constants/apiUrls'
 
+import { Discipline } from '@store/discipline'
 import { Manager } from '@store/manager'
 import { Client } from '@store/client'
 import { BusinessImportanceChoice } from '@store/choice'
@@ -13,31 +13,17 @@ import { BusinessImportanceChoice } from '@store/choice'
 export const Project = types.model('Project', {
     network: types.identifierNumber,
     name: types.string,
-    manager: asyncReference(Manager),
-    client: asyncReference(Client),
+    manager: types.reference(Manager),
+    client: types.reference(Client),
     comment: types.optional(types.string, ''),
-    businessImportance: asyncReference(BusinessImportanceChoice, 'getOrLoadChoice'),
+    businessImportance: types.reference(BusinessImportanceChoice),
     priority: types.maybeNull(types.number),
     status: types.string,
+    disciplines: types.array(Discipline),
 }).views(self => ({
-
-    get disciplines() {
-        return getRoot(self).disciplineStore.getProjectDisciplines(self).reduce((result, disc) => {
-            result[disc.name] = disc
-
-            return result
-        }, {})
+    getDiscipline(name) {
+        return self.disciplines.find(discipline => discipline.name == name)
     },
-
-})).preProcessSnapshot(snapshot => ({
-    network: snapshot.network,
-    name: snapshot.name,
-    manager: snapshot.manager,
-    client: snapshot.client,
-    comment: snapshot.comment,
-    businessImportance: snapshot.businessImportance,
-    priority: snapshot.priority,
-    status: snapshot.status,
 }))
 
 

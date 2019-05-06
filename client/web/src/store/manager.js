@@ -24,6 +24,12 @@ const ManagerStore = types.compose(
         managers: types.array(Manager)
     }),
     createAllActions('managers', API_MANAGERS)
-)
+).views(self => ({
+
+    get selectMap() {
+        return self.managers.map(man => ({id: man.id, display: man.name}))
+    },
+
+}))
 
 export default ManagerStore

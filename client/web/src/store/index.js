@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, onPatch } from 'mobx-state-tree'
 
 import ManagerStore from '@store/manager'
 import {
@@ -41,5 +41,6 @@ const rootStore = types.model('root', {
 })
 
 const store = rootStore.create({})
+// onPatch(store, (p) => {window.lol = store.toJSON();console.log(p)})
 
 export default store

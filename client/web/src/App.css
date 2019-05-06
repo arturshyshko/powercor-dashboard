@@ -31,3 +31,10 @@
 .project-table {
     border: 1px solid #ddd !important
 }
+
+.controlled-popup {
+    overflow-y: auto;
+    max-height: calc(100vh - 210px);
+    width: 75% !important;
+    padding: 1% !important;
+}

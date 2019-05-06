@@ -10,10 +10,10 @@ export const addObjectsToArray = (objects, destinationArray) => {
     objects.forEach(obj => {addObjectToArray(obj, destinationArray)})
 }
 
-export const setObjectToArray =(object, destinationArray, findField='id') => {
-    let oldObject = destinationArray.find(arrayObj => arrayObj[findField] === object[findField])
-    if (oldObject) {
-        oldObject = object
+export const setObjectToArray = (object, destinationArray, findField='id') => {
+    let oldObjectIndex = destinationArray.findIndex(arrayObj => arrayObj[findField] === object[findField])
+    if (~oldObjectIndex) {
+        destinationArray.splice(oldObjectIndex, 1, object)
     } else {
         addObjectToArray(object, destinationArray)
     }

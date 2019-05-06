@@ -6,6 +6,7 @@ logs
 **.idea/**
 .idea
 .idea/
+.vscode/
 
 # Runtime data
 pids

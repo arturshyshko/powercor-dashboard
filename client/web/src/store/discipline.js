@@ -1,24 +1,23 @@
 import { types, getRoot } from 'mobx-state-tree'
 
-import asyncReference from '@store/helpers/asyncIdentifier'
 import createAllActions, {createBaseActions} from '@store/helpers'
 
 import { API_DISCIPLINES } from '@constants/apiUrls'
 
-import { Project } from '@store/project'
 import { StatusChoice, StageChoice, ResourceChoice } from '@store/choice'
+import { ApprovedVariation } from "@store/approvedVariation";
 
 
 export const Discipline = types.model('Discipline', {
     id: types.identifierNumber,
     name: types.string,
-    project: asyncReference(Project),
-    stage: asyncReference(StageChoice, 'getOrLoadChoice'),
+    stage: types.maybeNull(types.reference(StageChoice)),
     budget: types.optional(types.number, 0.00),
     dueDate: types.maybeNull(types.Date),
-    resources: asyncReference(ResourceChoice, 'getOrLoadChoice'),
-    status: asyncReference(StatusChoice, 'getOrLoadChoice'),
+    resources: types.maybeNull(types.reference(ResourceChoice)),
+    status: types.maybeNull(types.reference(StatusChoice)),
     actualCost: types.maybeNull(types.number),
+    approvedVariations: types.array(ApprovedVariation),
 }).views(self => ({
 
     get verboseName() {
@@ -30,15 +29,8 @@ export const Discipline = types.model('Discipline', {
     },
 
 })).preProcessSnapshot(snapshot => ({
-    id: snapshot.id,
-    name: snapshot.name,
-    project: snapshot.project,
-    stage: snapshot.stage,
-    budget: snapshot.budget,
+    ...snapshot,
     dueDate: new Date(snapshot.dueDate),
-    resources: snapshot.resources,
-    status: snapshot.status,
-    actualCost: snapshot.actualCost,
 }))
 
 
@@ -57,13 +49,17 @@ const DisciplineStore = types.compose(
         names: types.array(DisciplineName),
     }).views(self => ({
 
-        getProjectDisciplines(project) {
-            return self.disciplines.filter(disc => disc.project.network === project.network)
-        },
+        // getProjectDisciplines(project) {
+        //     return self.disciplines.filter(disc => disc.project.network === project.network)
+        // },
 
         get verboseNames() {
             return self.names.map(disciplineName => disciplineName.name)
-        }
+        },
+
+        get selectMap() {
+            return self.names.map(name => ({id: name.id, display: name.name}))
+        },
 
     })),
     createAllActions('disciplines', API_DISCIPLINES),

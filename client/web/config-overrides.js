@@ -1,9 +1,11 @@
 const rewireMobX = require('react-app-rewire-mobx')
+const { injectBabelPlugin } = require('react-app-rewired');
 const path = require('path');
 
 
 module.exports = function override(config, env) {
-	let appConfig = rewireMobX(config, env)
+	// let appConfig = rewireMobX(config, env)
+	let appConfig = injectBabelPlugin([require('@babel/plugin-proposal-decorators'), { legacy: true }], config);
 	// Add local modules as aliases
 	// After adding new alias you have to restart application
 	var localModules = {
